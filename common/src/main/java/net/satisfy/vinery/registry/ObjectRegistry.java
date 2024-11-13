@@ -257,7 +257,7 @@ public class ObjectRegistry {
         VineryConfig config = VineryConfig.getConfigInstance();
         registerItem("cherry_wine", () -> new DrinkBlockSmallItem(CHERRY_WINE.get(), getWineItemSettings(MobEffects.REGENERATION, config.wineEffectDuration(), config.wineEffectStrength())));
         registerItem("magnetic_wine", () -> new DrinkBlockBigItem(MAGNETIC_WINE.get(), getWineItemSettings(MobEffectRegistry.MAGNET.get(), config.wineEffectDuration(), config.wineEffectStrength())));
-        registerItem("jo_special_mixture", () -> new DrinkBlockBigItem(JO_SPECIAL_MIXTURE.get(), getWineItemSettings(MobEffectRegistry.TRIPPY.get(), config.wineEffectDuration(), config.wineEffectStrength())));
+        registerItem("jo_special_mixture", () -> new DrinkBlockBigItem(JO_SPECIAL_MIXTURE.get(), getWineItemSettings(MobEffectRegistry.ARMOR_EFFECT.get(), config.wineEffectDuration(), config.wineEffectStrength())));
         registerItem("cristel_wine", () -> new DrinkBlockBigItem(CRISTEL_WINE.get(), getWineItemSettings(MobEffectRegistry.EXPERIENCE_EFFECT.get(), config.wineEffectDuration(), config.wineEffectStrength())));
         registerItem("glowing_wine", () -> new DrinkBlockBigItem(GLOWING_WINE.get(), getWineItemSettings(MobEffects.GLOWING, config.wineEffectDuration(), config.wineEffectStrength())));
         registerItem("red_wine", () -> new DrinkBlockSmallItem(RED_WINE.get(), getWineItemSettings(MobEffectRegistry.STAGGER_EFFECT.get(), config.wineEffectDuration(), config.wineEffectStrength())));

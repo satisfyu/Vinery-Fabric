@@ -13,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.satisfy.vinery.registry.MobEffectRegistry;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -20,7 +21,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LocalPlayer.class)
 public abstract class ClientPlayerEntityMixin extends AbstractClientPlayer {
+    @Unique
     private int jumpCount = 0;
+    @Unique
     private boolean jumpedLastTick = false;
 
     public ClientPlayerEntityMixin(ClientLevel clientLevel, GameProfile gameProfile) {
@@ -56,11 +59,13 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayer {
         return livingEntity.hasEffect(MobEffectRegistry.IMPROVED_JUMP_BOOST.get()) ?  livingEntity.getEffect(MobEffectRegistry.IMPROVED_JUMP_BOOST.get()) : livingEntity.getEffect(MobEffects.JUMP);
     }
 
+    @Unique
     private boolean wearingUsableElytra(LocalPlayer player) {
         ItemStack chestItemStack = player.getItemBySlot(EquipmentSlot.CHEST);
         return chestItemStack.getItem() == Items.ELYTRA && ElytraItem.isFlyEnabled(chestItemStack);
     }
 
+    @Unique
     private boolean canJump(LocalPlayer player) {
         return !wearingUsableElytra(player) && !player.isFallFlying() && !player.isPassenger()
                 && !player.isInWater() && !player.hasEffect(MobEffects.LEVITATION);

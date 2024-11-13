@@ -22,7 +22,6 @@ public class MobEffectRegistry {
     private static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(Vinery.MOD_ID, Registries.MOB_EFFECT);
     private static final Registrar<MobEffect> MOB_EFFECTS_REGISTRAR = MOB_EFFECTS.getRegistrar();
 
-    public static final RegistrySupplier<MobEffect> TRIPPY;
     public static final RegistrySupplier<MobEffect> JELLIE;
     public static final RegistrySupplier<MobEffect> MAGNET;
     public static final RegistrySupplier<MobEffect> TELEPORT;
@@ -60,7 +59,6 @@ public class MobEffectRegistry {
         HEALTH_EFFECT = registerEffect("health_effect", ImprovedHealthEffect::new);
         LUCK_EFFECT = registerEffect("luck_effect", LuckEffect::new);
         RESISTANCE_EFFECT = registerEffect("resistance_effect", ResistanceEffect::new);
-        TRIPPY = registerEffect("trippy", TrippyEffect::new);
         TRADING_EFFECT = registerEffect("trading", () -> new NormalEffect(MobEffectCategory.BENEFICIAL, 0xFF0000));
         EXPERIENCE_EFFECT = registerEffect("experience_effect", () -> new NormalEffect(MobEffectCategory.BENEFICIAL, 0x00FF00));
         IMPROVED_JUMP_BOOST = registerEffect("double_jump", () -> new NormalEffect(MobEffectCategory.BENEFICIAL, 0x90F891));

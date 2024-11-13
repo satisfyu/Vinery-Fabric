@@ -23,18 +23,13 @@ import net.satisfy.vinery.client.model.StrawHatModel;
 import net.satisfy.vinery.client.render.block.BasketRenderer;
 import net.satisfy.vinery.client.render.entity.MuleRenderer;
 import net.satisfy.vinery.client.render.entity.WanderingWinemakerRenderer;
-import net.satisfy.vinery.network.VineryNetwork;
 import net.satisfy.vinery.registry.*;
 
-import static net.satisfy.vinery.Vinery.LOGGER;
 import static net.satisfy.vinery.registry.ObjectRegistry.*;
 
 @Environment(EnvType.CLIENT)
 public class VineryClient {
     public static void onInitializeClient() {
-
-        VineryNetwork.registerS2CPackets();
-
         RenderTypeRegistry.register(RenderType.cutout(),
                 RED_GRAPE_BUSH.get(), WHITE_GRAPE_BUSH.get(), DARK_CHERRY_DOOR.get(), FERMENTATION_BARREL.get(),
                 MELLOHI_WINE.get(), CLARK_WINE.get(), BOLVAR_WINE.get(), CHERRY_WINE.get(),
@@ -91,7 +86,6 @@ public class VineryClient {
 
         ArmorRegistry.registerArmorModelLayers();
 
-        LOGGER.info("Resource provider initialized, side is {}", Platform.getEnvironment().toPlatform().toString());
     }
     public static Player getClientPlayer() {
         return Minecraft.getInstance().player;
