@@ -19,7 +19,6 @@ import net.satisfy.vinery.client.VineryClient;
 import net.satisfy.vinery.client.model.StrawHatModel;
 import net.satisfy.vinery.client.model.WinemakerInner;
 import net.satisfy.vinery.client.model.WinemakerOuter;
-import net.satisfy.vinery.config.VineryConfig;
 import net.satisfy.vinery.item.WinemakerBootsItem;
 import net.satisfy.vinery.item.WinemakerChestItem;
 import net.satisfy.vinery.item.WinemakerHatItem;
@@ -63,14 +62,18 @@ public class ArmorRegistry {
     }
 
 
-    public static void appendtooltip(List<Component> tooltip){
-        if(!VineryConfig.DEFAULT.getConfig().enableWineMakerSetBonus()) return;
+    private static final boolean ENABLE_WINEMAKER_SET_BONUS = true;
+
+    public static void appendTooltip(List<Component> tooltip) {
+        if (!ENABLE_WINEMAKER_SET_BONUS) return;
         Player player = VineryClient.getClientPlayer();
         if (player == null) return;
+
         ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
         ItemStack chestplate = player.getItemBySlot(EquipmentSlot.CHEST);
         ItemStack leggings = player.getItemBySlot(EquipmentSlot.LEGS);
         ItemStack boots = player.getItemBySlot(EquipmentSlot.FEET);
+
         boolean helmetB = helmet.getItem() instanceof WinemakerHatItem;
         boolean chestplateB = chestplate.getItem() instanceof WinemakerChestItem;
         boolean leggingsB = leggings.getItem() instanceof WinemakerLegsItem;

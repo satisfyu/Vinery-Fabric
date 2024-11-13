@@ -6,7 +6,6 @@ import dev.architectury.hooks.item.tool.AxeItemHooks;
 import dev.architectury.hooks.item.tool.ShovelItemHooks;
 import dev.architectury.registry.fuel.FuelRegistry;
 import net.minecraft.world.level.block.Blocks;
-import net.satisfy.vinery.config.VineryConfig;
 import net.satisfy.vinery.event.ParticleSpawnEvent;
 import net.satisfy.vinery.registry.*;
 import net.satisfy.vinery.util.VineryIdentifier;
@@ -17,12 +16,8 @@ public class Vinery {
 
     public static void init() {
         DataFixerRegistry.init();
-        VineryConfig config = loadConfig();
-        VineryConfig validatedConfig = config.validate();
-        validatedConfig.setInstance(validatedConfig);
 
         ObjectRegistry.init();
-        ObjectRegistry.initItemsWithConfig();
 
         TabRegistry.init();
         BoatAndSignRegistry.init();
@@ -50,10 +45,5 @@ public class Vinery {
         AxeItemHooks.addStrippable(ObjectRegistry.APPLE_WOOD.get(), Blocks.STRIPPED_OAK_WOOD);
         
         ShovelItemHooks.addFlattenable(ObjectRegistry.GRASS_SLAB.get(), Blocks.DIRT_PATH.defaultBlockState());
-    }
-
-    private static VineryConfig loadConfig() {
-        VineryConfig config = VineryConfig.DEFAULT.getConfig();
-        return config.validate();
     }
 }

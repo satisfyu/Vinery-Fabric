@@ -22,7 +22,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.state.BlockState;
 import net.satisfy.vinery.client.gui.handler.FermentationBarrelGuiHandler;
-import net.satisfy.vinery.config.VineryConfig;
 import net.satisfy.vinery.registry.EntityTypeRegistry;
 import net.satisfy.vinery.registry.ObjectRegistry;
 import net.satisfy.vinery.registry.RecipeTypesRegistry;
@@ -36,7 +35,7 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Implem
     private static final int BOTTLE_INPUT_SLOT = 0;
     private static final int OUTPUT_SLOT = 5;
     private int fermentationTime = 0;
-    private int totalFermentationTime;
+    private static final int TOTAL_FERMENTATION_TIME = 6000; // 5 minutes in ticks
 
     private static final int[] SLOTS_FOR_SIDE = new int[]{0};
     private static final int[] SLOTS_FOR_UP = new int[]{1, 2, 3, 4};
@@ -48,17 +47,15 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Implem
         public int get(int index) {
             return switch (index) {
                 case 0 -> FermentationBarrelBlockEntity.this.fermentationTime;
-                case 1 -> FermentationBarrelBlockEntity.this.totalFermentationTime;
+                case 1 -> TOTAL_FERMENTATION_TIME;
                 default -> 0;
             };
         }
 
-
         @Override
         public void set(int index, int value) {
-            switch (index) {
-                case 0 -> FermentationBarrelBlockEntity.this.fermentationTime = value;
-                case 1 -> FermentationBarrelBlockEntity.this.totalFermentationTime = value;
+            if (index == 0) {
+                FermentationBarrelBlockEntity.this.fermentationTime = value;
             }
         }
 
@@ -73,7 +70,6 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Implem
         this.inventory = NonNullList.withSize(CAPACITY, ItemStack.EMPTY);
     }
 
-
     @Override
     public void load(CompoundTag nbt) {
         super.load(nbt);
@@ -81,7 +77,6 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Implem
         ContainerHelper.loadAllItems(nbt, this.inventory);
         this.fermentationTime = nbt.getShort("FermentationTime");
     }
-
 
     @Override
     protected void saveAdditional(CompoundTag nbt) {
@@ -100,7 +95,7 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Implem
         if (canCraft(recipe, access)) {
             this.fermentationTime++;
 
-            if (this.fermentationTime >= this.totalFermentationTime) {
+            if (this.fermentationTime >= TOTAL_FERMENTATION_TIME) {
                 this.fermentationTime = 0;
                 craft(recipe, access);
                 dirty = true;
@@ -111,7 +106,6 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Implem
         if (dirty) {
             setChanged();
         }
-
     }
 
     private boolean canCraft(Recipe<?> recipe, RegistryAccess access) {
@@ -123,10 +117,7 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Implem
             return false;
         } else {
             final Item item = this.getItem(BOTTLE_INPUT_SLOT).getItem();
-            if (item != ObjectRegistry.WINE_BOTTLE.get().asItem()) {
-                return false;
-            }
-            return this.getItem(OUTPUT_SLOT).isEmpty();
+            return item == ObjectRegistry.WINE_BOTTLE.get().asItem() && this.getItem(OUTPUT_SLOT).isEmpty();
         }
     }
 
@@ -146,7 +137,6 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Implem
         final ItemStack outputSlotStack = this.getItem(OUTPUT_SLOT);
 
         if (outputSlotStack.isEmpty()) {
-
             ItemStack output = recipeOutput.copy();
             WineYears.setWineYear(output, this.level);
             setItem(OUTPUT_SLOT, output);
@@ -158,26 +148,19 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Implem
             setItem(BOTTLE_INPUT_SLOT, ItemStack.EMPTY);
         }
         for (Ingredient entry : recipe.getIngredients()) {
-            if (entry.test(this.getItem(1))) {
-                removeItem(1, 1);
-            }
-            if (entry.test(this.getItem(2))) {
-                removeItem(2, 1);
-            }
-            if (entry.test(this.getItem(3))) {
-                removeItem(3, 1);
-            }
-            if (entry.test(this.getItem(4))) {
-                removeItem(4, 1);
+            for (int i = 1; i <= 4; i++) {
+                if (entry.test(this.getItem(i))) {
+                    removeItem(i, 1);
+                }
             }
         }
     }
 
     @Override
     public int @NotNull [] getSlotsForFace(Direction side) {
-        if(side.equals(Direction.UP)){
+        if (side.equals(Direction.UP)) {
             return SLOTS_FOR_UP;
-        } else if (side.equals(Direction.DOWN)){
+        } else if (side.equals(Direction.DOWN)) {
             return SLOTS_FOR_DOWN;
         } else return SLOTS_FOR_SIDE;
     }
@@ -195,23 +178,17 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Implem
         if (stack.getCount() > this.getMaxStackSize()) {
             stack.setCount(this.getMaxStackSize());
         }
-        if (slot == BOTTLE_INPUT_SLOT || slot == 2 || slot == 3 || slot == 4|| slot == 5) {
-            if (!dirty) {
-                this.totalFermentationTime = VineryConfig.DEFAULT.getConfig().fermentationBarrelTime();
-                this.fermentationTime = 0;
-                setChanged();
-            }
+        if (!dirty) {
+            this.fermentationTime = 0;
+            setChanged();
         }
     }
 
     @Override
     public boolean stillValid(Player player) {
         assert this.level != null;
-        if (this.level.getBlockEntity(this.worldPosition) != this) {
-            return false;
-        } else {
-            return player.distanceToSqr((double)this.worldPosition.getX() + 0.5, (double)this.worldPosition.getY() + 0.5, (double)this.worldPosition.getZ() + 0.5) <= 64.0;
-        }
+        return this.level.getBlockEntity(this.worldPosition) == this &&
+                player.distanceToSqr(this.worldPosition.getX() + 0.5, this.worldPosition.getY() + 0.5, this.worldPosition.getZ() + 0.5) <= 64.0;
     }
 
     @Override

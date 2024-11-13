@@ -9,7 +9,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.satisfy.vinery.config.VineryConfig;
 import net.satisfy.vinery.util.WineYears;
 
 public class CalendarItem extends BlockItem {
@@ -26,7 +25,7 @@ public class CalendarItem extends BlockItem {
 
     public static Component getTime(Level level){
         long hour = (level.getDayTime() / 1000) % 24;
-        long day = (level.getDayTime() / 24000) % VineryConfig.DEFAULT.getConfig().yearLengthInDays();
+        long day = (level.getDayTime() / 24000) % WineYears.DAYS_PER_YEAR;
         return Component.literal(hour + "h / " + day + "d / " + WineYears.getYear(level) + "y").withStyle(ChatFormatting.YELLOW);
     }
 }

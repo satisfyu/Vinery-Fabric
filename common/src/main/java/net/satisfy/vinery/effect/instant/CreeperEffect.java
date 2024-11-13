@@ -7,7 +7,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
-import net.satisfy.vinery.config.VineryConfig;
 import org.jetbrains.annotations.Nullable;
 
 public class CreeperEffect extends InstantenousMobEffect {
@@ -32,13 +31,7 @@ public class CreeperEffect extends InstantenousMobEffect {
             double y = serverPlayer.getY();
             double z = serverPlayer.getZ();
             float power = (amplifier + 1) * 4;
-            boolean destroyBlocks = VineryConfig.getConfigInstance().destroyBlocks();
-
-            if (destroyBlocks) {
-                world.explode(null, x, y, z, power, Level.ExplosionInteraction.TNT);
-            } else {
-                serverPlayer.hurt(serverPlayer.damageSources().explosion(null), Float.MAX_VALUE);
-            }
+            world.explode(null, x, y, z, power, Level.ExplosionInteraction.TNT);
         }
     }
 }

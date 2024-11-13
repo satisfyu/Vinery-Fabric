@@ -31,7 +31,6 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.satisfy.vinery.config.VineryConfig;
 import net.satisfy.vinery.item.GrapeBushSeedItem;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -149,13 +148,12 @@ public class LatticeBlock extends StemBlock {
     @SuppressWarnings("deprecation")
     public void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         Random rand = new Random();
-        if (rand.nextInt(100) + 1 > VineryConfig.DEFAULT.getConfig().grapeGrowthSpeed() || isMature(state)) return;
+        if (rand.nextInt(100) >= 98 || isMature(state)) return;
         int age = state.getValue(AGE);
         BlockState newState = this.withAge(state, age + 1, state.getValue(GRAPE));
         world.setBlock(pos, newState, UPDATE_CLIENTS);
         super.randomTick(state, world, pos, random);
     }
-
 
     @Override
     @SuppressWarnings("deprecation")

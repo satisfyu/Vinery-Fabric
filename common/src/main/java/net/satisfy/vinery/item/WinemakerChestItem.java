@@ -21,7 +21,7 @@ public class WinemakerChestItem extends CustomArmorItem {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level world, @NotNull List<Component> tooltip, TooltipFlag context) {
         if(world != null && world.isClientSide()){
-            ArmorRegistry.appendtooltip(tooltip);
+            ArmorRegistry.appendTooltip(tooltip);
         }
     }
 

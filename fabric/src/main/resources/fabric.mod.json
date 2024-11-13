@@ -11,7 +11,7 @@
     "sources": "https://github.com/satisfyu/Vinery-Fabric",
     "homepage": "https://legacy.curseforge.com/minecraft/mc-mods/lets-do-vinery"
   },
-  "license": "ARR",
+  "license": "Custom",
   "icon": "pack.png",
   "environment": "*",
   "entrypoints": {
@@ -32,17 +32,7 @@
     ],
     "doapi": [
       "net.satisfy.vinery.util.api.VineryDoApi"
-    ],
-    "modmenu": [
-      "net.satisfy.vinery.fabric.client.ModMenuConfig"
     ]
-  },
-  "custom": {
-    "modmenu": {
-      "links": {
-        "modmenu.discord": "https://discord.gg/Vqu6wYZwdZ"
-      }
-    }
   },
   "mixins": [
     "vinery.mixins.json",

@@ -12,8 +12,6 @@ import java.util.Objects;
 
 @Mixin(ExperienceOrb.class)
 public abstract class ExperienceOrbMixin {
-
-
     @ModifyArgs(method = "playerTouch", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ExperienceOrb;repairPlayerItems(Lnet/minecraft/world/entity/player/Player;I)I"))
     public void render(Args args) {
         Player p = args.get(0);

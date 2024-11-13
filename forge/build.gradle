@@ -35,7 +35,7 @@ repositories {
 
 configurations {
     common
-    shadowCommon // Don't use shadow from the shadow plugin since it *excludes* files.
+    shadowCommon
     compileClasspath.extendsFrom common
     runtimeClasspath.extendsFrom common
     developmentForge.extendsFrom common
@@ -49,7 +49,7 @@ dependencies {
     implementation(include("io.github.llamalad7:mixinextras-forge:0.3.5"))
 
     include(implementation("blue.endless:jankson:${jankson_version}"))
-    //REI and JEI
+
     modImplementation "me.shedaniel:RoughlyEnoughItems-forge:$rei_version"
     modCompileOnlyApi("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
     modCompileOnlyApi("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
@@ -107,8 +107,6 @@ publishing {
         }
     }
 
-    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
     repositories {
-        // Add repositories to publish to here.
     }
 }

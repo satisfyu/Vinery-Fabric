@@ -3,18 +3,18 @@ package net.satisfy.vinery.util;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.satisfy.vinery.config.VineryConfig;
 
 public class WineYears {
 	public static final int YEARS_START = 0;
 	public static final int MAX_LEVEL = 5;
+	public static final int DAYS_PER_YEAR = 16;
+	public static final int YEARS_PER_EFFECT_LEVEL = 4;
 
 	public static int getYear(Level world) {
-		return world != null ? YEARS_START + (int) (world.getDayTime() / 24000 / VineryConfig.DEFAULT.getConfig().yearLengthInDays()) : YEARS_START;
-	}
+		return world != null ? YEARS_START + (int) (world.getDayTime() / 24000 / DAYS_PER_YEAR) : YEARS_START;	}
 
 	public static int getEffectLevel(ItemStack wine, Level world) {
-		return Math.max(0, Math.min(MAX_LEVEL, getWineAge(wine, world) / VineryConfig.DEFAULT.getConfig().yearsPerEffectLevel()));
+		return Math.max(0, Math.min(MAX_LEVEL, getWineAge(wine, world) / YEARS_PER_EFFECT_LEVEL));
 	}
 
 	public static int getWineAge(ItemStack wine, Level world) {

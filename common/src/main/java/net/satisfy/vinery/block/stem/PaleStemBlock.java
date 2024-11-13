@@ -22,7 +22,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.satisfy.vinery.config.VineryConfig;
 import net.satisfy.vinery.item.GrapeBushSeedItem;
 import net.satisfy.vinery.registry.GrapeTypeRegistry;
 import org.jetbrains.annotations.NotNull;
@@ -117,15 +116,16 @@ public class PaleStemBlock extends StemBlock {
     @Override
     public void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         Random rand = new Random();
-        if (!((rand.nextInt(100) + 1) <= VineryConfig.DEFAULT.getConfig().grapeGrowthSpeed())) return;
+        if (rand.nextInt(100) >= 98) return;
         if (!isMature(state) && hasTrunk(world, pos) && state.getValue(AGE) > 0) {
             final int i;
             if (world.getRawBrightness(pos, 0) >= 9 && (i = state.getValue(AGE)) < 4) {
-                world.setBlock(pos, this.withAge(state,i + 1, state.getValue(GRAPE)), Block.UPDATE_CLIENTS);
+                world.setBlock(pos, this.withAge(state, i + 1, state.getValue(GRAPE)), Block.UPDATE_CLIENTS);
             }
         }
         super.randomTick(state, world, pos, random);
     }
+
 
     @Override
     public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
