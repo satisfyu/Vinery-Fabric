@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.state.BlockState;
 import net.satisfy.vinery.client.gui.handler.FermentationBarrelGuiHandler;
+import net.satisfy.vinery.platform.PlatformHelper;
 import net.satisfy.vinery.registry.EntityTypeRegistry;
 import net.satisfy.vinery.registry.ObjectRegistry;
 import net.satisfy.vinery.registry.RecipeTypesRegistry;
@@ -35,7 +36,7 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Implem
     private static final int BOTTLE_INPUT_SLOT = 0;
     private static final int OUTPUT_SLOT = 5;
     private int fermentationTime = 0;
-    private static final int TOTAL_FERMENTATION_TIME = 6000; // 5 minutes in ticks
+    private final int TOTAL_FERMENTATION_TIME = PlatformHelper.getTotalFermentationTime();
 
     private static final int[] SLOTS_FOR_SIDE = new int[]{0};
     private static final int[] SLOTS_FOR_UP = new int[]{1, 2, 3, 4};

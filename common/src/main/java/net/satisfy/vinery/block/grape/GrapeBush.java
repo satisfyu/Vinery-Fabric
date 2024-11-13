@@ -26,6 +26,7 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.satisfy.vinery.platform.PlatformHelper;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Iterator;
@@ -34,17 +35,11 @@ import java.util.Iterator;
 public class GrapeBush extends BushBlock implements BonemealableBlock {
     public static final IntegerProperty AGE;
     private static final VoxelShape SHAPE;
-    private final int chance;
 
     public final GrapeType type;
 
     public GrapeBush(Properties settings, GrapeType type) {
-        this(settings, type, 5);
-    }
-
-    public GrapeBush(Properties settings, GrapeType type, int chance) {
         super(settings);
-        this.chance = chance;
         this.type = type;
     }
 
@@ -75,14 +70,14 @@ public class GrapeBush extends BushBlock implements BonemealableBlock {
         }
     }
 
-
     @Override
     public void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
-        int i = state.getValue(AGE);
-        if (i < 3 && random.nextInt(chance) == 0 && canGrowPlace(world, pos, state)) {
-            BlockState blockState = state.setValue(AGE, i + 1);
-            world.setBlock(pos, blockState, 2);
-            world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(blockState));
+        int age = state.getValue(AGE);
+        double growthChance = PlatformHelper.getGrapeGrowthChance();
+        if (age < 3 && random.nextDouble() < growthChance && canGrowPlace(world, pos, state)) {
+            BlockState newState = state.setValue(AGE, age + 1);
+            world.setBlock(pos, newState, 2);
+            world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(newState));
         }
     }
 
@@ -143,7 +138,7 @@ public class GrapeBush extends BushBlock implements BonemealableBlock {
     public static class SavannaGrapeBush extends GrapeBush {
 
         public SavannaGrapeBush(Properties settings, GrapeType type) {
-            super(settings, type, 3);
+            super(settings, type);
         }
 
         @Override
@@ -178,10 +173,9 @@ public class GrapeBush extends BushBlock implements BonemealableBlock {
             return true;
         }
 
+        @Override
         public boolean isPathfindable(BlockState arg, BlockGetter arg2, BlockPos arg3, PathComputationType arg4) {
             return false;
         }
     }
-
-
 }

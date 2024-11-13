@@ -24,6 +24,7 @@ import net.satisfy.vinery.client.gui.handler.ApplePressGuiHandler;
 import net.satisfy.vinery.recipe.ApplePressRecipe;
 import net.satisfy.vinery.registry.EntityTypeRegistry;
 import net.satisfy.vinery.registry.RecipeTypesRegistry;
+import net.satisfy.vinery.platform.PlatformHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -33,7 +34,7 @@ public class ApplePressBlockEntity extends BlockEntity implements MenuProvider, 
     private static final int[] SLOTS_FOR_DOWN = new int[]{1};
     protected final ContainerData propertyDelegate;
     private int progress = 0;
-    private int maxProgress = 72;
+    private int maxProgress = PlatformHelper.getApplePressMaxProgress();
 
     public ApplePressBlockEntity(BlockPos pos, BlockState state) {
         super(EntityTypeRegistry.APPLE_PRESS_BLOCK_ENTITY.get(), pos, state);
@@ -95,14 +96,11 @@ public class ApplePressBlockEntity extends BlockEntity implements MenuProvider, 
         ContainerHelper.loadAllItems(nbt, inventory);
         progress = nbt.getInt("apple_press.progress");
         super.load(nbt);
-
     }
 
     private void resetProgress() {
         this.progress = 0;
     }
-
-
 
     @Override
     public void tick(Level world, BlockPos blockPos, BlockState state, ApplePressBlockEntity entity) {
@@ -132,8 +130,6 @@ public class ApplePressBlockEntity extends BlockEntity implements MenuProvider, 
         for (int i = 0; i < entity.getContainerSize(); i++) {
             inventory.setItem(i, entity.getItem(i));
         }
-
-
 
         entity.removeItem(0, 1);
 
