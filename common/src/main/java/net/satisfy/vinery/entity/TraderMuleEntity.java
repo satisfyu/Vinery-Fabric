@@ -13,7 +13,7 @@ import net.minecraft.world.entity.npc.WanderingTrader;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.satisfy.vinery.registry.EntityRegistry;
+import net.satisfy.vinery.registry.EntityTypeRegistry;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
@@ -75,7 +75,7 @@ public class TraderMuleEntity extends AbstractChestedHorse {
 
 	@Override
 	public TraderMuleEntity getBreedOffspring(ServerLevel serverWorld, AgeableMob passiveEntity) {
-		return EntityRegistry.MULE.get().create(this.level());
+		return EntityTypeRegistry.MULE.get().create(this.level());
 	}
 
 	@Override

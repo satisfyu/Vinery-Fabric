@@ -1,24 +1,19 @@
 package net.satisfy.vinery;
 
 import de.cristelknight.doapi.DoApiEP;
-import dev.architectury.event.events.common.EntityEvent;
 import dev.architectury.event.events.common.PlayerEvent;
 import dev.architectury.hooks.item.tool.AxeItemHooks;
 import dev.architectury.hooks.item.tool.ShovelItemHooks;
 import dev.architectury.registry.fuel.FuelRegistry;
 import net.minecraft.world.level.block.Blocks;
 import net.satisfy.vinery.config.VineryConfig;
-import net.satisfy.vinery.event.EntityDamageEvent;
 import net.satisfy.vinery.event.ParticleSpawnEvent;
 import net.satisfy.vinery.registry.*;
 import net.satisfy.vinery.util.VineryIdentifier;
 import net.satisfy.vinery.world.VineryFeatures;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class Vinery {
     public static final String MOD_ID = "vinery";
-    public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
     public static void init() {
         DataFixerRegistry.init();
@@ -31,18 +26,15 @@ public class Vinery {
 
         TabRegistry.init();
         BoatAndSignRegistry.init();
-        BlockEntityTypeRegistry.init();
+        EntityTypeRegistry.init();
         MobEffectRegistry.init();
         ScreenhandlerTypeRegistry.init();
         RecipeTypesRegistry.init();
-        EntityRegistry.init();
         VineryFeatures.init();
         SoundEventRegistry.init();
 
         ParticleSpawnEvent particleSpawnEvent = new ParticleSpawnEvent();
         PlayerEvent.ATTACK_ENTITY.register(particleSpawnEvent);
-        EntityDamageEvent entityDamageEvent = new EntityDamageEvent();
-        EntityEvent.LIVING_HURT.register(entityDamageEvent);
         DoApiEP.registerBuiltInPack(Vinery.MOD_ID, new VineryIdentifier("bushy_leaves"), false);
     }
 

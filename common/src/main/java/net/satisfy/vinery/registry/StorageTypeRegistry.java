@@ -15,7 +15,6 @@ public class StorageTypeRegistry {
     public static final ResourceLocation NINE_BOTTLE = new VineryIdentifier("nine_bottle");
     public static final ResourceLocation SHELF = new VineryIdentifier("shelf");
     public static final ResourceLocation WINE_BOX = new VineryIdentifier("wine_box");
-
     public static final ResourceLocation WINE_BOTTLE = new VineryIdentifier("wine_bottle");
 
     public static void registerBlocks(Set<Block> blocks) {
@@ -58,7 +57,7 @@ public class StorageTypeRegistry {
                 SOLARIS_WINE.get(), APPLE_WINE.get(), APPLE_CIDER.get(), STRAD_WINE.get(), CHENET_WINE.get(), MELLOHI_WINE.get(),
                 LILITU_WINE.get(), MAGNETIC_WINE.get(), CHORUS_WINE.get(), JELLIE_WINE.get(), AEGIS_WINE.get(), RED_WINE.get(),
                 KNULP_WINE.get(), CRISTEL_WINE.get(), JO_SPECIAL_MIXTURE.get(), GLOWING_WINE.get(), CREEPERS_CRUSH.get(),
-                BOTTLE_MOJANG_NOIR.get(), VILLAGERS_FRIGHT.get(), MEAD.get(), EISWEIN.get(), LAMROC_WINE.get(), COUNT_ROLEESTER_SHIRAZ_WINE.get()
+                BOTTLE_MOJANG_NOIR.get(), VILLAGERS_FRIGHT.get(), MEAD.get(), EISWEIN.get()
         ));
 
     }

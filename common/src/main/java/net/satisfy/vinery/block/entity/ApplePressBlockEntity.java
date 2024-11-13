@@ -22,7 +22,7 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.state.BlockState;
 import net.satisfy.vinery.client.gui.handler.ApplePressGuiHandler;
 import net.satisfy.vinery.recipe.ApplePressRecipe;
-import net.satisfy.vinery.registry.BlockEntityTypeRegistry;
+import net.satisfy.vinery.registry.EntityTypeRegistry;
 import net.satisfy.vinery.registry.RecipeTypesRegistry;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -36,7 +36,7 @@ public class ApplePressBlockEntity extends BlockEntity implements MenuProvider, 
     private int maxProgress = 72;
 
     public ApplePressBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityTypeRegistry.APPLE_PRESS_BLOCK_ENTITY.get(), pos, state);
+        super(EntityTypeRegistry.APPLE_PRESS_BLOCK_ENTITY.get(), pos, state);
         this.propertyDelegate = new ContainerData() {
             public int get(int index) {
                 return switch (index) {

@@ -33,7 +33,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.satisfy.vinery.block.entity.BasketBlockEntity;
-import net.satisfy.vinery.registry.BlockEntityTypeRegistry;
+import net.satisfy.vinery.registry.EntityTypeRegistry;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -131,7 +131,7 @@ public class BasketBlock extends BaseEntityBlock implements SimpleWaterloggedBlo
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
-        return level.isClientSide ? createTickerHelper(blockEntityType, BlockEntityTypeRegistry.BASKET_ENTITY.get(), BasketBlockEntity::lidAnimateTick) : null;
+        return level.isClientSide ? createTickerHelper(blockEntityType, EntityTypeRegistry.BASKET_ENTITY.get(), BasketBlockEntity::lidAnimateTick) : null;
     }
 
     public void onRemove(BlockState blockState, Level level, BlockPos blockPos, BlockState blockState2, boolean bl) {
@@ -147,7 +147,7 @@ public class BasketBlock extends BaseEntityBlock implements SimpleWaterloggedBlo
 
     public @NotNull ItemStack getCloneItemStack(BlockGetter blockGetter, BlockPos blockPos, BlockState blockState) {
         ItemStack itemStack = super.getCloneItemStack(blockGetter, blockPos, blockState);
-        blockGetter.getBlockEntity(blockPos, BlockEntityTypeRegistry.BASKET_ENTITY.get()).ifPresent((basketBlockEntity) -> basketBlockEntity.saveToItem(itemStack));
+        blockGetter.getBlockEntity(blockPos, EntityTypeRegistry.BASKET_ENTITY.get()).ifPresent((basketBlockEntity) -> basketBlockEntity.saveToItem(itemStack));
         return itemStack;
     }
 

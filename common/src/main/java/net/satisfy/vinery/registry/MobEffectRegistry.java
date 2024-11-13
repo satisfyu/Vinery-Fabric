@@ -38,8 +38,6 @@ public class MobEffectRegistry {
     public static final RegistrySupplier<MobEffect> HEALTH_EFFECT;
     public static final RegistrySupplier<MobEffect> RESISTANCE_EFFECT;
     public static final RegistrySupplier<MobEffect> ARMOR_EFFECT;
-    public static final RegistrySupplier<MobEffect> TRADING_EFFECT;
-    public static final RegistrySupplier<MobEffect> SHIRAAZ_EFFECT;
 
     private static RegistrySupplier<MobEffect> registerEffect(String name, Supplier<MobEffect> effect){
         if(Platform.isForge()){
@@ -49,27 +47,21 @@ public class MobEffectRegistry {
     }
 
     public static void init(){
-        Vinery.LOGGER.debug("Mob effects");
         MOB_EFFECTS.register();
     }
 
     static {
-        //Normal
         ARMOR_EFFECT = registerEffect("armor_effect", ArmorEffect::new);
         HEALTH_EFFECT = registerEffect("health_effect", ImprovedHealthEffect::new);
         LUCK_EFFECT = registerEffect("luck_effect", LuckEffect::new);
         RESISTANCE_EFFECT = registerEffect("resistance_effect", ResistanceEffect::new);
-        TRADING_EFFECT = registerEffect("trading", () -> new NormalEffect(MobEffectCategory.BENEFICIAL, 0xFF0000));
         EXPERIENCE_EFFECT = registerEffect("experience_effect", () -> new NormalEffect(MobEffectCategory.BENEFICIAL, 0x00FF00));
         IMPROVED_JUMP_BOOST = registerEffect("double_jump", () -> new NormalEffect(MobEffectCategory.BENEFICIAL, 0x90F891));
         PARTY_EFFECT = registerEffect("party_effect", () -> new NormalEffect(MobEffectCategory.BENEFICIAL, 0xFF0000));
-        SHIRAAZ_EFFECT = registerEffect("shiraaz_effect", () -> new NormalEffect(MobEffectCategory.BENEFICIAL, 0xFF0000));
 
-        //Instant
         TELEPORT = registerEffect("teleport", TeleportEffect::new);
         CREEPER_EFFECT = registerEffect("creeper_effect", CreeperEffect::new);
 
-        //Ticking
         CLIMBING_EFFECT = registerEffect("climbing_effect", ClimbingEffect::new);
         FROSTY_ARMOR_EFFECT = registerEffect("frosty_armor", FrostyArmorEffect::new);
         JELLIE = registerEffect("jellie", JellieEffect::new);

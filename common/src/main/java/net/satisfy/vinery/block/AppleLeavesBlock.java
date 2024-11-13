@@ -25,12 +25,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 
 @SuppressWarnings("deprecation")
-public class AppleLeaves extends LeavesBlock {
+public class AppleLeavesBlock extends LeavesBlock {
 
     public static final BooleanProperty VARIANT = BooleanProperty.create("can_have_apples");
 
     public static final BooleanProperty HAS_APPLES = BooleanProperty.create("has_apples");
-    public AppleLeaves(Properties settings) {
+    public AppleLeavesBlock(Properties settings) {
         super(settings);
         this.registerDefaultState(this.stateDefinition.any().setValue(PERSISTENT, false).setValue(DISTANCE, 7).setValue(VARIANT, false).setValue(HAS_APPLES, false));
     }
@@ -43,7 +43,7 @@ public class AppleLeaves extends LeavesBlock {
                 int dropCount = world.getRandom().nextBoolean() ? Mth.nextInt(world.getRandom(), 1, 3) : 1;
                 ItemStack dropStack = new ItemStack(Items.APPLE, dropCount);
 
-                AppleLeaves.popResourceFromFace(world, pos, hit.getDirection(), dropStack);
+                AppleLeavesBlock.popResourceFromFace(world, pos, hit.getDirection(), dropStack);
                 world.playSound(null, pos, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS, 1F, 1F);
                 world.setBlockAndUpdate(pos, state.setValue(HAS_APPLES, false));
             }

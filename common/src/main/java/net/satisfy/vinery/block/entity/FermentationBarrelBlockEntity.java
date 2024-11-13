@@ -23,7 +23,7 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.state.BlockState;
 import net.satisfy.vinery.client.gui.handler.FermentationBarrelGuiHandler;
 import net.satisfy.vinery.config.VineryConfig;
-import net.satisfy.vinery.registry.BlockEntityTypeRegistry;
+import net.satisfy.vinery.registry.EntityTypeRegistry;
 import net.satisfy.vinery.registry.ObjectRegistry;
 import net.satisfy.vinery.registry.RecipeTypesRegistry;
 import net.satisfy.vinery.util.WineYears;
@@ -69,7 +69,7 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Implem
     };
 
     public FermentationBarrelBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityTypeRegistry.FERMENTATION_BARREL_ENTITY.get(), pos, state);
+        super(EntityTypeRegistry.FERMENTATION_BARREL_ENTITY.get(), pos, state);
         this.inventory = NonNullList.withSize(CAPACITY, ItemStack.EMPTY);
     }
 

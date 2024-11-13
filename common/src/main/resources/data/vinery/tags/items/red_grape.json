@@ -16,10 +16,6 @@
     {
       "id": "vinery:jungle_red_grape",
       "required": false
-    },
-    {
-      "id": "croptopia:grape",
-      "required": false
     }
   ]
 }

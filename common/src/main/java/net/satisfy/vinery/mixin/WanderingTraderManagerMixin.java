@@ -14,7 +14,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.storage.ServerLevelData;
 import net.satisfy.vinery.entity.TraderMuleEntity;
-import net.satisfy.vinery.registry.EntityRegistry;
+import net.satisfy.vinery.registry.EntityTypeRegistry;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -45,12 +45,12 @@ public abstract class WanderingTraderManagerMixin implements CustomSpawner {
 				BlockPos blockPos3 = this.findSpawnPositionNear(world, blockPos2, 48);
 				if (blockPos3 != null && this.hasEnoughSpace(world, blockPos3)) {
 					if (!world.getBiome(blockPos3).is(Biomes.THE_VOID)) {
-						WanderingTrader wanderingTraderEntity = EntityRegistry.WANDERING_WINEMAKER.get().spawn(world, blockPos3, MobSpawnType.EVENT);
+						WanderingTrader wanderingTraderEntity = EntityTypeRegistry.WANDERING_WINEMAKER.get().spawn(world, blockPos3, MobSpawnType.EVENT);
 						if (wanderingTraderEntity != null) {
 							for (int j = 0; j < 2; ++j) {
 								BlockPos blockPos4 = this.findSpawnPositionNear(world, wanderingTraderEntity.blockPosition(), 4);
 								if (blockPos4 != null) {
-									TraderMuleEntity traderLlamaEntity = EntityRegistry.MULE.get().spawn(world, blockPos4, MobSpawnType.EVENT);
+									TraderMuleEntity traderLlamaEntity = EntityTypeRegistry.MULE.get().spawn(world, blockPos4, MobSpawnType.EVENT);
 									if (traderLlamaEntity != null) {
 										traderLlamaEntity.setLeashedTo(wanderingTraderEntity, true);
 									}

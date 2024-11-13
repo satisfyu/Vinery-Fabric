@@ -23,7 +23,7 @@ import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.satisfy.vinery.block.BasketBlock;
 import net.satisfy.vinery.client.gui.handler.BasketGuiHandler;
-import net.satisfy.vinery.registry.BlockEntityTypeRegistry;
+import net.satisfy.vinery.registry.EntityTypeRegistry;
 import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("unused")
@@ -33,7 +33,7 @@ public class BasketBlockEntity extends RandomizableContainerBlockEntity implemen
     private final ChestLidController chestLidController = new ChestLidController();
 
     public BasketBlockEntity( BlockPos blockPos, BlockState blockState) {
-        super(BlockEntityTypeRegistry.BASKET_ENTITY.get(), blockPos, blockState);
+        super(EntityTypeRegistry.BASKET_ENTITY.get(), blockPos, blockState);
         this.items = NonNullList.withSize(9, ItemStack.EMPTY);
         this.openersCounter = new ContainerOpenersCounter() {
             protected void onOpen(Level level, BlockPos blockPos, BlockState blockState) {

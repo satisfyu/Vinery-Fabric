@@ -21,7 +21,7 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.satisfy.vinery.item.DrinkBlockSmallItem;
+import net.satisfy.vinery.item.DrinkBlockItem;
 import net.satisfy.vinery.registry.StorageTypeRegistry;
 import org.jetbrains.annotations.NotNull;
 
@@ -52,7 +52,7 @@ public class WineBoxBlock extends StorageBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    public @NotNull InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         ItemStack stack = player.getItemInHand(hand);
         if (player.isShiftKeyDown() && stack.isEmpty()) {
             if(!world.isClientSide()){
@@ -74,7 +74,7 @@ public class WineBoxBlock extends StorageBlock {
 
     @Override
     public boolean canInsertStack(ItemStack stack) {
-        return stack.getItem() instanceof DrinkBlockSmallItem;
+        return stack.getItem() instanceof DrinkBlockItem.DrinkBlockSmallItem;
     }
 
     @Override

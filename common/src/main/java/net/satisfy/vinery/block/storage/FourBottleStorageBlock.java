@@ -4,7 +4,7 @@ import de.cristelknight.doapi.common.block.StorageBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.satisfy.vinery.item.DrinkBlockSmallItem;
+import net.satisfy.vinery.item.DrinkBlockItem;
 import net.satisfy.vinery.registry.StorageTypeRegistry;
 
 public class FourBottleStorageBlock extends StorageBlock {
@@ -15,7 +15,7 @@ public class FourBottleStorageBlock extends StorageBlock {
 
     @Override
     public boolean canInsertStack(ItemStack stack) {
-        return stack.getItem() instanceof DrinkBlockSmallItem;
+        return stack.getItem() instanceof DrinkBlockItem.DrinkBlockSmallItem;
     }
 
     @Override
