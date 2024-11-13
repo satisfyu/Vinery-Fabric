@@ -38,6 +38,4 @@ public class VineryForgeVillagers {
         POI_TYPES.register(eventBus);
         VILLAGER_PROFESSIONS.register(eventBus);
     }
-
-
 }

@@ -30,9 +30,19 @@
     "jei_mod_plugin": [
       "net.satisfy.vinery.compat.jei.VineryJEIPlugin"
     ],
+    "modmenu": [
+      "net.satisfy.vinery.fabric.config.ModMenu"
+    ],
     "doapi": [
       "net.satisfy.vinery.util.api.VineryDoApi"
     ]
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/Vqu6wYZwdZ"
+      }
+    }
   },
   "mixins": [
     "vinery.mixins.json",

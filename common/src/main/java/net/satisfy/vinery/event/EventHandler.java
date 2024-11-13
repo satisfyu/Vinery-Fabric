@@ -18,11 +18,10 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
-public class ParticleSpawnEvent implements PlayerEvent.AttackEntity {
-    private final Random random = new Random();
+public class EventHandler {
+    private static final Random random = new Random();
 
-    @Override
-    public EventResult attack(Player player, Level level, Entity target, InteractionHand hand, @Nullable EntityHitResult result) {
+    public static EventResult onAttack(Player player, Level level, Entity target, InteractionHand hand, @Nullable EntityHitResult result) {
         if (player.hasEffect(MobEffectRegistry.PARTY_EFFECT.get())) {
             if (target instanceof LivingEntity entity) {
                 int color = random.nextInt(0xFFFFFF);
@@ -48,5 +47,9 @@ public class ParticleSpawnEvent implements PlayerEvent.AttackEntity {
         }
 
         return EventResult.pass();
+    }
+
+    public static void register() {
+        PlayerEvent.ATTACK_ENTITY.register(EventHandler::onAttack);
     }
 }

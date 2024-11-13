@@ -1,12 +1,11 @@
 package net.satisfy.vinery;
 
 import de.cristelknight.doapi.DoApiEP;
-import dev.architectury.event.events.common.PlayerEvent;
 import dev.architectury.hooks.item.tool.AxeItemHooks;
 import dev.architectury.hooks.item.tool.ShovelItemHooks;
 import dev.architectury.registry.fuel.FuelRegistry;
 import net.minecraft.world.level.block.Blocks;
-import net.satisfy.vinery.event.ParticleSpawnEvent;
+import net.satisfy.vinery.event.EventHandler;
 import net.satisfy.vinery.registry.*;
 import net.satisfy.vinery.util.VineryIdentifier;
 import net.satisfy.vinery.world.VineryFeatures;
@@ -15,10 +14,7 @@ public class Vinery {
     public static final String MOD_ID = "vinery";
 
     public static void init() {
-        DataFixerRegistry.init();
-
         ObjectRegistry.init();
-
         TabRegistry.init();
         BoatAndSignRegistry.init();
         EntityTypeRegistry.init();
@@ -27,9 +23,8 @@ public class Vinery {
         RecipeTypesRegistry.init();
         VineryFeatures.init();
         SoundEventRegistry.init();
+        EventHandler.register();
 
-        ParticleSpawnEvent particleSpawnEvent = new ParticleSpawnEvent();
-        PlayerEvent.ATTACK_ENTITY.register(particleSpawnEvent);
         DoApiEP.registerBuiltInPack(Vinery.MOD_ID, new VineryIdentifier("bushy_leaves"), false);
     }
 
