@@ -14,30 +14,27 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-@SuppressWarnings("deprecation")
-public class WinemakerHatItem extends ArmorItem {
+public class StrawHatItem extends ArmorItem {
     private final ResourceLocation hatTexture;
 
-    public WinemakerHatItem(ArmorMaterial armorMaterial, Type type, Properties properties, ResourceLocation hatTexture) {
+    public StrawHatItem(ArmorMaterial armorMaterial, Type type, Properties properties, ResourceLocation hatTexture) {
         super(armorMaterial, type, properties);
         this.hatTexture = hatTexture;
     }
 
-
-    public ResourceLocation getHatTexture()
-    {
+    public ResourceLocation getHatTexture() {
         return hatTexture;
-    }
-
-    @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level world, @NotNull List<Component> tooltip, TooltipFlag context) {
-        if(world != null && world.isClientSide()){
-            ArmorRegistry.appendTooltip(tooltip);
-        }
     }
 
     @Override
     public @NotNull EquipmentSlot getEquipmentSlot() {
         return this.type.getSlot();
+    }
+
+    @Override
+    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag context) {
+        if (world != null && world.isClientSide()) {
+            ArmorRegistry.appendToolTip(tooltip);
+        }
     }
 }

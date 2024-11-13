@@ -10,7 +10,7 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
-import net.satisfy.vinery.item.WinemakerHatItem;
+import net.satisfy.vinery.item.WinemakerLegsItem;
 import net.satisfy.vinery.registry.ArmorRegistry;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -20,19 +20,20 @@ import org.spongepowered.asm.mixin.Shadow;
 
 import java.util.function.Consumer;
 
-@Mixin(WinemakerHatItem.class)
-public abstract class HatItemMixin extends ArmorItem
-{
-    @Shadow @Final
-    private ResourceLocation hatTexture;
+@SuppressWarnings("all")
+@Mixin(WinemakerLegsItem.class)
+public abstract class LeggingsItemMixin extends ArmorItem {
+    @Shadow
+    @Final
+    private ResourceLocation leggingsTexture;
+
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(
                 new IClientItemExtensions() {
                     @Override
-                    public @NotNull Model getGenericArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original)
-                    {
-                        return ArmorRegistry.getHatModel(itemStack.getItem(), original.getHead());
+                    public @NotNull Model getGenericArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
+                        return ArmorRegistry.getLeggingsModel(itemStack.getItem(), original.rightLeg, original.leftLeg);
                     }
                 }
         );
@@ -40,10 +41,10 @@ public abstract class HatItemMixin extends ArmorItem
 
     @Override
     public @Nullable String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-        return hatTexture.toString();
+        return leggingsTexture.toString();
     }
 
-    private HatItemMixin(ArmorMaterial arg, Type arg2, Properties arg3) {
-        super(arg, arg2, arg3);
+    private LeggingsItemMixin(ArmorMaterial armorMaterial, Type armorType, Properties itemProperties) {
+        super(armorMaterial, armorType, itemProperties);
     }
 }

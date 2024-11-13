@@ -9,6 +9,7 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.world.entity.Entity;
 import net.satisfy.vinery.util.VineryIdentifier;
+import org.jetbrains.annotations.NotNull;
 
 public class StrawHatModel<T extends Entity> extends EntityModel<T> {
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new VineryIdentifier("straw_hat"), "main");
@@ -17,7 +18,6 @@ public class StrawHatModel<T extends Entity> extends EntityModel<T> {
     public StrawHatModel(ModelPart root) {
         this.top_part = root.getChild("top_part");
     }
-
     @SuppressWarnings("unused")
     public static LayerDefinition createBodyLayer() {
         MeshDefinition meshdefinition = new MeshDefinition();
@@ -30,17 +30,17 @@ public class StrawHatModel<T extends Entity> extends EntityModel<T> {
         return LayerDefinition.create(meshdefinition, 64, 64);
     }
 
-
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+    public void renderToBuffer(PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         poseStack.pushPose();
         poseStack.scale(1.05F, 1.05F, 1.05F);
         top_part.render(poseStack, buffer, packedLight, packedOverlay);
         poseStack.popPose();
     }
 
+
     @Override
-    public void setupAnim(T entity, float f, float g, float h, float i, float j) {
+    public void setupAnim(@NotNull T entity, float f, float g, float h, float i, float j) {
 
     }
 

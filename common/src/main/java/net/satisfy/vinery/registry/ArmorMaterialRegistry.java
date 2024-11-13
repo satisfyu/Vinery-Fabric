@@ -9,7 +9,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
 
 public class ArmorMaterialRegistry {
-
     public static final ArmorMaterial WINEMAKER_ARMOR = new ArmorMaterial() {
 
         @Override

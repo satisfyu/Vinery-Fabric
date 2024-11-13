@@ -8,7 +8,6 @@ import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.satisfy.vinery.registry.ArmorRegistry;
 import net.satisfy.vinery.registry.StorageTypeRegistry;
 
 import java.util.Map;
@@ -29,6 +28,5 @@ public class VineryDoApi implements DoApiAPI {
 
     @Override
     public <T extends LivingEntity> void registerArmor(CustomArmorManager<T> customArmorManager, EntityModelSet entityModelSet) {
-        ArmorRegistry.registerArmorModels(customArmorManager, entityModelSet);
     }
 }

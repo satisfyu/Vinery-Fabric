@@ -1,8 +1,5 @@
 package net.satisfy.vinery.registry;
 
-import de.cristelknight.doapi.client.render.feature.CustomArmorManager;
-import de.cristelknight.doapi.client.render.feature.CustomArmorSet;
-import dev.architectury.registry.client.level.entity.EntityModelLayerRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.Model;
@@ -11,19 +8,18 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.satisfy.vinery.client.VineryClient;
+import net.satisfy.vinery.client.model.WinemakerBootsModel;
+import net.satisfy.vinery.client.model.WinemakerChestplateModel;
+import net.satisfy.vinery.client.model.WinemakerLeggingsModel;
 import net.satisfy.vinery.client.model.StrawHatModel;
-import net.satisfy.vinery.client.model.WinemakerInner;
-import net.satisfy.vinery.client.model.WinemakerOuter;
 import net.satisfy.vinery.item.WinemakerBootsItem;
 import net.satisfy.vinery.item.WinemakerChestItem;
-import net.satisfy.vinery.item.WinemakerHatItem;
+import net.satisfy.vinery.item.StrawHatItem;
 import net.satisfy.vinery.item.WinemakerLegsItem;
-import net.satisfy.vinery.util.VineryIdentifier;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.List;
@@ -31,19 +27,10 @@ import java.util.Map;
 
 public class ArmorRegistry {
     private static final Map<Item, StrawHatModel<?>> models = new HashMap<>();
-
-    public static void registerArmorModelLayers(){
-        EntityModelLayerRegistry.register(WinemakerInner.LAYER_LOCATION, WinemakerInner::createBodyLayer);
-        EntityModelLayerRegistry.register(WinemakerOuter.LAYER_LOCATION, WinemakerOuter::createBodyLayer);
-    }
-
-    public static <T extends LivingEntity> void registerArmorModels(CustomArmorManager<T> armors, EntityModelSet modelLoader) {
-        armors.addArmor(new CustomArmorSet<T>(ObjectRegistry.STRAW_HAT.get(), ObjectRegistry.WINEMAKER_APRON.get(), ObjectRegistry.WINEMAKER_LEGGINGS.get(), ObjectRegistry.WINEMAKER_BOOTS.get())
-                .setTexture(new VineryIdentifier("winemaker"))
-                .setOuterModel(new WinemakerOuter<>(modelLoader.bakeLayer(WinemakerOuter.LAYER_LOCATION)))
-                .setInnerModel(new WinemakerInner<>(modelLoader.bakeLayer(WinemakerInner.LAYER_LOCATION))));
-
-    }
+    private static final Map<Item, WinemakerChestplateModel<?>> chestplateModels = new HashMap<>();
+    private static final Map<Item, WinemakerLeggingsModel<?>> leggingsModels = new HashMap<>();
+    private static final Map<Item, WinemakerBootsModel<?>> bootsModels = new HashMap<>();
+    public static boolean setBonusActive = false;
 
     public static Model getHatModel(Item item, ModelPart baseHead) {
         EntityModelSet modelSet = Minecraft.getInstance().getEntityModels();
@@ -61,12 +48,54 @@ public class ArmorRegistry {
         return model;
     }
 
+    public static Model getChestplateModel(Item item, ModelPart body, ModelPart leftArm, ModelPart rightArm, ModelPart leftLeg, ModelPart rightLeg) {
+        WinemakerChestplateModel<?> model = chestplateModels.computeIfAbsent(item, key -> {
+            if (key == ObjectRegistry.WINEMAKER_APRON.get()) {
+                return new WinemakerChestplateModel<>(Minecraft.getInstance().getEntityModels().bakeLayer(WinemakerChestplateModel.LAYER_LOCATION));
+            } else {
+                return null;
+            }
+        });
 
-    private static final boolean ENABLE_WINEMAKER_SET_BONUS = true;
+        assert model != null;
+        model.copyBody(body, leftArm, rightArm, leftLeg, rightLeg);
 
-    public static void appendTooltip(List<Component> tooltip) {
-        if (!ENABLE_WINEMAKER_SET_BONUS) return;
-        Player player = VineryClient.getClientPlayer();
+        return model;
+    }
+
+    public static Model getLeggingsModel(Item item, ModelPart rightLeg, ModelPart leftLeg) {
+        WinemakerLeggingsModel<?> model = leggingsModels.computeIfAbsent(item, key -> {
+            if (key == ObjectRegistry.WINEMAKER_LEGGINGS.get()) {
+                return new WinemakerLeggingsModel<>(Minecraft.getInstance().getEntityModels().bakeLayer(WinemakerLeggingsModel.LAYER_LOCATION));
+            } else {
+                return null;
+            }
+        });
+
+        assert model != null;
+        model.copyLegs(rightLeg, leftLeg);
+
+        return model;
+    }
+
+    public static Model getBootsModel(Item item, ModelPart rightLeg, ModelPart leftLeg) {
+        WinemakerBootsModel<?> model = bootsModels.computeIfAbsent(item, key -> {
+            if (key == ObjectRegistry.WINEMAKER_BOOTS.get()) {
+                return new WinemakerBootsModel<>(Minecraft.getInstance().getEntityModels().bakeLayer(WinemakerBootsModel.LAYER_LOCATION));
+            } else {
+                return null;
+            }
+        });
+
+        assert model != null;
+        model.copyLegs(rightLeg, leftLeg);
+
+        return model;
+    }
+
+
+    public static void appendToolTip(@NotNull List<Component> tooltip) {
+        Player player = Minecraft.getInstance().player;
         if (player == null) return;
 
         ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
@@ -74,22 +103,23 @@ public class ArmorRegistry {
         ItemStack leggings = player.getItemBySlot(EquipmentSlot.LEGS);
         ItemStack boots = player.getItemBySlot(EquipmentSlot.FEET);
 
-        boolean helmetB = helmet.getItem() instanceof WinemakerHatItem;
-        boolean chestplateB = chestplate.getItem() instanceof WinemakerChestItem;
-        boolean leggingsB = leggings.getItem() instanceof WinemakerLegsItem;
-        boolean bootsB = boots.getItem() instanceof WinemakerBootsItem;
+        boolean hasFullSet = helmet.getItem() instanceof StrawHatItem &&
+                chestplate.getItem() instanceof WinemakerChestItem &&
+                leggings.getItem() instanceof WinemakerLegsItem &&
+                boots.getItem() instanceof WinemakerBootsItem;
+
+        setBonusActive = hasFullSet;
 
         tooltip.add(Component.nullToEmpty(""));
-        tooltip.add(Component.nullToEmpty(ChatFormatting.AQUA + I18n.get("tooltip.vinery.winemaker_armor")));
-        tooltip.add(Component.nullToEmpty((helmetB ? ChatFormatting.GREEN.toString() : ChatFormatting.GRAY.toString()) + "- [" + ObjectRegistry.STRAW_HAT.get().getDescription().getString() + "]"));
-        tooltip.add(Component.nullToEmpty((chestplateB ? ChatFormatting.GREEN.toString() : ChatFormatting.GRAY.toString()) + "- [" + ObjectRegistry.WINEMAKER_APRON.get().getDescription().getString() + "]"));
-        tooltip.add(Component.nullToEmpty((leggingsB ? ChatFormatting.GREEN.toString() : ChatFormatting.GRAY.toString()) + "- [" + ObjectRegistry.WINEMAKER_LEGGINGS.get().getDescription().getString() + "]"));
-        tooltip.add(Component.nullToEmpty((bootsB ? ChatFormatting.GREEN.toString() : ChatFormatting.GRAY.toString()) + "- [" + ObjectRegistry.WINEMAKER_BOOTS.get().getDescription().getString() + "]"));
+        tooltip.add(Component.nullToEmpty(ChatFormatting.DARK_GREEN + I18n.get("tooltip.vinery.armor.winemaker_armor0")));
+        tooltip.add(Component.nullToEmpty((helmet.getItem() instanceof StrawHatItem ? ChatFormatting.GREEN.toString() : ChatFormatting.GRAY.toString()) + "- [" + ObjectRegistry.STRAW_HAT.get().getDescription().getString() + "]"));
+        tooltip.add(Component.nullToEmpty((chestplate.getItem() instanceof WinemakerChestItem ? ChatFormatting.GREEN.toString() : ChatFormatting.GRAY.toString()) + "- [" + ObjectRegistry.WINEMAKER_APRON.get().getDescription().getString() + "]"));
+        tooltip.add(Component.nullToEmpty((leggings.getItem() instanceof WinemakerLegsItem ? ChatFormatting.GREEN.toString() : ChatFormatting.GRAY.toString()) + "- [" + ObjectRegistry.WINEMAKER_LEGGINGS.get().getDescription().getString() + "]"));
+        tooltip.add(Component.nullToEmpty((boots.getItem() instanceof WinemakerBootsItem ? ChatFormatting.GREEN.toString() : ChatFormatting.GRAY.toString()) + "- [" + ObjectRegistry.WINEMAKER_BOOTS.get().getDescription().getString() + "]"));
         tooltip.add(Component.nullToEmpty(""));
-        tooltip.add(Component.nullToEmpty(ChatFormatting.GRAY + I18n.get("tooltip.vinery.winemaker_armor2")));
-        tooltip.add(Component.nullToEmpty(((helmetB &&
-                chestplateB &&
-                leggingsB &&
-                bootsB) ? ChatFormatting.DARK_GREEN.toString() : ChatFormatting.GRAY.toString()) + I18n.get("tooltip.vinery.winemaker_armor3")));
+
+        ChatFormatting color = hasFullSet ? ChatFormatting.GREEN : ChatFormatting.GRAY;
+        tooltip.add(Component.nullToEmpty(color + I18n.get("tooltip.vinery.armor.winemaker_armor1")));
+        tooltip.add(Component.nullToEmpty(color + I18n.get("tooltip.vinery.armor.winemaker_armor2")));
     }
 }

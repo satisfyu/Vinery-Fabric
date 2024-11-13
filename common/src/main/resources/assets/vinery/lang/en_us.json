@@ -257,9 +257,9 @@
   "tooltip.vinery.thankyou_3": "Thank you for playing Vinery!",
   "tooltip.vinery.thankyou_4": "Grants Regeneration II within an 8-block radius",
   "tooltip.vinery.wine": "Wine",
-  "tooltip.vinery.winemaker_armor": "Winemaker's Desire:",
-  "tooltip.vinery.winemaker_armor2": "Full set bonus:",
-  "tooltip.vinery.winemaker_armor3": "Bone Meal won't get consumed anymore",
+  "tooltip.vinery.armor.winemaker_armor0": "Winemaker's Desire:",
+  "tooltip.vinery.armor.winemaker_armor1": "Full set bonus:",
+  "tooltip.vinery.armor.winemaker_armor2": "Bone Meal won't get consumed anymore",
   "tooltip.vinery.year": "Year of Production: ",
   "vinery.config.entry.destroyBlocks": "Should Creepers Crush break Blocks?",
   "vinery.config.title": "Vinery Config - Experimental"

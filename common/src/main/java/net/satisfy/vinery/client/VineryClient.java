@@ -9,20 +9,19 @@ import dev.architectury.registry.client.rendering.RenderTypeRegistry;
 import dev.architectury.registry.menu.MenuRegistry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.GrassColor;
 import net.satisfy.vinery.client.gui.ApplePressGui;
 import net.satisfy.vinery.client.gui.BasketGui;
 import net.satisfy.vinery.client.gui.FermentationBarrelGui;
-import net.satisfy.vinery.client.model.MuleModel;
-import net.satisfy.vinery.client.model.StrawHatModel;
+import net.satisfy.vinery.client.model.*;
 import net.satisfy.vinery.client.render.block.BasketRenderer;
 import net.satisfy.vinery.client.render.entity.MuleRenderer;
 import net.satisfy.vinery.client.render.entity.WanderingWinemakerRenderer;
-import net.satisfy.vinery.registry.*;
+import net.satisfy.vinery.registry.BoatAndSignRegistry;
+import net.satisfy.vinery.registry.EntityTypeRegistry;
+import net.satisfy.vinery.registry.ScreenhandlerTypeRegistry;
 
 import static net.satisfy.vinery.registry.ObjectRegistry.*;
 
@@ -71,16 +70,13 @@ public class VineryClient {
 
     public static void preInitClient(){
         TerraformSignHelper.regsterSignSprite(BoatAndSignRegistry.DARK_CHERRY_SIGN_TEXTURE);
-        EntityModelLayerRegistry.register(StrawHatModel.LAYER_LOCATION, StrawHatModel::createBodyLayer);
         EntityModelLayerRegistry.register(MuleModel.LAYER_LOCATION, MuleModel::getTexturedModelData);
         EntityModelLayerRegistry.register(BasketRenderer.LAYER_LOCATION, BasketRenderer::getTexturedModelData);
         EntityRendererRegistry.register(EntityTypeRegistry.MULE, MuleRenderer::new);
         EntityRendererRegistry.register(EntityTypeRegistry.WANDERING_WINEMAKER, WanderingWinemakerRenderer::new);
-
-        ArmorRegistry.registerArmorModelLayers();
-
-    }
-    public static Player getClientPlayer() {
-        return Minecraft.getInstance().player;
+        EntityModelLayerRegistry.register(StrawHatModel.LAYER_LOCATION, StrawHatModel::createBodyLayer);
+        EntityModelLayerRegistry.register(WinemakerChestplateModel.LAYER_LOCATION, WinemakerChestplateModel::createBodyLayer);
+        EntityModelLayerRegistry.register(WinemakerLeggingsModel.LAYER_LOCATION, WinemakerLeggingsModel::createBodyLayer);
+        EntityModelLayerRegistry.register(WinemakerBootsModel.LAYER_LOCATION, WinemakerBootsModel::createBodyLayer);
     }
 }
