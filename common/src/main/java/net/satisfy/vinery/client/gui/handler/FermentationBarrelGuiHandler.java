@@ -1,7 +1,5 @@
 package net.satisfy.vinery.client.gui.handler;
 
-import de.cristelknight.doapi.client.recipebook.IRecipeBookGroup;
-import de.cristelknight.doapi.client.recipebook.handler.AbstractRecipeBookGUIScreenHandler;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -13,18 +11,17 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.satisfy.vinery.client.gui.handler.slot.ExtendedSlot;
 import net.satisfy.vinery.client.gui.handler.slot.StoveOutputSlot;
-import net.satisfy.vinery.client.recipebook.group.FermentationBarrelRecipeBookGroup;
 import net.satisfy.vinery.recipe.FermentationBarrelRecipe;
 import net.satisfy.vinery.registry.ObjectRegistry;
 import net.satisfy.vinery.registry.RecipeTypesRegistry;
 import net.satisfy.vinery.registry.ScreenhandlerTypeRegistry;
 
-import java.util.List;
+public class FermentationBarrelGuiHandler extends AbstractContainerGUIScreenHandler {
 
-public class FermentationBarrelGuiHandler extends AbstractRecipeBookGUIScreenHandler {
     public FermentationBarrelGuiHandler(int syncId, Inventory playerInventory) {
         this(syncId, playerInventory, new SimpleContainer(6), new SimpleContainerData(2));
     }
+
     public FermentationBarrelGuiHandler(int syncId, Inventory playerInventory, Container inventory, ContainerData propertyDelegate) {
         super(ScreenhandlerTypeRegistry.FERMENTATION_BARREL_GUI_HANDLER.get(), syncId, 5, playerInventory, inventory, propertyDelegate);
         buildBlockEntityContainer(playerInventory, inventory);
@@ -65,10 +62,10 @@ public class FermentationBarrelGuiHandler extends AbstractRecipeBookGUIScreenHan
         return progress * arrowWidth/ totalProgress + 1;
     }
 
-    @Override
-    public List<IRecipeBookGroup> getGroups() {
-        return FermentationBarrelRecipeBookGroup.FERMENTATION_GROUPS;
-    }
+//    @Override
+//    public List<IRecipeBookGroup> getGroups() {
+//        return FermentationBarrelRecipeBookGroup.FERMENTATION_GROUPS;
+//    }
 
     @Override
     public boolean hasIngredient(Recipe<?> recipe) {
