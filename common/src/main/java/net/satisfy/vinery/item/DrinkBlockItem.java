@@ -146,18 +146,4 @@ public class DrinkBlockItem extends BlockItem {
     public @NotNull InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         return ItemUtils.startUsingInstantly(level, player, interactionHand);
     }
-
-    public static class DrinkBlockBigItem extends DrinkBlockItem {
-        public DrinkBlockBigItem(Block block, Properties settings) {
-            super(block, settings);
-        }
-    }
-
-    public static class DrinkBlockSmallItem extends DrinkBlockItem {
-        public DrinkBlockSmallItem(Block block, Properties settings) {
-            super(block, settings);
-        }
-
-    }
-
 }

@@ -22,6 +22,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.satisfy.vinery.item.DrinkBlockItem;
+import net.satisfy.vinery.item.DrinkBlockSmallItem;
 import net.satisfy.vinery.registry.StorageTypeRegistry;
 import org.jetbrains.annotations.NotNull;
 
@@ -74,7 +75,7 @@ public class WineBoxBlock extends StorageBlock {
 
     @Override
     public boolean canInsertStack(ItemStack stack) {
-        return stack.getItem() instanceof DrinkBlockItem.DrinkBlockSmallItem;
+        return stack.getItem() instanceof DrinkBlockSmallItem;
     }
 
     @Override
