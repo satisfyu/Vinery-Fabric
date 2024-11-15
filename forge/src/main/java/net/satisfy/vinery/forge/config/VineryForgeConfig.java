@@ -24,6 +24,8 @@ public class VineryForgeConfig {
     public static final ForgeConfigSpec.IntValue DAYS_PER_YEAR;
     public static final ForgeConfigSpec.IntValue YEARS_PER_EFFECT_LEVEL;
     public static final ForgeConfigSpec.IntValue MAX_DURATION;
+    public static final ForgeConfigSpec.BooleanValue GIVE_EFFECT;
+    public static final ForgeConfigSpec.BooleanValue SHOW_TOOLTIP;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> LEVEL1_TRADES;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> LEVEL2_TRADES;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> LEVEL3_TRADES;
@@ -82,6 +84,19 @@ public class VineryForgeConfig {
         MAX_DURATION = COMMON_BUILDER
                 .comment("Maximum duration in seconds")
                 .defineInRange("maxDuration", 15000, 1, 100000);
+
+        COMMON_BUILDER.pop();
+        COMMON_BUILDER.push("Banner");
+
+        GIVE_EFFECT = COMMON_BUILDER
+                .comment("Set to false to disable the banner's effect.")
+                .define("giveEffect", true);
+
+        SHOW_TOOLTIP = COMMON_BUILDER
+                .comment("Set to false to hide the banner's tooltip. If giveEffect is false, showTooltip is automatically false.")
+                .define("showTooltip", true);
+
+        COMMON_BUILDER.pop();
 
         COMMON_BUILDER.pop();
 

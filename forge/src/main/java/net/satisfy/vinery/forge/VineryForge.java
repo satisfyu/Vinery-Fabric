@@ -10,6 +10,7 @@ import net.satisfy.vinery.Vinery;
 import net.satisfy.vinery.forge.config.VineryForgeConfig;
 import net.satisfy.vinery.forge.registry.VineryForgeVillagers;
 import net.satisfy.vinery.registry.CompostableRegistry;
+import net.satisfy.vinery.registry.ObjectRegistry;
 import net.satisfy.vinery.util.PreInit;
 
 

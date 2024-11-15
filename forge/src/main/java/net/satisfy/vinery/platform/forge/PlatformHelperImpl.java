@@ -46,4 +46,12 @@ public class PlatformHelperImpl {
     public static int getWineMaxDuration() {
         return VineryForgeConfig.MAX_DURATION.get();
     }
+
+    public static boolean shouldGiveEffect() {
+        return VineryForgeConfig.GIVE_EFFECT.get();
+    }
+
+    public static boolean shouldShowTooltip() {
+        return VineryForgeConfig.GIVE_EFFECT.get() && VineryForgeConfig.SHOW_TOOLTIP.get();
+    }
 }

@@ -237,7 +237,8 @@
   "item.vinery.taiga_grapes_white": "White Taiga Grapes",
   "item.vinery.red_taiga_grapejuice": "Red Taiga Grapejuice",
   "item.vinery.white_taiga_grapejuice": "White Taiga Grapejuice",
-  "item.vinery.vinery_standard": "Completionist Banner: §5Vinery",
+  "block.vinery.vinery_standard": "Completionist Banner: §5Vinery",
+  "block.vinery.vinery_wall_standard": "Completionist Banner: §5Vinery",
   "item.vinery.wandering_winemaker_spawn_egg": "Wandering Winemaker Spawn Egg",
   "item.vinery.white_grape": "White Grape",
   "item.vinery.white_grape_seeds": "White Grape Seeds",
@@ -296,9 +297,14 @@
   "text.autoconfig.vinery.option.TradeEntry.experience": "Experience",
   "text.autoconfig.vinery.option.items": "Items",
   "text.autoconfig.vinery.option.items.wine": "Wine Settings",
-  "text.autoconfig.vinery.option.items.wine.maxLevel": "Maximum Effect Level",
-  "text.autoconfig.vinery.option.items.wine.startDuration": "Initial Effect Duration",
-  "text.autoconfig.vinery.option.items.wine.durationPerYear": "Additional Duration Gained Each Year",
-  "text.autoconfig.vinery.option.items.wine.yearsPerEffectLevel": "Years Required to Increase Effect Level",
-  "text.autoconfig.vinery.option.items.wine.dayPerYear": "Number of Days in a Year"
+  "text.autoconfig.vinery.option.items.wine.maxLevel": "Max Level",
+  "text.autoconfig.vinery.option.items.wine.startDuration": "Base Duration",
+  "text.autoconfig.vinery.option.items.wine.durationPerYear": "Duration per Year",
+  "text.autoconfig.vinery.option.items.wine.yearsPerEffectLevel": "Years per Level",
+  "text.autoconfig.vinery.option.items.wine.daysPerYear": "Days per Year",
+  "text.autoconfig.vinery.option.items.wine.maxDuration": "Max Duration",
+  "text.autoconfig.vinery.option.items.banner": "Completionist Banner",
+  "text.autoconfig.vinery.option.items.banner.giveEffect": "Enable Banner Effect",
+  "text.autoconfig.vinery.option.items.banner.showTooltip": "Disable Tooltip"
+
 }

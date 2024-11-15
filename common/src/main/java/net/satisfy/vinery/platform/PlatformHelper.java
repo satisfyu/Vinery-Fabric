@@ -57,4 +57,14 @@ public class PlatformHelper {
     public static int getWineMaxDuration() {
         throw new AssertionError();
     }
+
+    @ExpectPlatform
+    public static boolean shouldGiveEffect() {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static boolean shouldShowTooltip() {
+        throw new AssertionError();
+    }
 }

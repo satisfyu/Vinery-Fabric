@@ -89,7 +89,7 @@ public class TabRegistry {
                 out.accept(new ItemStack(ObjectRegistry.RED_SAVANNA_GRAPEJUICE.get()));
                 out.accept(new ItemStack(ObjectRegistry.WHITE_SAVANNA_GRAPEJUICE.get()));
                 out.accept(new ItemStack(ObjectRegistry.CHORUS_WINE.get()));
-                out.accept(new ItemStack(ObjectRegistry.CHERRY_WINE_ITEM.get()));
+                out.accept(new ItemStack(ObjectRegistry.CHERRY_WINE.get()));
                 out.accept(new ItemStack(ObjectRegistry.MAGNETIC_WINE_ITEM.get()));
                 out.accept(new ItemStack(ObjectRegistry.NOIR_WINE.get()));
                 out.accept(new ItemStack(ObjectRegistry.LILITU_WINE.get()));

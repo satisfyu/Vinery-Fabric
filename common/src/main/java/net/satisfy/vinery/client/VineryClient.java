@@ -17,6 +17,7 @@ import net.satisfy.vinery.client.gui.BasketGui;
 import net.satisfy.vinery.client.gui.FermentationBarrelGui;
 import net.satisfy.vinery.client.model.*;
 import net.satisfy.vinery.client.render.block.BasketRenderer;
+import net.satisfy.vinery.client.render.block.CompletionistBannerRenderer;
 import net.satisfy.vinery.client.render.entity.MuleRenderer;
 import net.satisfy.vinery.client.render.entity.WanderingWinemakerRenderer;
 import net.satisfy.vinery.registry.BoatAndSignRegistry;
@@ -62,10 +63,10 @@ public class VineryClient {
         );
 
         BlockEntityRendererRegistry.register(EntityTypeRegistry.BASKET_ENTITY.get(), BasketRenderer::new);
+        BlockEntityRendererRegistry.register(EntityTypeRegistry.VINERY_STANDARD.get(), CompletionistBannerRenderer::new);
         MenuRegistry.registerScreenFactory(ScreenhandlerTypeRegistry.FERMENTATION_BARREL_GUI_HANDLER.get(), FermentationBarrelGui::new);
         MenuRegistry.registerScreenFactory(ScreenhandlerTypeRegistry.APPLE_PRESS_GUI_HANDLER.get(), ApplePressGui::new);
         MenuRegistry.registerScreenFactory(ScreenhandlerTypeRegistry.BASKET_GUI_HANDLER.get(), BasketGui::new);
-
     }
 
     public static void preInitClient(){
@@ -78,5 +79,6 @@ public class VineryClient {
         EntityModelLayerRegistry.register(WinemakerChestplateModel.LAYER_LOCATION, WinemakerChestplateModel::createBodyLayer);
         EntityModelLayerRegistry.register(WinemakerLeggingsModel.LAYER_LOCATION, WinemakerLeggingsModel::createBodyLayer);
         EntityModelLayerRegistry.register(WinemakerBootsModel.LAYER_LOCATION, WinemakerBootsModel::createBodyLayer);
+        EntityModelLayerRegistry.register(CompletionistBannerRenderer.LAYER_LOCATION, CompletionistBannerRenderer::createBodyLayer);
     }
 }

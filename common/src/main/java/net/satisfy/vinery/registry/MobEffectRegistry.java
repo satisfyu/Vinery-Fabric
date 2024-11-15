@@ -58,10 +58,8 @@ public class MobEffectRegistry {
         EXPERIENCE_EFFECT = registerEffect("experience_effect", () -> new NormalEffect(MobEffectCategory.BENEFICIAL, 0x00FF00));
         IMPROVED_JUMP_BOOST = registerEffect("double_jump", () -> new NormalEffect(MobEffectCategory.BENEFICIAL, 0x90F891));
         PARTY_EFFECT = registerEffect("party_effect", () -> new NormalEffect(MobEffectCategory.BENEFICIAL, 0xFF0000));
-
         TELEPORT = registerEffect("teleport", TeleportEffect::new);
         CREEPER_EFFECT = registerEffect("creeper_effect", CreeperEffect::new);
-
         CLIMBING_EFFECT = registerEffect("climbing_effect", ClimbingEffect::new);
         FROSTY_ARMOR_EFFECT = registerEffect("frosty_armor", FrostyArmorEffect::new);
         JELLIE = registerEffect("jellie", JellieEffect::new);

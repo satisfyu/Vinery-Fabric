@@ -14,16 +14,16 @@ public class Vinery {
     public static final String MOD_ID = "vinery";
 
     public static void init() {
-        ObjectRegistry.init();
-        TabRegistry.init();
-        BoatAndSignRegistry.init();
-        EntityTypeRegistry.init();
         MobEffectRegistry.init();
+        ObjectRegistry.init();
+        EntityTypeRegistry.init();
+        BoatAndSignRegistry.init();
         ScreenhandlerTypeRegistry.init();
         RecipeTypesRegistry.init();
         VineryFeatures.init();
         SoundEventRegistry.init();
         EventHandler.register();
+        TabRegistry.init();
 
         DoApiEP.registerBuiltInPack(Vinery.MOD_ID, new VineryIdentifier("bushy_leaves"), false);
     }

@@ -36,6 +36,7 @@ public class PlatformHelperImpl extends PlatformHelper {
     }
 
     public static int getWineStartDuration() {
+
         VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
         return config.items.wine.startDuration;
     }
@@ -58,5 +59,15 @@ public class PlatformHelperImpl extends PlatformHelper {
     public static int getWineMaxDuration() {
         VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
         return config.items.wine.maxDuration;
+    }
+
+    public static boolean shouldGiveEffect() {
+        VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
+        return config.items.banner.giveEffect;
+    }
+
+    public static boolean shouldShowTooltip() {
+        VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
+        return config.items.banner.isShowTooltipEnabled();
     }
 }

@@ -42,12 +42,18 @@ public class VineryFabricConfig implements ConfigData {
         @ConfigEntry.Gui.CollapsibleObject
         public WineSettings wine = new WineSettings();
 
+        @ConfigEntry.Gui.CollapsibleObject
+        public BannerSettings banner = new BannerSettings();
+
         public static class WineSettings {
             @ConfigEntry.BoundedDiscrete(min = 1, max = 100000)
             public int startDuration = 1800;
 
             @ConfigEntry.BoundedDiscrete(min = 1, max = 100000)
             public int maxDuration = 15000;
+
+            @ConfigEntry.BoundedDiscrete(min = 1, max = 10)
+            public int maxLevel = 5;
 
             @ConfigEntry.BoundedDiscrete(min = 1, max = 10000)
             public int durationPerYear = 200;
@@ -57,9 +63,17 @@ public class VineryFabricConfig implements ConfigData {
 
             @ConfigEntry.BoundedDiscrete(min = 1, max = 100)
             public int yearsPerEffectLevel = 6;
+        }
+    }
 
-            @ConfigEntry.BoundedDiscrete(min = 1, max = 10)
-            public int maxLevel = 5;
+    public static class BannerSettings {
+
+        public boolean giveEffect = true;
+
+        public boolean showTooltip = true;
+
+        public boolean isShowTooltipEnabled() {
+            return giveEffect && showTooltip;
         }
     }
 
