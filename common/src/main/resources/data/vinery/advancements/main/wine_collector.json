@@ -190,18 +190,6 @@
         ]
       }
     },
-    "vinery:knulp_wine": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "vinery:knulp_wine"
-            ]
-          }
-        ]
-      }
-    },
     "vinery:chenet_wine": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
@@ -377,9 +365,6 @@
     ],
     [
       "vinery:red_wine"
-    ],
-    [
-      "vinery:knulp_wine"
     ],
     [
       "vinery:chenet_wine"

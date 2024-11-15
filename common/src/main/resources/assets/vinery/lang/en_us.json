@@ -260,7 +260,7 @@
   "tooltip.vinery.armor.winemaker_armor0": "Winemaker's Desire:",
   "tooltip.vinery.armor.winemaker_armor1": "Full set bonus:",
   "tooltip.vinery.armor.winemaker_armor2": "Bone Meal won't get consumed anymore",
-  "tooltip.vinery.year": "Year of Production: ",
+  "tooltip.vinery.age": "Age: %s",
   "vinery.config.entry.destroyBlocks": "Should Creepers Crush break Blocks?",
   "vinery.config.title": "Vinery Config - Experimental",
   "text.autoconfig.vinery.title": "Vinery",

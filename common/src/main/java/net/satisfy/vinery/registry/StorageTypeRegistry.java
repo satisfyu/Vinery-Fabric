@@ -56,7 +56,7 @@ public class StorageTypeRegistry {
                 NOIR_WINE.get(), CLARK_WINE.get(), BOLVAR_WINE.get(), STAL_WINE.get(), CHERRY_WINE.get(), KELP_CIDER.get(),
                 SOLARIS_WINE.get(), APPLE_WINE.get(), APPLE_CIDER.get(), STRAD_WINE.get(), CHENET_WINE.get(), MELLOHI_WINE.get(),
                 LILITU_WINE.get(), MAGNETIC_WINE.get(), CHORUS_WINE.get(), JELLIE_WINE.get(), AEGIS_WINE.get(), RED_WINE.get(),
-                KNULP_WINE.get(), CRISTEL_WINE.get(), JO_SPECIAL_MIXTURE.get(), GLOWING_WINE.get(), CREEPERS_CRUSH.get(),
+                CRISTEL_WINE.get(), JO_SPECIAL_MIXTURE.get(), GLOWING_WINE.get(), CREEPERS_CRUSH.get(),
                 BOTTLE_MOJANG_NOIR.get(), VILLAGERS_FRIGHT.get(), MEAD.get(), EISWEIN.get()
         ));
 

@@ -106,7 +106,6 @@ public class TabRegistry {
                 out.accept(new ItemStack(ObjectRegistry.APPLE_CIDER.get()));
                 out.accept(new ItemStack(ObjectRegistry.JELLIE_WINE.get()));
                 out.accept(new ItemStack(ObjectRegistry.RED_WINE.get()));
-                out.accept(new ItemStack(ObjectRegistry.KNULP_WINE.get()));
                 out.accept(new ItemStack(ObjectRegistry.JO_SPECIAL_MIXTURE.get()));
                 out.accept(new ItemStack(ObjectRegistry.CRISTEL_WINE.get()));
                 out.accept(new ItemStack(ObjectRegistry.CREEPERS_CRUSH.get()));
@@ -124,12 +123,13 @@ public class TabRegistry {
                 out.accept(new ItemStack(ObjectRegistry.WINE_BOX.get()));
                 out.accept(new ItemStack(ObjectRegistry.DARK_CHERRY_SHELF.get()));
                 out.accept(new ItemStack(ObjectRegistry.DARK_CHERRY_BIG_TABLE.get()));
-                out.accept(new ItemStack(ObjectRegistry.BASKET.get()));
+                out.accept(new ItemStack(ObjectRegistry.BASKET_ITEM.get()));
                 out.accept(new ItemStack(ObjectRegistry.STACKABLE_LOG.get()));
                 out.accept(new ItemStack(ObjectRegistry.STRAW_HAT.get()));
                 out.accept(new ItemStack(ObjectRegistry.WINEMAKER_APRON.get()));
                 out.accept(new ItemStack(ObjectRegistry.WINEMAKER_LEGGINGS.get()));
                 out.accept(new ItemStack(ObjectRegistry.WINEMAKER_BOOTS.get()));
+                out.accept(new ItemStack(ObjectRegistry.VINERY_STANDARD.get()));
                 out.accept(new ItemStack(ObjectRegistry.MULE_SPAWN_EGG.get()));
                 out.accept(new ItemStack(ObjectRegistry.WANDERING_WINEMAKER_SPAWN_EGG.get()));
                 out.accept(new ItemStack(ObjectRegistry.OAK_WINE_RACK_SMALL.get()));
@@ -168,7 +168,6 @@ public class TabRegistry {
                 out.accept(new ItemStack(ObjectRegistry.MANGROVE_LATTICE.get()));
                 out.accept(new ItemStack(ObjectRegistry.BAMBOO_LATTICE.get()));
                 out.accept(new ItemStack(ObjectRegistry.CHERRY_LATTICE.get()));
-                out.accept(new ItemStack(ObjectRegistry.VINERY_STANDARD.get()));
             })
             .build());
 
