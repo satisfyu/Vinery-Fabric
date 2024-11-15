@@ -130,7 +130,6 @@ public class TabRegistry {
                 out.accept(new ItemStack(ObjectRegistry.WINEMAKER_APRON.get()));
                 out.accept(new ItemStack(ObjectRegistry.WINEMAKER_LEGGINGS.get()));
                 out.accept(new ItemStack(ObjectRegistry.WINEMAKER_BOOTS.get()));
-                out.accept(new ItemStack(ObjectRegistry.CALENDAR.get()));
                 out.accept(new ItemStack(ObjectRegistry.MULE_SPAWN_EGG.get()));
                 out.accept(new ItemStack(ObjectRegistry.WANDERING_WINEMAKER_SPAWN_EGG.get()));
                 out.accept(new ItemStack(ObjectRegistry.OAK_WINE_RACK_SMALL.get()));

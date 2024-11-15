@@ -1,7 +1,7 @@
 package net.satisfy.vinery.platform.fabric;
 
-import net.satisfy.vinery.platform.PlatformHelper;
 import net.satisfy.vinery.fabric.config.VineryFabricConfig;
+import net.satisfy.vinery.platform.PlatformHelper;
 import me.shedaniel.autoconfig.AutoConfig;
 
 public class PlatformHelperImpl extends PlatformHelper {
