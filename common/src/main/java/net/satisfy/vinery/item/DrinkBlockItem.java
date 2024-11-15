@@ -11,6 +11,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -78,7 +79,7 @@ public class DrinkBlockItem extends BlockItem {
 
         tooltip.add(Component.empty());
 
-        if (world != null && WineYears.hasWineYear(stack)) {
+        if (world != null) { 
             int age = WineYears.getWineAge(stack, world);
             tooltip.add(Component.translatable("tooltip.vinery.age", age).withStyle(ChatFormatting.WHITE));
         }
@@ -93,6 +94,20 @@ public class DrinkBlockItem extends BlockItem {
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         return ItemUtils.startUsingInstantly(level, player, interactionHand);
+    }
+
+    @Override
+    public void onCraftedBy(ItemStack stack, Level world, Player player) {
+        super.onCraftedBy(stack, world, player);
+        WineYears.setWineYear(stack, world); 
+    }
+
+    @Override
+    public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
+        super.inventoryTick(stack, world, entity, slot, selected);
+        if (world != null && WineYears.hasWineYear(stack)) {
+            WineYears.setWineYear(stack, world); 
+        }
     }
 
     private String toRoman(int number) {

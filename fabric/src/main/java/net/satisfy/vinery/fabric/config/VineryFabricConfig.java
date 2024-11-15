@@ -15,6 +15,10 @@ public class VineryFabricConfig implements ConfigData {
     public BlocksSettings blocks = new BlocksSettings();
 
     @ConfigEntry.Gui.CollapsibleObject
+    public ItemsSettings items = new ItemsSettings();
+
+
+    @ConfigEntry.Gui.CollapsibleObject
     public VillagerSettings villager = new VillagerSettings();
 
     public static class BlocksSettings {
@@ -32,6 +36,31 @@ public class VineryFabricConfig implements ConfigData {
 
         @ConfigEntry.BoundedDiscrete(min = 0, max = 1)
         public double grapeGrowthChance = 0.5;
+    }
+
+    public static class ItemsSettings {
+        @ConfigEntry.Gui.CollapsibleObject
+        public WineSettings wine = new WineSettings();
+
+        public static class WineSettings {
+            @ConfigEntry.BoundedDiscrete(min = 1, max = 100000)
+            public int startDuration = 1800;
+
+            @ConfigEntry.BoundedDiscrete(min = 1, max = 100000)
+            public int maxDuration = 15000;
+
+            @ConfigEntry.BoundedDiscrete(min = 1, max = 10000)
+            public int durationPerYear = 200;
+
+            @ConfigEntry.BoundedDiscrete(min = 1, max = 100)
+            public int daysPerYear = 24;
+
+            @ConfigEntry.BoundedDiscrete(min = 1, max = 100)
+            public int yearsPerEffectLevel = 6;
+
+            @ConfigEntry.BoundedDiscrete(min = 1, max = 10)
+            public int maxLevel = 5;
+        }
     }
 
     public static class VillagerSettings {
@@ -107,7 +136,6 @@ public class VineryFabricConfig implements ConfigData {
         public enum TradeType {
             BUY,
             SELL
-
         }
     }
 }

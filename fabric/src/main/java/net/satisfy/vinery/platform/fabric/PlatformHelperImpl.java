@@ -29,4 +29,34 @@ public class PlatformHelperImpl extends PlatformHelper {
         VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
         return config.blocks.grapeGrowthChance;
     }
+
+    public static int getWineMaxLevel() {
+        VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
+        return config.items.wine.maxLevel;
+    }
+
+    public static int getWineStartDuration() {
+        VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
+        return config.items.wine.startDuration;
+    }
+
+    public static int getWineDurationPerYear() {
+        VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
+        return config.items.wine.durationPerYear;
+    }
+
+    public static int getWineDaysPerYear() {
+        VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
+        return config.items.wine.daysPerYear;
+    }
+
+    public static int getWineYearsPerEffectLevel() {
+        VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
+        return config.items.wine.yearsPerEffectLevel;
+    }
+
+    public static int getWineMaxDuration() {
+        VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
+        return config.items.wine.maxDuration;
+    }
 }

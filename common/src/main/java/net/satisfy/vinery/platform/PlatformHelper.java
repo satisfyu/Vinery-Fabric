@@ -27,4 +27,34 @@ public class PlatformHelper {
     public static double getGrapeGrowthChance() {
         throw new AssertionError();
     }
+
+    @ExpectPlatform
+    public static int getWineMaxLevel() {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static int getWineStartDuration() {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static int getWineDurationPerYear() {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static int getWineDaysPerYear() {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static int getWineYearsPerEffectLevel() {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static int getWineMaxDuration() {
+        throw new AssertionError();
+    }
 }

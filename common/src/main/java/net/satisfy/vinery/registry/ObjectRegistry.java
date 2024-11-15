@@ -13,11 +13,9 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.flag.FeatureFlags;
-import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
@@ -32,8 +30,8 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.satisfy.vinery.Vinery;
-import net.satisfy.vinery.block.*;
 import net.satisfy.vinery.block.CherryLeavesBlock;
+import net.satisfy.vinery.block.*;
 import net.satisfy.vinery.block.grape.GrapeBush;
 import net.satisfy.vinery.block.grape.GrapeVineBlock;
 import net.satisfy.vinery.block.stem.LatticeBlock;
@@ -41,6 +39,7 @@ import net.satisfy.vinery.block.stem.PaleStemBlock;
 import net.satisfy.vinery.block.storage.*;
 import net.satisfy.vinery.item.*;
 import net.satisfy.vinery.util.VineryIdentifier;
+import net.satisfy.vinery.util.WineSettings;
 import net.satisfy.vinery.world.VineryConfiguredFeatures;
 import org.jetbrains.annotations.NotNull;
 
@@ -235,35 +234,59 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Block> WHITE_JUNGLE_GRAPE_BAG = registerWithItem("white_jungle_grape_bag", () -> new FacingBlock(BlockBehaviour.Properties.of().strength(2.0F, 3.0F).sound(SoundType.WOOL)));
     public static final RegistrySupplier<Block> RED_JUNGLE_GRAPE_BAG = registerWithItem("red_jungle_grape_bag", () -> new FacingBlock(BlockBehaviour.Properties.of().strength(2.0F, 3.0F).sound(SoundType.WOOL)));
 
-    public static final RegistrySupplier<Item> CHERRY_WINE_ITEM = registerItem("cherry_wine", () -> new DrinkBlockSmallItem(CHERRY_WINE.get(), getWineItemSettings(MobEffects.REGENERATION, 1600, 1)));
-    public static final RegistrySupplier<Item> MAGNETIC_WINE_ITEM = registerItem("magnetic_wine", () -> new DrinkBlockBigItem(MAGNETIC_WINE.get(), getWineItemSettings(MobEffectRegistry.MAGNET.get(), 1600, 1)));
-    public static final RegistrySupplier<Item> JO_SPECIAL_MIXTURE_ITEM = registerItem("jo_special_mixture", () -> new DrinkBlockBigItem(JO_SPECIAL_MIXTURE.get(), getWineItemSettings(MobEffectRegistry.CLIMBING_EFFECT.get(), 1600, 1)));
-    public static final RegistrySupplier<Item> CRISTEL_WINE_ITEM = registerItem("cristel_wine", () -> new DrinkBlockBigItem(CRISTEL_WINE.get(), getWineItemSettings(MobEffectRegistry.EXPERIENCE_EFFECT.get(), 1600, 1)));
-    public static final RegistrySupplier<Item> GLOWING_WINE_ITEM = registerItem("glowing_wine", () -> new DrinkBlockBigItem(GLOWING_WINE.get(), getWineItemSettings(MobEffects.GLOWING, 1600, 1)));
-    public static final RegistrySupplier<Item> RED_WINE_ITEM = registerItem("red_wine", () -> new DrinkBlockSmallItem(RED_WINE.get(), getWineItemSettings(MobEffectRegistry.STAGGER_EFFECT.get(), 1600, 1)));
-    public static final RegistrySupplier<Item> JELLIE_WINE_ITEM = registerItem("jellie_wine", () -> new DrinkBlockBigItem(JELLIE_WINE.get(), getWineItemSettings(MobEffectRegistry.JELLIE.get(), 1600, 1)));
-    public static final RegistrySupplier<Item> STAL_WINE_ITEM = registerItem("stal_wine", () -> new DrinkBlockSmallItem(STAL_WINE.get(), getWineItemSettings(MobEffectRegistry.HEALTH_EFFECT.get(), 1600, 1)));
-    public static final RegistrySupplier<Item> BOLVAR_WINE_ITEM = registerItem("bolvar_wine", () -> new DrinkBlockSmallItem(BOLVAR_WINE.get(), getWineItemSettings(MobEffectRegistry.LAVA_WALKER.get(), 1600, 1)));
-    public static final RegistrySupplier<Item> SOLARIS_WINE_ITEM = registerItem("solaris_wine", () -> new DrinkBlockSmallItem(SOLARIS_WINE.get(), getWineItemSettings(MobEffects.DIG_SPEED, 1600, 1)));
-    public static final RegistrySupplier<Item> EISWEIN_ITEM = registerItem("eiswein", () -> new DrinkBlockBigItem(EISWEIN.get(), getWineItemSettings(MobEffectRegistry.FROSTY_ARMOR_EFFECT.get(), 1600, 1)));
-    public static final RegistrySupplier<Item> CHENET_WINE_ITEM = registerItem("chenet_wine", () -> new DrinkBlockBigItem(CHENET_WINE.get(), getWineItemSettings(MobEffectRegistry.CLIMBING_EFFECT.get(), 1600, 1)));
-    public static final RegistrySupplier<Item> KELP_CIDER_ITEM = registerItem("kelp_cider", () -> new DrinkBlockSmallItem(KELP_CIDER.get(), getWineItemSettings(MobEffectRegistry.WATER_WALKER.get(), 1600, 1)));
-    public static final RegistrySupplier<Item> AEGIS_WINE_ITEM = registerItem("aegis_wine", () -> new DrinkBlockBigItem(AEGIS_WINE.get(), getWineItemSettings(MobEffectRegistry.ARMOR_EFFECT.get(), 1600, 1)));
-    public static final RegistrySupplier<Item> CLARK_WINE_ITEM = registerItem("clark_wine", () -> new DrinkBlockSmallItem(CLARK_WINE.get(), getWineItemSettings(MobEffectRegistry.IMPROVED_JUMP_BOOST.get(), 1600, 1)));
-    public static final RegistrySupplier<Item> MELLOHI_WINE_ITEM = registerItem("mellohi_wine", () -> new DrinkBlockBigItem(MELLOHI_WINE.get(), getWineItemSettings(MobEffectRegistry.LUCK_EFFECT.get(), 1600, 1)));
-    public static final RegistrySupplier<Item> STRAD_WINE_ITEM = registerItem("strad_wine", () -> new DrinkBlockBigItem(STRAD_WINE.get(), getWineItemSettings(MobEffectRegistry.RESISTANCE_EFFECT.get(), 1600, 1)));
-    public static final RegistrySupplier<Item> APPLE_CIDER_ITEM = registerItem("apple_cider", () -> new DrinkBlockBigItem(APPLE_CIDER.get(), getWineItemSettings(MobEffects.HEALTH_BOOST, 1600, 1)));
-    public static final RegistrySupplier<Item> APPLE_WINE_ITEM = registerItem("apple_wine", () -> new DrinkBlockBigItem(APPLE_WINE.get(), getWineItemSettings(MobEffects.ABSORPTION, 1600, 1)));
-    public static final RegistrySupplier<Item> LILITU_WINE_ITEM = registerItem("lilitu_wine", () -> new DrinkBlockBigItem(LILITU_WINE.get(), getWineItemSettings(MobEffectRegistry.PARTY_EFFECT.get(), 1600, 1)));
-    public static final RegistrySupplier<Item> BOTTLE_MOJANG_NOIR_ITEM = registerItem("bottle_mojang_noir", () -> new DrinkBlockSmallItem(BOTTLE_MOJANG_NOIR.get(), getWineItemSettings(MobEffectRegistry.ARMOR_EFFECT.get(), 1600, 1)));
-    public static final RegistrySupplier<Item> VILLAGERS_FRIGHT_ITEM = registerItem("villagers_fright", () -> new DrinkBlockSmallItem(VILLAGERS_FRIGHT.get(), getWineItemSettings(MobEffects.BAD_OMEN, 1600, 1)));
+    public static final RegistrySupplier<Item> CHERRY_WINE_ITEM = registerWineItem("cherry_wine", CHERRY_WINE, createWineSettings(MobEffects.REGENERATION, 1600, 0), true);
 
-    public static final RegistrySupplier<Item> CHORUS_WINE_ITEM = registerItem("chorus_wine", () -> new DrinkBlockBigItem(CHORUS_WINE.get(), getWineItemSettings(MobEffectRegistry.TELEPORT.get(), 1, 0)));
-    public static final RegistrySupplier<Item> CREEPERS_CRUSH_ITEM = registerItem("creepers_crush", () -> new DrinkBlockBigItem(CREEPERS_CRUSH.get(), getWineItemSettings(MobEffectRegistry.CREEPER_EFFECT.get(), 1, 2)));
-    public static final RegistrySupplier<Item> MEAD_ITEM = registerItem("mead", () -> new DrinkBlockBigItem(MEAD.get(), getWineItemSettings(MobEffects.SATURATION, 240, 0)));
-    public static final RegistrySupplier<Item> NOIR_WINE_ITEM = registerItem("noir_wine", () -> new DrinkBlockSmallItem(NOIR_WINE.get(), getWineItemSettings(MobEffects.HEAL, 1, 2)));
+    public static final RegistrySupplier<Item> MAGNETIC_WINE_ITEM = registerWineItem("magnetic_wine", MAGNETIC_WINE, createWineSettings(MobEffectRegistry.MAGNET.get(), 1600, 0), true);
+
+    public static final RegistrySupplier<Item> JO_SPECIAL_MIXTURE_ITEM = registerWineItem("jo_special_mixture", JO_SPECIAL_MIXTURE, createWineSettings(MobEffectRegistry.CLIMBING_EFFECT.get(), 1600, 0), true);
+
+    public static final RegistrySupplier<Item> CRISTEL_WINE_ITEM = registerWineItem("cristel_wine", CRISTEL_WINE, createWineSettings(MobEffectRegistry.EXPERIENCE_EFFECT.get(), 1600, 0), true);
+
+    public static final RegistrySupplier<Item> GLOWING_WINE_ITEM = registerWineItem("glowing_wine",GLOWING_WINE, createWineSettings(MobEffects.GLOWING, 1600, 0), true);
+
+    public static final RegistrySupplier<Item> RED_WINE_ITEM = registerWineItem("red_wine",RED_WINE, createWineSettings(MobEffectRegistry.STAGGER_EFFECT.get(), 1600, 0), true);
+
+    public static final RegistrySupplier<Item> JELLIE_WINE_ITEM = registerWineItem("jellie_wine",JELLIE_WINE, createWineSettings(MobEffectRegistry.JELLIE.get(), 1600, 0), true);
+
+    public static final RegistrySupplier<Item> STAL_WINE_ITEM = registerWineItem("stal_wine",STAL_WINE, createWineSettings(MobEffectRegistry.HEALTH_EFFECT.get(), 1600, 0), true);
+
+    public static final RegistrySupplier<Item> BOLVAR_WINE_ITEM = registerWineItem("bolvar_wine",BOLVAR_WINE, createWineSettings(MobEffectRegistry.LAVA_WALKER.get(), 1600, 0), true);
+
+    public static final RegistrySupplier<Item> SOLARIS_WINE_ITEM = registerWineItem("solaris_wine",SOLARIS_WINE, createWineSettings(MobEffects.DIG_SPEED, 1600, 0), true);
+
+    public static final RegistrySupplier<Item> EISWEIN_ITEM = registerWineItem("eiswein",EISWEIN, createWineSettings(MobEffectRegistry.FROSTY_ARMOR_EFFECT.get(), 1600, 0), true);
+
+    public static final RegistrySupplier<Item> CHENET_WINE_ITEM = registerWineItem("chenet_wine",CHENET_WINE, createWineSettings(MobEffectRegistry.CLIMBING_EFFECT.get(), 1600, 0), true);
+
+    public static final RegistrySupplier<Item> KELP_CIDER_ITEM = registerWineItem("kelp_cider",KELP_CIDER, createWineSettings(MobEffectRegistry.WATER_WALKER.get(), 1600, 0), true);
+
+    public static final RegistrySupplier<Item> AEGIS_WINE_ITEM = registerWineItem("aegis_wine",AEGIS_WINE, createWineSettings(MobEffectRegistry.ARMOR_EFFECT.get(), 1600, 0), true);
+
+    public static final RegistrySupplier<Item> CLARK_WINE_ITEM = registerWineItem("clark_wine", CLARK_WINE, createWineSettings(MobEffectRegistry.IMPROVED_JUMP_BOOST.get(), 1600, 0), true);
+
+    public static final RegistrySupplier<Item> MELLOHI_WINE_ITEM = registerWineItem("mellohi_wine", MELLOHI_WINE, createWineSettings(MobEffectRegistry.LUCK_EFFECT.get(), 1600, 0), true);
+
+    public static final RegistrySupplier<Item> STRAD_WINE_ITEM = registerWineItem("strad_wine", STRAD_WINE, createWineSettings(MobEffectRegistry.RESISTANCE_EFFECT.get(), 1600, 0), true);
+
+    public static final RegistrySupplier<Item> APPLE_CIDER_ITEM = registerWineItem("apple_cider", APPLE_CIDER, createWineSettings(MobEffects.HEALTH_BOOST, 1600, 0), true);
+
+    public static final RegistrySupplier<Item> APPLE_WINE_ITEM = registerWineItem("apple_wine", APPLE_WINE, createWineSettings(MobEffects.ABSORPTION, 1600, 0), true);
+
+    public static final RegistrySupplier<Item> LILITU_WINE_ITEM = registerWineItem("lilitu_wine", LILITU_WINE, createWineSettings(MobEffectRegistry.PARTY_EFFECT.get(), 1600, 0), true);
+
+    public static final RegistrySupplier<Item> BOTTLE_MOJANG_NOIR_ITEM = registerWineItem("bottle_mojang_noir", BOTTLE_MOJANG_NOIR, createWineSettings(MobEffectRegistry.ARMOR_EFFECT.get(), 1600, 0), true);
+
+    public static final RegistrySupplier<Item> VILLAGERS_FRIGHT_ITEM = registerWineItem("villagers_fright", VILLAGERS_FRIGHT, createWineSettings(MobEffects.BAD_OMEN, 1600, 0), true);
 
 
+    
+    public static final RegistrySupplier<Item> CHORUS_WINE_ITEM = registerWineItemConstantDuration("chorus_wine",CHORUS_WINE, createWineSettings(MobEffectRegistry.TELEPORT.get(), 1800, 0));
+
+    public static final RegistrySupplier<Item> CREEPERS_CRUSH_ITEM = registerWineItemConstantDuration("creepers_crush",CREEPERS_CRUSH, createWineSettings(MobEffectRegistry.CREEPER_EFFECT.get(), 1800, 2));
+
+    public static final RegistrySupplier<Item> MEAD_ITEM = registerWineItemConstantDuration("mead",MEAD, createWineSettings(MobEffects.SATURATION, 2400, 0));
+
+    public static final RegistrySupplier<Item> NOIR_WINE_ITEM = registerWineItemConstantDuration("noir_wine",NOIR_WINE, createWineSettings(MobEffects.HEAL, 1800, 2));
 
 
     public static void init() {
@@ -290,21 +313,29 @@ public class ObjectRegistry {
         });
     }
 
-    private static Item.Properties getWineItemSettings(MobEffect effect, int duration, int strength) {
-        return new Item.Properties().food(wineFoodComponent(effect, duration, strength));
+    private static WineSettings createWineSettings(MobEffect effect, int duration, int strength) {
+        return new WineSettings(effect, duration, strength);
     }
 
-    private static FoodProperties wineFoodComponent(MobEffect effect, int duration, int strength) {
-        FoodProperties.Builder builder = new FoodProperties.Builder();
-        if (effect != null) {
-            builder.effect(new MobEffectInstance(effect, duration, strength), 1.0f);
-        }
-        return builder.build();
+    private static RegistrySupplier<Item> registerWineItem(String name, Supplier<Block> wineBlock, WineSettings wineSettings, boolean scaleDurationWithAge) {
+        return registerItem(name, () -> new DrinkBlockBigItem(
+                wineBlock.get(),
+                wineSettings.getProperties(),
+                wineSettings.getBaseDuration(),
+                scaleDurationWithAge
+        ));
     }
-    
-    private static BlockBehaviour.Properties getGrassSettings() {
-        return BlockBehaviour.Properties.copy(Blocks.GRASS_BLOCK).noOcclusion();
+
+    private static RegistrySupplier<Item> registerWineItemConstantDuration(String name, Supplier<Block> wineBlock, WineSettings wineSettings) {
+        return registerItem(name, () -> new DrinkBlockBigItem(
+                wineBlock.get(),
+                wineSettings.getProperties(),
+                wineSettings.getBaseDuration(),
+                false
+        ));
     }
+
+
 
     private static BlockBehaviour.Properties getGrapevineSettings() {
         return BlockBehaviour.Properties.of().strength(2.0F).randomTicks().sound(SoundType.WOOD).noOcclusion();

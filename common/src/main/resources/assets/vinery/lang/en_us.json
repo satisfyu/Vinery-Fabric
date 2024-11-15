@@ -293,7 +293,12 @@
   "text.autoconfig.vinery.option.TradeEntry.price": "Price",
   "text.autoconfig.vinery.option.TradeEntry.count": "Count",
   "text.autoconfig.vinery.option.TradeEntry.maxUses": "Max Uses",
-  "text.autoconfig.vinery.option.TradeEntry.experience": "Experience"
-
-
+  "text.autoconfig.vinery.option.TradeEntry.experience": "Experience",
+  "text.autoconfig.vinery.option.items": "Items",
+  "text.autoconfig.vinery.option.items.wine": "Wine Settings",
+  "text.autoconfig.vinery.option.items.wine.maxLevel": "Maximum Effect Level",
+  "text.autoconfig.vinery.option.items.wine.startDuration": "Initial Effect Duration",
+  "text.autoconfig.vinery.option.items.wine.durationPerYear": "Additional Duration Gained Each Year",
+  "text.autoconfig.vinery.option.items.wine.yearsPerEffectLevel": "Years Required to Increase Effect Level",
+  "text.autoconfig.vinery.option.items.wine.dayPerYear": "Number of Days in a Year"
 }
