@@ -1,7 +1,7 @@
 package net.satisfy.vinery.client.gui.handler;
 
-import de.cristelknight.doapi.client.recipebook.IRecipeBookGroup;
-import de.cristelknight.doapi.client.recipebook.handler.AbstractRecipeBookGUIScreenHandler;
+//import de.cristelknight.doapi.client.recipebook.IRecipeBookGroup;
+//import de.cristelknight.doapi.client.recipebook.handler.AbstractRecipeBookGUIScreenHandler;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -13,7 +13,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.satisfy.vinery.client.gui.handler.slot.ExtendedSlot;
 import net.satisfy.vinery.client.gui.handler.slot.StoveOutputSlot;
-import net.satisfy.vinery.client.recipebook.group.FermentationBarrelRecipeBookGroup;
 import net.satisfy.vinery.recipe.FermentationBarrelRecipe;
 import net.satisfy.vinery.registry.ObjectRegistry;
 import net.satisfy.vinery.registry.RecipeTypesRegistry;
@@ -65,10 +64,10 @@ public class FermentationBarrelGuiHandler extends AbstractRecipeBookGUIScreenHan
         return progress * arrowWidth/ totalProgress + 1;
     }
 
-    @Override
-    public List<IRecipeBookGroup> getGroups() {
-        return FermentationBarrelRecipeBookGroup.FERMENTATION_GROUPS;
-    }
+//    @Override
+//    public List<IRecipeBookGroup> getGroups() {
+//        return FermentationBarrelRecipeBookGroup.FERMENTATION_GROUPS;
+//    }
 
     @Override
     public boolean hasIngredient(Recipe<?> recipe) {
