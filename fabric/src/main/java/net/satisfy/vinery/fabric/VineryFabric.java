@@ -9,6 +9,7 @@ import net.satisfy.vinery.fabric.config.VineryFabricConfig;
 import net.satisfy.vinery.fabric.registry.VineryFabricVillagers;
 import net.satisfy.vinery.fabric.world.VineryBiomeModification;
 import net.satisfy.vinery.registry.CompostableRegistry;
+import net.satisfy.vinery.registry.MobEffectRegistry;
 
 public class VineryFabric implements ModInitializer {
 
@@ -18,6 +19,7 @@ public class VineryFabric implements ModInitializer {
 
         VineryFabricVillagers.registerPOIAndProfession();
 
+        MobEffectRegistry.init();
         Vinery.init();
         CompostableRegistry.registerCompostable();
         VineryBiomeModification.init();

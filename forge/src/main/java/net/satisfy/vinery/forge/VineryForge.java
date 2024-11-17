@@ -8,6 +8,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 import net.satisfy.vinery.Vinery;
 import net.satisfy.vinery.forge.config.VineryForgeConfig;
+import net.satisfy.vinery.forge.registry.VineryForgeMobEffects;
 import net.satisfy.vinery.forge.registry.VineryForgeVillagers;
 import net.satisfy.vinery.registry.CompostableRegistry;
 import net.satisfy.vinery.registry.ObjectRegistry;
@@ -20,6 +21,7 @@ public class VineryForge {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         EventBuses.registerModEventBus(Vinery.MOD_ID, modEventBus);
         PreInit.preInit();
+        VineryForgeMobEffects.register(modEventBus);
         Vinery.init();
         VineryForgeConfig.loadConfig(VineryForgeConfig.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve("vinery.toml").toString());
         VineryForgeVillagers.register(modEventBus);
