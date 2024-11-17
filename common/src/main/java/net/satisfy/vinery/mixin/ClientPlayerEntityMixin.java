@@ -11,6 +11,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ElytraItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.satisfy.vinery.platform.PlatformHelper;
 import net.satisfy.vinery.registry.MobEffectRegistry;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -33,7 +34,7 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayer {
 
     @Inject(method = "aiStep", at = @At("HEAD"))
     private void tickMovement(CallbackInfo info) {
-        if(this.hasEffect(MobEffectRegistry.IMPROVED_JUMP_BOOST.get())) {
+        if(this.hasEffect(PlatformHelper.getImprovedJumpBoostEffect())) {
             LocalPlayer player = (LocalPlayer) (Object) this;
             if (player.onGround() || player.onClimbable()) {
                 jumpCount = 1;
@@ -51,12 +52,13 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayer {
 
     @Redirect(method = "updateAutoJump", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;hasEffect(Lnet/minecraft/world/effect/MobEffect;)Z"))
     public boolean improvedJumpBoost(LocalPlayer livingEntity, MobEffect statusEffect) {
-        return livingEntity.hasEffect(MobEffects.JUMP) || livingEntity.hasEffect(MobEffectRegistry.IMPROVED_JUMP_BOOST.get());
+        // not always true, ignore warning
+        return livingEntity.hasEffect(MobEffects.JUMP) || livingEntity.hasEffect(PlatformHelper.getImprovedJumpBoostEffect());
     }
 
     @Redirect(method = "updateAutoJump", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;getEffect(Lnet/minecraft/world/effect/MobEffect;)Lnet/minecraft/world/effect/MobEffectInstance;"))
     public MobEffectInstance improvedJumpBoostAmplifier(LocalPlayer livingEntity, MobEffect statusEffect) {
-        return livingEntity.hasEffect(MobEffectRegistry.IMPROVED_JUMP_BOOST.get()) ?  livingEntity.getEffect(MobEffectRegistry.IMPROVED_JUMP_BOOST.get()) : livingEntity.getEffect(MobEffects.JUMP);
+        return livingEntity.hasEffect(PlatformHelper.getImprovedJumpBoostEffect()) ?  livingEntity.getEffect(PlatformHelper.getImprovedJumpBoostEffect()) : livingEntity.getEffect(MobEffects.JUMP);
     }
 
     @Unique

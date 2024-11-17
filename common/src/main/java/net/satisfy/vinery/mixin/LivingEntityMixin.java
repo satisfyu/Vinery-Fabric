@@ -10,6 +10,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.satisfy.vinery.platform.PlatformHelper;
 import net.satisfy.vinery.registry.MobEffectRegistry;
 import net.satisfy.vinery.util.FoodComponent;
 import net.satisfy.vinery.util.WineYears;
@@ -62,13 +63,13 @@ public abstract class LivingEntityMixin extends Entity {
 
 	@Redirect(method = "calculateFallDamage", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;getEffect(Lnet/minecraft/world/effect/MobEffect;)Lnet/minecraft/world/effect/MobEffectInstance;"))
 	public MobEffectInstance improvedJumpBoostFall(LivingEntity livingEntity, MobEffect effect) {
-		return livingEntity.hasEffect(MobEffectRegistry.IMPROVED_JUMP_BOOST.get()) ? livingEntity.getEffect(MobEffectRegistry.IMPROVED_JUMP_BOOST.get()) : livingEntity.getEffect(MobEffects.JUMP);
+		return livingEntity.hasEffect(PlatformHelper.getImprovedJumpBoostEffect()) ? livingEntity.getEffect(PlatformHelper.getImprovedJumpBoostEffect()) : livingEntity.getEffect(MobEffects.JUMP);
 	}
 
 	@Inject(method = "getJumpBoostPower", at = @At(value = "HEAD"), cancellable = true)
 	private void improvedJumpBoost(CallbackInfoReturnable<Float> cir) {
-		if (this.hasStatusEffect(MobEffectRegistry.IMPROVED_JUMP_BOOST.get())) {
-			cir.setReturnValue((0.1F * (float)(this.activeEffects.get(MobEffectRegistry.IMPROVED_JUMP_BOOST.get()).getAmplifier() + 1)));
+		if (this.hasStatusEffect(PlatformHelper.getImprovedJumpBoostEffect())) {
+			cir.setReturnValue((0.1F * (float)(this.activeEffects.get(PlatformHelper.getImprovedJumpBoostEffect()).getAmplifier() + 1)));
 		}
 	}
 }

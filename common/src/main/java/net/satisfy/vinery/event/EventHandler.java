@@ -13,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
+import net.satisfy.vinery.platform.PlatformHelper;
 import net.satisfy.vinery.registry.MobEffectRegistry;
 import org.jetbrains.annotations.Nullable;
 
@@ -22,7 +23,7 @@ public class EventHandler {
     private static final Random random = new Random();
 
     public static EventResult onAttack(Player player, Level level, Entity target, InteractionHand hand, @Nullable EntityHitResult result) {
-        if (player.hasEffect(MobEffectRegistry.PARTY_EFFECT.get())) {
+        if (player.hasEffect(PlatformHelper.getPartyEffect())) {
             if (target instanceof LivingEntity entity) {
                 int color = random.nextInt(0xFFFFFF);
 

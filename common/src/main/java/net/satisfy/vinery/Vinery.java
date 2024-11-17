@@ -14,7 +14,6 @@ public class Vinery {
     public static final String MOD_ID = "vinery";
 
     public static void init() {
-        // MobEffectRegistry.init();
         ObjectRegistry.init();
         EntityTypeRegistry.init();
         BoatAndSignRegistry.init();
