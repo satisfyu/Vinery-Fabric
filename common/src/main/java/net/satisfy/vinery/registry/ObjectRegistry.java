@@ -237,9 +237,8 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Block> RED_JUNGLE_GRAPE_BAG = registerWithItem("red_jungle_grape_bag", () -> new FacingBlock(BlockBehaviour.Properties.of().strength(2.0F, 3.0F).sound(SoundType.WOOL)));
 
 
-    public static final RegistrySupplier<Item> CHERRY_WINE_ITEM = registerWineItem("cherry_wine", CHERRY_WINE, () -> createWineSettings(() -> MobEffects.REGENERATION, 1600, 0), true);
-    public static final RegistrySupplier<Item> MAGNETIC_WINE_ITEM = registerWineItem("magnetic_wine", MAGNETIC_WINE, () -> createWineSettings(() -> PlatformHelper.getMagnetEffect(), 1600, 0), true);
 
+    public static final RegistrySupplier<Item> MAGNETIC_WINE_ITEM = registerWineItem("magnetic_wine", MAGNETIC_WINE, () -> createWineSettings(() -> PlatformHelper.getMagnetEffect(), 1600, 0), true);
     public static final RegistrySupplier<Item> JO_SPECIAL_MIXTURE_ITEM = registerWineItem("jo_special_mixture", JO_SPECIAL_MIXTURE, () -> createWineSettings(() -> PlatformHelper.getClimbingEffect(), 1600, 0), true);
     public static final RegistrySupplier<Item> CRISTEL_WINE_ITEM = registerWineItem("cristel_wine", CRISTEL_WINE, () -> createWineSettings(() -> PlatformHelper.getExperienceEffect(), 1600, 0), true);
     public static final RegistrySupplier<Item> GLOWING_WINE_ITEM = registerWineItem("glowing_wine",GLOWING_WINE, () -> createWineSettings(() -> MobEffects.GLOWING, 1600, 0), true);
@@ -262,8 +261,10 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Item> VILLAGERS_FRIGHT_ITEM = registerWineItem("villagers_fright", VILLAGERS_FRIGHT, () -> createWineSettings(() -> MobEffects.BAD_OMEN, 1600, 0), true);
     public static final RegistrySupplier<Item> CHORUS_WINE_ITEM = registerWineItemConstantDuration("chorus_wine",CHORUS_WINE, () -> createWineSettings(() -> PlatformHelper.getTeleportEffect(), 1800, 0));
     public static final RegistrySupplier<Item> CREEPERS_CRUSH_ITEM = registerWineItemConstantDuration("creepers_crush",CREEPERS_CRUSH, () -> createWineSettings(() -> PlatformHelper.getCreeperEffect(), 1800, 2));
+
     public static final RegistrySupplier<Item> MEAD_ITEM = registerWineItemConstantDuration("mead",MEAD, () -> createWineSettings(() -> MobEffects.SATURATION, 2400, 0));
     public static final RegistrySupplier<Item> NOIR_WINE_ITEM = registerWineItemConstantDuration("noir_wine",NOIR_WINE, () -> createWineSettings(() -> MobEffects.HEAL, 1800, 2));
+    public static final RegistrySupplier<Item> CHERRY_WINE_ITEM = registerWineItem("cherry_wine", CHERRY_WINE, () -> createWineSettings(() -> MobEffects.REGENERATION, 1600, 0), true);
 
 
     public static void init() {
