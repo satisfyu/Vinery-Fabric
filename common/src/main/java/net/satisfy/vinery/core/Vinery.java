@@ -17,7 +17,6 @@ public class Vinery {
         MobEffectRegistry.init();
         ObjectRegistry.init();
         EntityTypeRegistry.init();
-        BoatAndSignRegistry.init();
         ScreenhandlerTypeRegistry.init();
         RecipeTypesRegistry.init();
         VineryFeatures.init();

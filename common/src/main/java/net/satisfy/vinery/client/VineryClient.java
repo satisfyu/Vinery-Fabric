@@ -19,10 +19,8 @@ import net.satisfy.vinery.client.render.block.BasketRenderer;
 import net.satisfy.vinery.client.render.block.CompletionistBannerRenderer;
 import net.satisfy.vinery.client.render.entity.MuleRenderer;
 import net.satisfy.vinery.client.render.entity.WanderingWinemakerRenderer;
-import net.satisfy.vinery.core.registry.BoatAndSignRegistry;
 import net.satisfy.vinery.core.registry.EntityTypeRegistry;
 import net.satisfy.vinery.core.registry.ScreenhandlerTypeRegistry;
-import net.satisfy.vinery.core.terraform.sign.TerraformSignHelper;
 
 import static net.satisfy.vinery.core.registry.ObjectRegistry.*;
 
@@ -70,7 +68,6 @@ public class VineryClient {
     }
 
     public static void preInitClient(){
-        TerraformSignHelper.regsterSignSprite(BoatAndSignRegistry.DARK_CHERRY_SIGN_TEXTURE);
         EntityModelLayerRegistry.register(MuleModel.LAYER_LOCATION, MuleModel::getTexturedModelData);
         EntityModelLayerRegistry.register(BasketRenderer.LAYER_LOCATION, BasketRenderer::getTexturedModelData);
         EntityRendererRegistry.register(EntityTypeRegistry.MULE, MuleRenderer::new);

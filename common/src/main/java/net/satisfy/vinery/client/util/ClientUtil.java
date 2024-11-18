@@ -16,6 +16,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class ClientUtil {
     public static <T extends BlockEntity> void renderBlock(BlockState state, PoseStack matrices, MultiBufferSource vertexConsumers, T entity) {
+        if (entity == null || state == null) return;
+
         Level level = entity.getLevel();
         if (level != null) {
             Minecraft.getInstance().getBlockRenderer().renderSingleBlock(state, matrices, vertexConsumers, getLightLevel(level, entity.getBlockPos()), OverlayTexture.NO_OVERLAY);
@@ -23,10 +25,14 @@ public class ClientUtil {
     }
 
     public static <T extends BlockEntity> void renderBlockFromItem(BlockItem item, PoseStack matrices, MultiBufferSource vertexConsumers, T entity) {
+        if (item == null || entity == null) return;
+
         renderBlock(item.getBlock().defaultBlockState(), matrices, vertexConsumers, entity);
     }
 
     public static <T extends BlockEntity> void renderItem(ItemStack stack, PoseStack matrices, MultiBufferSource vertexConsumers, T entity) {
+        if (stack == null || entity == null) return;
+
         Level level = entity.getLevel();
         if (level != null) {
             Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.GUI, getLightLevel(level, entity.getBlockPos()), OverlayTexture.NO_OVERLAY, matrices, vertexConsumers, level, 1);

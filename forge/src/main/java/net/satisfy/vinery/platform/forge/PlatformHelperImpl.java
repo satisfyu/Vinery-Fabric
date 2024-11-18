@@ -1,14 +1,8 @@
 package net.satisfy.vinery.platform.forge;
 
 import com.mojang.datafixers.util.Pair;
-import de.cristelknight.doapi.forge.terraform.boat.impl.entity.TerraformBoatEntity;
-import de.cristelknight.doapi.forge.terraform.boat.impl.entity.TerraformChestBoatEntity;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.vehicle.Boat;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.forgespi.locating.IModFile;
@@ -16,13 +10,6 @@ import net.minecraftforge.resource.PathPackResources;
 import net.satisfy.vinery.forge.core.config.VineryForgeConfig;
 import net.satisfy.vinery.forge.core.packs.BuiltInPackRegistry;
 import net.satisfy.vinery.forge.core.registry.BurningBlockRegistry;
-import net.satisfy.vinery.forge.core.terraform.sign.SpriteIdentifierRegistry;
-import net.satisfy.vinery.forge.core.terraform.sign.block.TerraformHangingSignBlock;
-import net.satisfy.vinery.forge.core.terraform.sign.block.TerraformSignBlock;
-import net.satisfy.vinery.forge.core.terraform.sign.block.TerraformWallHangingSignBlock;
-import net.satisfy.vinery.forge.core.terraform.sign.block.TerraformWallSignBlock;
-import net.satisfy.vinery.core.terraform.boat.TerraformBoatType;
-import net.satisfy.vinery.core.terraform.boat.TerraformBoatTypeRegistry;
 
 import javax.annotation.Nullable;
 import java.nio.file.Path;
@@ -85,39 +72,15 @@ public class PlatformHelperImpl {
         BurningBlockRegistry.add(burnOdd, igniteOdd, blocks);
     }
 
-    public static Block getSign(ResourceLocation signTextureId) {
-        return new TerraformSignBlock(signTextureId, BlockBehaviour.Properties.copy(Blocks.OAK_SIGN));
-    }
-
-    public static Block getWallSign(ResourceLocation signTextureId) {
-        return new TerraformWallSignBlock(signTextureId, BlockBehaviour.Properties.copy(Blocks.OAK_SIGN));
-    }
-
-    public static Block getHangingSign(ResourceLocation hangingSignTextureId, ResourceLocation hangingSignGuiTextureId) {
-        return new TerraformHangingSignBlock(hangingSignTextureId, hangingSignGuiTextureId, BlockBehaviour.Properties.copy(Blocks.OAK_HANGING_SIGN));
-    }
-
-    public static Block getWallHangingSign(ResourceLocation hangingSignTextureId, ResourceLocation hangingSignGuiTextureId) {
-        return new TerraformWallHangingSignBlock(hangingSignTextureId, hangingSignGuiTextureId, BlockBehaviour.Properties.copy(Blocks.OAK_HANGING_SIGN));
-    }
-
-    public static void addSignSprite(ResourceLocation signTextureId) {
-        SpriteIdentifierRegistry.INSTANCE.addIdentifier(signTextureId);
-    }
-
-    public static void registerBoatType(ResourceLocation resourceLocation, TerraformBoatType type) {
-        TerraformBoatTypeRegistry.register(resourceLocation, type);
-    }
-
     @Nullable
     public static Path getResourceDirectory(String modId, String subPath) {
-        ModContainer container = (ModContainer) ModList.get().getModContainerById(modId).orElse(null);
+        ModContainer container = ModList.get().getModContainerById(modId).orElse(null);
         if (container == null) {
             System.out.println("Mod container for modId:" + modId + " is null");
             return null;
         } else {
             IModFile file = container.getModInfo().getOwningFile().getFile();
-            Path path = file.findResource(new String[]{subPath});
+            Path path = file.findResource(subPath);
             if (path == null) {
                 System.out.println("Path for subPath: " + subPath + " in modId: " + modId + " is null");
             }
@@ -135,22 +98,6 @@ public class PlatformHelperImpl {
         }
     }
 
-    public static Boat createBoat(ResourceLocation boatTypeName, Level world, double x, double y, double z, boolean chest) {
-        de.cristelknight.doapi.terraform.boat.TerraformBoatType boatType = de.cristelknight.doapi.forge.terraform.boat.api.TerraformBoatTypeRegistry.get(boatTypeName);
-        Object boatEntity;
-        if (chest) {
-            TerraformChestBoatEntity chestBoat = new TerraformChestBoatEntity(world, x, y, z);
-            chestBoat.setTerraformBoat(boatType);
-            boatEntity = chestBoat;
-        } else {
-            TerraformBoatEntity boat = new TerraformBoatEntity(world, x, y, z);
-            boat.setTerraformBoat(boatType);
-            boatEntity = boat;
-        }
-
-        return (Boat)boatEntity;
-    }
-
     public static List<? extends String> getBasketBlacklist() {
         return VineryForgeConfig.BASKET_BLACKLIST.get();
     }
@@ -158,9 +105,11 @@ public class PlatformHelperImpl {
     public static double getTraderSpawnChance() {
         return VineryForgeConfig.TRADER_SPAWN_CHANCE.get();
     }
+
     public static boolean shouldSpawnWithMules() {
         return VineryForgeConfig.SPAWN_WITH_MULES.get();
     }
+
     public static int getTraderSpawnDelay() {
         return VineryForgeConfig.TRADER_SPAWN_DELAY.get();
     }

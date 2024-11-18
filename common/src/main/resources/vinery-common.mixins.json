@@ -1,20 +1,20 @@
 {
   "required": true,
-  "package": "net.satisfy.vinery.core.mixin",
+  "package": "net.satisfy.vinery.mixin",
   "compatibilityLevel": "JAVA_17",
   "minVersion": "0.8",
   "client": [
-    "net.satisfy.vinery.mixin.ClientPlayerEntityMixin"
+    "ClientPlayerEntityMixin"
   ],
   "mixins": [
-    "net.satisfy.vinery.mixin.BlockMixin",
-    "net.satisfy.vinery.mixin.BoneMealItemMixin",
-    "net.satisfy.vinery.mixin.FoxEntityEatSweetBerriesGoalMixin",
-    "net.satisfy.vinery.mixin.LivingEntityMixin",
-    "net.satisfy.vinery.mixin.PlantBlockMixin",
-    "net.satisfy.vinery.mixin.ShovelItemMixin",
-    "net.satisfy.vinery.mixin.SpreadingSnowyDirtBlockMixin",
-    "net.satisfy.vinery.mixin.WanderingTraderManagerMixin"
+    "BlockMixin",
+    "BoneMealItemMixin",
+    "FoxEntityEatSweetBerriesGoalMixin",
+    "LivingEntityMixin",
+    "PlantBlockMixin",
+    "ShovelItemMixin",
+    "SpreadingSnowyDirtBlockMixin",
+    "WanderingTraderManagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -78,10 +78,11 @@ public class PaleStemBlock extends StemBlock {
                 dropGrapes(world, state, pos, hit.getDirection());
             }
             dropGrapeSeeds(world, state, pos, hit.getDirection());
-            world.setBlock(pos, withAge(state, 0, GrapeTypeRegistry.NONE), 3);
+            world.setBlock(pos, withAge(state, Math.max(0, age - 1), state.getValue(GRAPE)), 3);
             world.playSound(player, pos, SoundEvents.SWEET_BERRY_BUSH_BREAK, SoundSource.AMBIENT, 1.0F, 1.0F);
             return InteractionResult.sidedSuccess(world.isClientSide);
         }
+
 
         final ItemStack stack = player.getItemInHand(hand);
         if (stack.getItem() instanceof GrapeBushSeedItem seed && hasTrunk(world, pos)) {

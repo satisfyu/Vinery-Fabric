@@ -42,8 +42,9 @@ public class GrapejuiceBottleItem extends Item {
             }
         }
 
-        return itemStack.isEmpty() ? new ItemStack(ObjectRegistry.WINE_BOTTLE.get()) : itemStack;
+        return itemStack.isEmpty() ? ItemStack.EMPTY : itemStack;
     }
+
 
     public int getUseDuration(ItemStack itemStack) {
         return 40;
