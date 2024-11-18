@@ -31,6 +31,10 @@ public class VineryForgeConfig {
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> LEVEL3_TRADES;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> LEVEL4_TRADES;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> LEVEL5_TRADES;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> BASKET_BLACKLIST;
+    public static final ForgeConfigSpec.DoubleValue TRADER_SPAWN_CHANCE;
+    public static final ForgeConfigSpec.BooleanValue SPAWN_WITH_MULES;
+    public static final ForgeConfigSpec.IntValue TRADER_SPAWN_DELAY;
 
     static {
         ForgeConfigSpec.Builder COMMON_BUILDER = new ForgeConfigSpec.Builder();
@@ -97,9 +101,28 @@ public class VineryForgeConfig {
                 .define("showTooltip", true);
 
         COMMON_BUILDER.pop();
+        COMMON_BUILDER.push("Basket");
 
+        BASKET_BLACKLIST = COMMON_BUILDER
+                .comment("List of item IDs that are blacklisted from being placed in the picnic basket. Format: 'modid:itemname'")
+                .defineList("basketBlacklist", List.of(
+                        "vinery:basket"
+                ), obj -> obj instanceof String);
         COMMON_BUILDER.pop();
 
+        COMMON_BUILDER.push("WanderingTrader");
+        TRADER_SPAWN_CHANCE = COMMON_BUILDER
+                .comment("Chance for the custom trader to spawn. Range: 0.0 to 1.0")
+                .defineInRange("spawnChance", 0.5, 0.0, 1.0);
+
+        SPAWN_WITH_MULES = COMMON_BUILDER
+                .comment("If true, the trader will spawn with mules.")
+                .define("spawnWithMules", true);
+
+        TRADER_SPAWN_DELAY = COMMON_BUILDER
+                .comment("Spawn delay for the trader in ticks.")
+                .defineInRange("spawnDelay", 48000, 1, Integer.MAX_VALUE);
+        COMMON_BUILDER.pop();
         COMMON_BUILDER.push("VillagerTrades");
 
         LEVEL1_TRADES = COMMON_BUILDER

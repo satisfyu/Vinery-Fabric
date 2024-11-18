@@ -10,7 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.satisfy.vinery.client.gui.handler.slot.ExtendedSlot;
-import net.satisfy.vinery.client.gui.handler.slot.StoveOutputSlot;
+import net.satisfy.vinery.client.gui.handler.slot.FermentationBarrelOutputSlot;
 import net.satisfy.vinery.recipe.FermentationBarrelRecipe;
 import net.satisfy.vinery.registry.ObjectRegistry;
 import net.satisfy.vinery.registry.RecipeTypesRegistry;
@@ -32,7 +32,7 @@ public class FermentationBarrelGuiHandler extends AbstractRecipeBookGUIScreenHan
         this.addSlot(new ExtendedSlot(inventory, 2, 51, 26, this::isIngredient));
         this.addSlot(new ExtendedSlot(inventory, 3, 33, 44, this::isIngredient));
         this.addSlot(new ExtendedSlot(inventory, 4, 51, 44, this::isIngredient));
-        this.addSlot(new StoveOutputSlot(playerInventory.player, inventory, 5, 128,  35));
+        this.addSlot(new FermentationBarrelOutputSlot(playerInventory.player, inventory, 5, 128,  35));
     }
 
     private void buildPlayerContainer(Inventory playerInventory) {

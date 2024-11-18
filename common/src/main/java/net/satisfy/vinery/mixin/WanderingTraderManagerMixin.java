@@ -14,6 +14,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.storage.ServerLevelData;
 import net.satisfy.vinery.entity.TraderMuleEntity;
+import net.satisfy.vinery.platform.PlatformHelper;
 import net.satisfy.vinery.registry.EntityTypeRegistry;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
@@ -35,7 +36,7 @@ public abstract class WanderingTraderManagerMixin implements CustomSpawner {
 
 	@Inject(method = "spawn", at = @At(value = "INVOKE", shift = At.Shift.BEFORE, target = "Lnet/minecraft/world/entity/EntityType;spawn(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/MobSpawnType;)Lnet/minecraft/world/entity/Entity;"), cancellable = true)
 	private void trySpawn(ServerLevel world, CallbackInfoReturnable<Boolean> cir) {
-		if (world.random.nextBoolean()) {
+		if (world.random.nextDouble() < PlatformHelper.getTraderSpawnChance()) {
 			ServerPlayer playerEntity = world.getRandomPlayer();
 			if (playerEntity != null) {
 				BlockPos blockPos = playerEntity.blockPosition();
@@ -47,17 +48,19 @@ public abstract class WanderingTraderManagerMixin implements CustomSpawner {
 					if (!world.getBiome(blockPos3).is(Biomes.THE_VOID)) {
 						WanderingTrader wanderingTraderEntity = EntityTypeRegistry.WANDERING_WINEMAKER.get().spawn(world, blockPos3, MobSpawnType.EVENT);
 						if (wanderingTraderEntity != null) {
-							for (int j = 0; j < 2; ++j) {
-								BlockPos blockPos4 = this.findSpawnPositionNear(world, wanderingTraderEntity.blockPosition(), 4);
-								if (blockPos4 != null) {
-									TraderMuleEntity traderLlamaEntity = EntityTypeRegistry.MULE.get().spawn(world, blockPos4, MobSpawnType.EVENT);
-									if (traderLlamaEntity != null) {
-										traderLlamaEntity.setLeashedTo(wanderingTraderEntity, true);
+							if (PlatformHelper.shouldSpawnWithMules()) {
+								for (int j = 0; j < 2; ++j) {
+									BlockPos blockPos4 = this.findSpawnPositionNear(world, wanderingTraderEntity.blockPosition(), 4);
+									if (blockPos4 != null) {
+										TraderMuleEntity traderMuleEntity = EntityTypeRegistry.MULE.get().spawn(world, blockPos4, MobSpawnType.EVENT);
+										if (traderMuleEntity != null) {
+											traderMuleEntity.setLeashedTo(wanderingTraderEntity, true);
+										}
 									}
 								}
 							}
 							this.serverLevelData.setWanderingTraderId(wanderingTraderEntity.getUUID());
-							wanderingTraderEntity.setDespawnDelay(48000);
+							wanderingTraderEntity.setDespawnDelay(PlatformHelper.getTraderSpawnDelay());
 							wanderingTraderEntity.setWanderTarget(blockPos2);
 							wanderingTraderEntity.restrictTo(blockPos2, 16);
 							cir.setReturnValue(true);

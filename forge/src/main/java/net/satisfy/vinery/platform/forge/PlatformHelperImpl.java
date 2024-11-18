@@ -26,6 +26,7 @@ import net.satisfy.vinery.terraform.boat.TerraformBoatTypeRegistry;
 
 import javax.annotation.Nullable;
 import java.nio.file.Path;
+import java.util.List;
 
 public class PlatformHelperImpl {
     public static int getTotalFermentationTime() {
@@ -148,5 +149,19 @@ public class PlatformHelperImpl {
         }
 
         return (Boat)boatEntity;
+    }
+
+    public static List<? extends String> getBasketBlacklist() {
+        return VineryForgeConfig.BASKET_BLACKLIST.get();
+    }
+
+    public static double getTraderSpawnChance() {
+        return VineryForgeConfig.TRADER_SPAWN_CHANCE.get();
+    }
+    public static boolean shouldSpawnWithMules() {
+        return VineryForgeConfig.SPAWN_WITH_MULES.get();
+    }
+    public static int getTraderSpawnDelay() {
+        return VineryForgeConfig.TRADER_SPAWN_DELAY.get();
     }
 }

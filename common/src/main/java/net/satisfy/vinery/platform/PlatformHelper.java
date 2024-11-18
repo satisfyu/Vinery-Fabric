@@ -7,6 +7,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.satisfy.vinery.terraform.boat.TerraformBoatType;
 
+import java.util.List;
+
 public class PlatformHelper {
     @ExpectPlatform
     public static int getTotalFermentationTime() {
@@ -115,6 +117,24 @@ public class PlatformHelper {
 
     @ExpectPlatform
     public static Boat createBoat(ResourceLocation boatTypeName, Level world, double x, double y, double z, boolean chest) {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static List<String> getBasketBlacklist() {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static double getTraderSpawnChance() {
+        throw new AssertionError();
+    }
+    @ExpectPlatform
+    public static boolean shouldSpawnWithMules() {
+        throw new AssertionError();
+    }
+    @ExpectPlatform
+    public static int getTraderSpawnDelay() {
         throw new AssertionError();
     }
 }

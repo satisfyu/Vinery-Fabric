@@ -45,6 +45,9 @@ public class VineryFabricConfig implements ConfigData {
         @ConfigEntry.Gui.CollapsibleObject
         public BannerSettings banner = new BannerSettings();
 
+        @ConfigEntry.Gui.CollapsibleObject
+        public BasketSettings basket = new BasketSettings();
+
         public static class WineSettings {
             @ConfigEntry.BoundedDiscrete(min = 1, max = 100000)
             public int startDuration = 1800;
@@ -75,6 +78,16 @@ public class VineryFabricConfig implements ConfigData {
         public boolean isShowTooltipEnabled() {
             return giveEffect && showTooltip;
         }
+    }
+
+    @ConfigEntry.Gui.CollapsibleObject
+    public TraderSettings trader = new TraderSettings();
+    public static class TraderSettings {
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 1)
+        public double spawnChance = 0.5;
+        public boolean spawnWithMules = true;
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 72000)
+        public int spawnDelay = 48000;
     }
 
     public static class VillagerSettings {
@@ -150,6 +163,19 @@ public class VineryFabricConfig implements ConfigData {
         public enum TradeType {
             BUY,
             SELL
+        }
+    }
+
+    public static class BasketSettings {
+        @ConfigEntry.Gui.CollapsibleObject
+        @ConfigEntry.Category("Items/Basket")
+        public BasketBlacklistSettings blacklist = new BasketBlacklistSettings();
+        public static class BasketBlacklistSettings {
+            public List<String> basketBlacklist = new ArrayList<>();
+            public BasketBlacklistSettings() {
+                basketBlacklist.add("minecraft:shulker_box");
+                basketBlacklist.add("vinery:basket");
+            }
         }
     }
 }

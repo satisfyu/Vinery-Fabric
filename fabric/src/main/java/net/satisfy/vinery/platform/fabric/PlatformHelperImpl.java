@@ -28,6 +28,8 @@ import me.shedaniel.autoconfig.AutoConfig;
 import net.satisfy.vinery.registry.ObjectRegistry;
 import net.satisfy.vinery.terraform.boat.TerraformBoatType;
 
+import java.util.List;
+
 public class PlatformHelperImpl extends PlatformHelper {
     public static int getTotalFermentationTime() {
         VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
@@ -152,5 +154,23 @@ public class PlatformHelperImpl extends PlatformHelper {
         }
 
         return (Boat)boatEntity;
+    }
+
+    public static List<String> getBasketBlacklist() {
+        VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
+        return config.items.basket.blacklist.basketBlacklist;
+    }
+
+    public static double getTraderSpawnChance() {
+        VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
+        return config.trader.spawnChance;
+    }
+    public static boolean shouldSpawnWithMules() {
+        VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
+        return config.trader.spawnWithMules;
+    }
+    public static int getTraderSpawnDelay() {
+        VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
+        return config.trader.spawnDelay;
     }
 }

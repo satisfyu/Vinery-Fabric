@@ -9,11 +9,11 @@ import net.minecraft.world.item.ItemStack;
 import net.satisfy.vinery.block.entity.FermentationBarrelBlockEntity;
 import org.jetbrains.annotations.NotNull;
 
-public class StoveOutputSlot extends Slot {
+public class FermentationBarrelOutputSlot extends Slot {
     private final Player player;
     private int amount;
 
-    public StoveOutputSlot(Player player, Container inventory, int index, int x, int y) {
+    public FermentationBarrelOutputSlot(Player player, Container inventory, int index, int x, int y) {
         super(inventory, index, x, y);
         this.player = player;
     }
