@@ -17,14 +17,17 @@ public class StorageTypeRegistry {
     public static final ResourceLocation WINE_BOX = new VineryIdentifier("wine_box");
     public static final ResourceLocation WINE_BOTTLE = new VineryIdentifier("wine_bottle");
 
+    public static final ResourceLocation FLOWER_POT_BIG = new VineryIdentifier("flower_pot_big");
+    public static final ResourceLocation FLOWER_BOX = new VineryIdentifier("flower_box");
+
     public static void registerBlocks(Set<Block> blocks) {
         blocks.add(DARK_CHERRY_WINE_RACK_SMALL.get());
         blocks.add(DARK_CHERRY_WINE_RACK_BIG.get());
         blocks.add(DARK_CHERRY_WINE_RACK_MID.get());
         blocks.add(DARK_CHERRY_SHELF.get());
         blocks.add(ObjectRegistry.WINE_BOX.get());
-        blocks.add(FLOWER_BOX.get());
-        blocks.add(FLOWER_POT_BIG.get());
+        blocks.add(ObjectRegistry.FLOWER_BOX.get());
+        blocks.add(ObjectRegistry.FLOWER_POT_BIG.get());
         blocks.add(OAK_WINE_RACK_BIG.get());
         blocks.add(OAK_WINE_RACK_SMALL.get());
         blocks.add(OAK_WINE_RACK_MID.get());

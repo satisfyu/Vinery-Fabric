@@ -1,9 +1,6 @@
 package net.satisfy.vinery.block.storage;
 
 import com.mojang.datafixers.util.Pair;
-import de.cristelknight.doapi.common.block.StorageBlock;
-import de.cristelknight.doapi.common.block.entity.StorageBlockEntity;
-import de.cristelknight.doapi.common.util.GeneralUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -28,8 +25,10 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.satisfy.vinery.block.entity.StorageBlockEntity;
 import net.satisfy.vinery.item.DrinkBlockItem;
 import net.satisfy.vinery.registry.StorageTypeRegistry;
+import net.satisfy.vinery.util.GeneralUtil;
 import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("deprecation")

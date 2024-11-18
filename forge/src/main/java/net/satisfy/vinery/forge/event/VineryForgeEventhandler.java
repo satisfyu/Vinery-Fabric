@@ -1,6 +1,5 @@
 package net.satisfy.vinery.forge.event;
 
-import de.cristelknight.doapi.common.util.VillagerUtil;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.Item;
 import net.minecraft.resources.ResourceLocation;
@@ -12,6 +11,7 @@ import net.satisfy.vinery.Vinery;
 import net.satisfy.vinery.forge.config.VineryForgeConfig;
 import net.satisfy.vinery.forge.registry.VineryForgeVillagers;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.satisfy.vinery.util.VillagerUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,6 +1,5 @@
 package net.satisfy.vinery.fabric.registry;
 
-import de.cristelknight.doapi.common.util.VillagerUtil;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.fabric.api.object.builder.v1.villager.VillagerProfessionBuilder;
@@ -17,6 +16,7 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.item.Item;
 import net.satisfy.vinery.fabric.config.VineryFabricConfig;
 import net.satisfy.vinery.registry.ObjectRegistry;
+import net.satisfy.vinery.util.VillagerUtil;
 import net.satisfy.vinery.util.VineryIdentifier;
 
 public class VineryFabricVillagers {

@@ -2,7 +2,6 @@ package net.satisfy.vinery.recipe;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import de.cristelknight.doapi.common.util.GeneralUtil;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
@@ -14,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.satisfy.vinery.registry.RecipeTypesRegistry;
+import net.satisfy.vinery.util.GeneralUtil;
 import org.jetbrains.annotations.NotNull;
 
 public class FermentationBarrelRecipe implements Recipe<Container> {

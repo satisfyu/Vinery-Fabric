@@ -14,9 +14,22 @@ public class SoundEventRegistry {
 
     public static final RegistrySupplier<SoundEvent> BLOCK_GRAPEVINE_POT_SQUEEZE = create();
 
+    public static final RegistrySupplier<SoundEvent> CABINET_OPEN = create("cabinet_open");
+    public static final RegistrySupplier<SoundEvent> CABINET_CLOSE = create("cabinet_close");
+
+    public static final RegistrySupplier<SoundEvent> DRAWER_OPEN = create("drawer_open");
+    public static final RegistrySupplier<SoundEvent> DRAWER_CLOSE = create("drawer_close");
+
     private static RegistrySupplier<SoundEvent> create() {
         final ResourceLocation id = new VineryIdentifier("block.grapevine_pot.squeeze");
         return SOUND_EVENTS.register(id, () -> SoundEvent.createVariableRangeEvent(id));
+    }
+
+    private static RegistrySupplier<SoundEvent> create(String name) {
+        ResourceLocation id = new VineryIdentifier(name);
+        return SOUND_EVENTS.register(id, () -> {
+            return SoundEvent.createVariableRangeEvent(id);
+        });
     }
 
     public static void init() {

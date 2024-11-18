@@ -1,6 +1,5 @@
 package net.satisfy.vinery.block.entity;
 
-import de.cristelknight.doapi.common.world.ImplementedInventory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -27,6 +26,7 @@ import net.satisfy.vinery.registry.EntityTypeRegistry;
 import net.satisfy.vinery.registry.ObjectRegistry;
 import net.satisfy.vinery.registry.RecipeTypesRegistry;
 import net.satisfy.vinery.util.WineYears;
+import net.satisfy.vinery.world.ImplementedInventory;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

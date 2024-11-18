@@ -1,7 +1,5 @@
 package net.satisfy.vinery.client;
 
-import de.cristelknight.doapi.client.render.block.storage.api.StorageBlockEntityRenderer;
-import de.cristelknight.doapi.client.render.block.storage.api.StorageTypeRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.satisfy.vinery.client.render.block.storage.*;
 import net.satisfy.vinery.registry.StorageTypeRegistry;

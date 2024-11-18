@@ -1,11 +1,11 @@
 package net.satisfy.vinery;
 
-import de.cristelknight.doapi.DoApiEP;
 import dev.architectury.hooks.item.tool.AxeItemHooks;
 import dev.architectury.hooks.item.tool.ShovelItemHooks;
 import dev.architectury.registry.fuel.FuelRegistry;
 import net.minecraft.world.level.block.Blocks;
 import net.satisfy.vinery.event.EventHandler;
+import net.satisfy.vinery.platform.PlatformHelper;
 import net.satisfy.vinery.registry.*;
 import net.satisfy.vinery.util.VineryIdentifier;
 import net.satisfy.vinery.world.VineryFeatures;
@@ -25,7 +25,7 @@ public class Vinery {
         EventHandler.register();
         TabRegistry.init();
 
-        DoApiEP.registerBuiltInPack(Vinery.MOD_ID, new VineryIdentifier("bushy_leaves"), false);
+        PlatformHelper.registerBuiltInPack(Vinery.MOD_ID, new VineryIdentifier("bushy_leaves"), false);
     }
 
     public static void commonSetup() {

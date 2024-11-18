@@ -1,7 +1,5 @@
 package net.satisfy.vinery.block.stem;
 
-
-import de.cristelknight.doapi.common.util.GeneralUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -26,6 +24,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.satisfy.vinery.block.grape.GrapeProperty;
 import net.satisfy.vinery.block.grape.GrapeType;
 import net.satisfy.vinery.registry.GrapeTypeRegistry;
+import net.satisfy.vinery.util.GeneralUtil;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class StemBlock extends Block implements BonemealableBlock {

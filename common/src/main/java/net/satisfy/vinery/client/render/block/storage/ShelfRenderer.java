@@ -2,14 +2,13 @@ package net.satisfy.vinery.client.render.block.storage;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import de.cristelknight.doapi.client.ClientUtil;
-import de.cristelknight.doapi.client.render.block.storage.api.StorageTypeRenderer;
-import de.cristelknight.doapi.common.block.entity.StorageBlockEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
+import net.satisfy.vinery.block.entity.StorageBlockEntity;
+import net.satisfy.vinery.client.VineryClient;
 
 @Environment(EnvType.CLIENT)
 public class ShelfRenderer implements StorageTypeRenderer {
@@ -26,7 +25,7 @@ public class ShelfRenderer implements StorageTypeRenderer {
                 matrices.pushPose();
                 matrices.translate(0f, 0f, 0.2f * i);
                 matrices.mulPose(Axis.YN.rotationDegrees(22.5f));
-                ClientUtil.renderItem(stack, matrices, vertexConsumers, entity);
+                VineryClient.renderItem(stack, matrices, vertexConsumers, entity);
                 matrices.popPose();
             }
         }

@@ -1,6 +1,6 @@
 package net.satisfy.vinery.client;
 
-import de.cristelknight.doapi.terraform.sign.TerraformSignHelper;
+import com.mojang.blaze3d.vertex.PoseStack;
 import dev.architectury.registry.client.level.entity.EntityModelLayerRegistry;
 import dev.architectury.registry.client.level.entity.EntityRendererRegistry;
 import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
@@ -9,9 +9,21 @@ import dev.architectury.registry.client.rendering.RenderTypeRegistry;
 import dev.architectury.registry.menu.MenuRegistry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GrassColor;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.satisfy.vinery.client.gui.ApplePressGui;
 import net.satisfy.vinery.client.gui.BasketGui;
 import net.satisfy.vinery.client.gui.FermentationBarrelGui;
@@ -23,6 +35,7 @@ import net.satisfy.vinery.client.render.entity.WanderingWinemakerRenderer;
 import net.satisfy.vinery.registry.BoatAndSignRegistry;
 import net.satisfy.vinery.registry.EntityTypeRegistry;
 import net.satisfy.vinery.registry.ScreenhandlerTypeRegistry;
+import net.satisfy.vinery.terraform.sign.TerraformSignHelper;
 
 import static net.satisfy.vinery.registry.ObjectRegistry.*;
 
@@ -80,5 +93,29 @@ public class VineryClient {
         EntityModelLayerRegistry.register(WinemakerLeggingsModel.LAYER_LOCATION, WinemakerLeggingsModel::createBodyLayer);
         EntityModelLayerRegistry.register(WinemakerBootsModel.LAYER_LOCATION, WinemakerBootsModel::createBodyLayer);
         EntityModelLayerRegistry.register(CompletionistBannerRenderer.LAYER_LOCATION, CompletionistBannerRenderer::createBodyLayer);
+    }
+
+    public static <T extends BlockEntity> void renderBlock(BlockState state, PoseStack matrices, MultiBufferSource vertexConsumers, T entity) {
+        Level level = entity.getLevel();
+        if (level != null) {
+            Minecraft.getInstance().getBlockRenderer().renderSingleBlock(state, matrices, vertexConsumers, getLightLevel(level, entity.getBlockPos()), OverlayTexture.NO_OVERLAY);
+        }
+    }
+
+    public static <T extends BlockEntity> void renderBlockFromItem(BlockItem item, PoseStack matrices, MultiBufferSource vertexConsumers, T entity) {
+        renderBlock(item.getBlock().defaultBlockState(), matrices, vertexConsumers, entity);
+    }
+
+    public static <T extends BlockEntity> void renderItem(ItemStack stack, PoseStack matrices, MultiBufferSource vertexConsumers, T entity) {
+        Level level = entity.getLevel();
+        if (level != null) {
+            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.GUI, getLightLevel(level, entity.getBlockPos()), OverlayTexture.NO_OVERLAY, matrices, vertexConsumers, level, 1);
+        }
+    }
+
+    public static int getLightLevel(Level world, BlockPos pos) {
+        int bLight = world.getBrightness(LightLayer.BLOCK, pos);
+        int sLight = world.getBrightness(LightLayer.SKY, pos);
+        return LightTexture.pack(bLight, sLight);
     }
 }

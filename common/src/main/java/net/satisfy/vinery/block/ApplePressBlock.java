@@ -1,6 +1,5 @@
 package net.satisfy.vinery.block;
 
-import de.cristelknight.doapi.common.util.GeneralUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -30,6 +29,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.satisfy.vinery.block.entity.ApplePressBlockEntity;
 import net.satisfy.vinery.registry.EntityTypeRegistry;
 import net.satisfy.vinery.registry.ObjectRegistry;
+import net.satisfy.vinery.util.GeneralUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

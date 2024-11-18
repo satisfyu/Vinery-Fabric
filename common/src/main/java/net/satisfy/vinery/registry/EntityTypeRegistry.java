@@ -1,5 +1,6 @@
 package net.satisfy.vinery.registry;
 
+import com.mojang.datafixers.types.Type;
 import dev.architectury.registry.level.entity.EntityAttributeRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
@@ -8,12 +9,11 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.horse.Llama;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.satisfy.vinery.Vinery;
-import net.satisfy.vinery.block.entity.ApplePressBlockEntity;
-import net.satisfy.vinery.block.entity.BasketBlockEntity;
-import net.satisfy.vinery.block.entity.CompletionistBannerEntity;
-import net.satisfy.vinery.block.entity.FermentationBarrelBlockEntity;
+import net.satisfy.vinery.block.entity.*;
+import net.satisfy.vinery.entity.ChairEntity;
 import net.satisfy.vinery.entity.TraderMuleEntity;
 import net.satisfy.vinery.entity.WanderingWinemakerEntity;
 import net.satisfy.vinery.util.VineryIdentifier;
@@ -23,6 +23,21 @@ import java.util.function.Supplier;
 public class EntityTypeRegistry {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES = DeferredRegister.create(Vinery.MOD_ID, Registries.BLOCK_ENTITY_TYPE);
     private static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(Vinery.MOD_ID, Registries.ENTITY_TYPE);
+
+    public static final RegistrySupplier<BlockEntityType<StorageBlockEntity>> STORAGE_ENTITY = registerBlockEntity("storage", () -> BlockEntityType.Builder.of(
+            StorageBlockEntity::new, new Block[]{}).build(null));
+
+    public static final RegistrySupplier<BlockEntityType<FlowerPotBlockEntity>> FLOWER_POT_ENTITY = registerBlockEntity("flower_pot", () -> {
+        return BlockEntityType.Builder.of(FlowerPotBlockEntity::new, new Block[]{}).build((Type)null);
+    });
+
+    public static final RegistrySupplier<BlockEntityType<CabinetBlockEntity>> CABINET_BLOCK_ENTITY = registerBlockEntity("cabinet", () -> {
+        return BlockEntityType.Builder.of(CabinetBlockEntity::new, new Block[]{}).build((Type)null);
+    });
+
+    public static final RegistrySupplier<EntityType<ChairEntity>> CHAIR = registerEntity("chair", () -> {
+        return EntityType.Builder.of(ChairEntity::new, MobCategory.MISC).sized(0.001F, 0.001F).build((new VineryIdentifier("chair")).toString());
+    });
 
     public static final RegistrySupplier<BlockEntityType<ApplePressBlockEntity>> APPLE_PRESS_BLOCK_ENTITY = registerBlockEntity("apple_press", () -> BlockEntityType.Builder.of(ApplePressBlockEntity::new, ObjectRegistry.APPLE_PRESS.get()).build(null));
     public static final RegistrySupplier<BlockEntityType<FermentationBarrelBlockEntity>> FERMENTATION_BARREL_ENTITY = registerBlockEntity("fermentation_barrel", () -> BlockEntityType.Builder.of(FermentationBarrelBlockEntity::new, ObjectRegistry.FERMENTATION_BARREL.get()).build(null));
