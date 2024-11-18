@@ -2,7 +2,7 @@ package net.satisfy.vinery.fabric.mixin;
 
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.player.Player;
-import net.satisfy.vinery.registry.MobEffectRegistry;
+import net.satisfy.vinery.core.registry.MobEffectRegistry;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArgs;

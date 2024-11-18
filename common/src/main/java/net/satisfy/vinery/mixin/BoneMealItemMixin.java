@@ -7,11 +7,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BoneMealItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
-import net.satisfy.vinery.item.WinemakerBootsItem;
-import net.satisfy.vinery.item.WinemakerChestItem;
-import net.satisfy.vinery.item.StrawHatItem;
-import net.satisfy.vinery.item.WinemakerLegsItem;
-import net.satisfy.vinery.registry.ArmorRegistry;
+import net.satisfy.vinery.core.item.WinemakerBootsItem;
+import net.satisfy.vinery.core.item.WinemakerChestItem;
+import net.satisfy.vinery.core.item.WinemakerHelmetItem;
+import net.satisfy.vinery.core.item.WinemakerLegsItem;
+import net.satisfy.vinery.core.registry.ArmorRegistry;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -34,7 +34,7 @@ public abstract class BoneMealItemMixin {
 			ItemStack leggings = player.getItemBySlot(EquipmentSlot.LEGS);
 			ItemStack boots = player.getItemBySlot(EquipmentSlot.FEET);
 
-			if (helmet.getItem() instanceof StrawHatItem &&
+			if (helmet.getItem() instanceof WinemakerHelmetItem &&
 					chestplate.getItem() instanceof WinemakerChestItem &&
 					leggings.getItem() instanceof WinemakerLegsItem &&
 					boots.getItem() instanceof WinemakerBootsItem) {

@@ -6,12 +6,11 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
-import net.satisfy.vinery.Vinery;
-import net.satisfy.vinery.forge.config.VineryForgeConfig;
-import net.satisfy.vinery.forge.registry.VineryForgeVillagers;
-import net.satisfy.vinery.registry.CompostableRegistry;
-import net.satisfy.vinery.registry.ObjectRegistry;
-import net.satisfy.vinery.util.PreInit;
+import net.satisfy.vinery.core.Vinery;
+import net.satisfy.vinery.forge.core.config.VineryForgeConfig;
+import net.satisfy.vinery.forge.core.registry.VineryForgeVillagers;
+import net.satisfy.vinery.core.registry.CompostableRegistry;
+import net.satisfy.vinery.core.util.PreInit;
 
 
 @Mod(Vinery.MOD_ID)

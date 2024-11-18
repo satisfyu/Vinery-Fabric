@@ -9,8 +9,8 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.satisfy.vinery.item.WinemakerBootsItem;
-import net.satisfy.vinery.registry.ArmorRegistry;
+import net.satisfy.vinery.core.item.WinemakerBootsItem;
+import net.satisfy.vinery.core.registry.ArmorRegistry;
 
 public class WinemakerBootsRenderer implements ArmorRenderer {
     @Override

@@ -6,7 +6,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.satisfy.vinery.client.gui.handler.BasketGuiHandler;
-import net.satisfy.vinery.util.VineryIdentifier;
+import net.satisfy.vinery.core.util.VineryIdentifier;
 
 public class BasketGui extends AbstractContainerScreen<BasketGuiHandler> {
     private static final ResourceLocation CONTAINER_LOCATION = new VineryIdentifier("textures/gui/basket.png");

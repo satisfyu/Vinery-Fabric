@@ -11,10 +11,10 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.satisfy.vinery.client.gui.handler.slot.ExtendedSlot;
 import net.satisfy.vinery.client.gui.handler.slot.FermentationBarrelOutputSlot;
-import net.satisfy.vinery.recipe.FermentationBarrelRecipe;
-import net.satisfy.vinery.registry.ObjectRegistry;
-import net.satisfy.vinery.registry.RecipeTypesRegistry;
-import net.satisfy.vinery.registry.ScreenhandlerTypeRegistry;
+import net.satisfy.vinery.core.recipe.FermentationBarrelRecipe;
+import net.satisfy.vinery.core.registry.ObjectRegistry;
+import net.satisfy.vinery.core.registry.RecipeTypesRegistry;
+import net.satisfy.vinery.core.registry.ScreenhandlerTypeRegistry;
 
 public class FermentationBarrelGuiHandler extends AbstractRecipeBookGUIScreenHandler {
     public FermentationBarrelGuiHandler(int syncId, Inventory playerInventory) {

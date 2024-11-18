@@ -22,11 +22,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.satisfy.vinery.fabric.config.VineryFabricConfig;
-import net.satisfy.vinery.fabric.terraform.DoApiBoatTypeHolder;
+import net.satisfy.vinery.fabric.core.terraform.DoApiBoatTypeHolder;
 import net.satisfy.vinery.platform.PlatformHelper;
 import me.shedaniel.autoconfig.AutoConfig;
-import net.satisfy.vinery.registry.ObjectRegistry;
-import net.satisfy.vinery.terraform.boat.TerraformBoatType;
+import net.satisfy.vinery.core.terraform.boat.TerraformBoatType;
 
 import java.util.List;
 
@@ -106,7 +105,6 @@ public class PlatformHelperImpl extends PlatformHelper {
             Block b = var4[var6];
             registry.add(b, burnOdd, igniteOdd);
         }
-
     }
 
     public static Block getSign(ResourceLocation signTextureId) {

@@ -8,11 +8,11 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import net.satisfy.vinery.block.storage.WineBottleBlock;
-import net.satisfy.vinery.block.entity.StorageBlockEntity;
-import net.satisfy.vinery.client.VineryClient;
-import net.satisfy.vinery.item.DrinkBlockItem;
-import net.satisfy.vinery.registry.ObjectRegistry;
+import net.satisfy.vinery.core.block.storage.WineBottleBlock;
+import net.satisfy.vinery.core.block.entity.StorageBlockEntity;
+import net.satisfy.vinery.client.util.ClientUtil;
+import net.satisfy.vinery.core.item.DrinkBlockItem;
+import net.satisfy.vinery.core.registry.ObjectRegistry;
 
 @Environment(EnvType.CLIENT)
 public class WineBottleRenderer implements StorageTypeRenderer {
@@ -36,7 +36,7 @@ public class WineBottleRenderer implements StorageTypeRenderer {
 
     private void renderOne(StorageBlockEntity entity, PoseStack matrices, MultiBufferSource vertexConsumers, NonNullList<ItemStack> nonNullList) {
         if(nonNullList.get(0).getItem() instanceof DrinkBlockItem item){
-            VineryClient.renderBlock(getState(item), matrices, vertexConsumers, entity);
+            ClientUtil.renderBlock(getState(item), matrices, vertexConsumers, entity);
         }
     }
 
@@ -50,12 +50,12 @@ public class WineBottleRenderer implements StorageTypeRenderer {
 
         matrices.translate(-0.15f, 0f, -0.25f);
         if(item1 != null){
-            VineryClient.renderBlock(getState(item1), matrices, vertexConsumers, entity);
+            ClientUtil.renderBlock(getState(item1), matrices, vertexConsumers, entity);
         }
         matrices.translate(.1f, 0f, .8f);
         matrices.mulPose(Axis.YP.rotationDegrees(30));
         if(item2 != null){
-            VineryClient.renderBlock(getState(item2), matrices, vertexConsumers, entity);
+            ClientUtil.renderBlock(getState(item2), matrices, vertexConsumers, entity);
         }
     }
 
@@ -65,21 +65,21 @@ public class WineBottleRenderer implements StorageTypeRenderer {
         DrinkBlockItem item3 = nonNullList.get(1).getItem() instanceof DrinkBlockItem item ? item : null;
         matrices.translate(-0.25f, 0f, -0.25f);
         if(item1 != null){
-            VineryClient.renderBlock(getState(item1), matrices, vertexConsumers, entity);
+            ClientUtil.renderBlock(getState(item1), matrices, vertexConsumers, entity);
         }
         matrices.translate(.15f, 0f, .5f);
         if(item2 != null){
-            VineryClient.renderBlock(getState(item2), matrices, vertexConsumers, entity);
+            ClientUtil.renderBlock(getState(item2), matrices, vertexConsumers, entity);
         }
         if(item3 == null) return;
         if (item3.asItem().equals(ObjectRegistry.KELP_CIDER.get().asItem())) {
             matrices.translate(.35f, .7f, -.13f);
             matrices.mulPose(Axis.XP.rotationDegrees(90));
-            VineryClient.renderBlock(getState(item3), matrices, vertexConsumers, entity);
+            ClientUtil.renderBlock(getState(item3), matrices, vertexConsumers, entity);
             return;
         }
         matrices.translate(.1f, 0f, 0f);
         matrices.mulPose(Axis.YP.rotationDegrees(30));
-        VineryClient.renderBlock(getState(item3), matrices, vertexConsumers, entity);
+        ClientUtil.renderBlock(getState(item3), matrices, vertexConsumers, entity);
     }
 }

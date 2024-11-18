@@ -8,9 +8,9 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
-import net.satisfy.vinery.block.storage.WineBottleBlock;
-import net.satisfy.vinery.block.entity.StorageBlockEntity;
-import net.satisfy.vinery.client.VineryClient;
+import net.satisfy.vinery.core.block.storage.WineBottleBlock;
+import net.satisfy.vinery.core.block.entity.StorageBlockEntity;
+import net.satisfy.vinery.client.util.ClientUtil;
 
 @Environment(EnvType.CLIENT)
 public class WineBoxRenderer implements StorageTypeRenderer {
@@ -24,7 +24,7 @@ public class WineBoxRenderer implements StorageTypeRenderer {
 
             matrices.mulPose(Axis.YN.rotationDegrees(90f));
 
-            VineryClient.renderBlock(blockItem.getBlock().defaultBlockState().setValue(WineBottleBlock.FAKE_MODEL, false), matrices, vertexConsumers, entity);
+            ClientUtil.renderBlock(blockItem.getBlock().defaultBlockState().setValue(WineBottleBlock.FAKE_MODEL, false), matrices, vertexConsumers, entity);
         }
     }
 }

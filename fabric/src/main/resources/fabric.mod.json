@@ -5,11 +5,14 @@
   "name": "[Let's Do] Vinery",
   "description": "In Vino Veritas - it's time for wine! Build your own vineyard, produce wine, and establish your own winery.",
   "authors": [
-    "satisfy, Cristelknight, BaumeisterJO"
+    "Jason13Official, Satisfy, cph101dev"
+  ],
+  "contributors": [
+    "MissLilitu, Cristelknight, cph101dev, BaumeisterJO, CR-055"
   ],
   "contact": {
-    "sources": "https://github.com/satisfyu/Vinery-Fabric",
-    "homepage": "https://legacy.curseforge.com/minecraft/mc-mods/lets-do-vinery"
+    "sources": "https://github.com/satisfyu/Vinery",
+    "issues": "https://github.com/satisfyu/Let-s-Do-Hub"
   },
   "license": "Custom",
   "icon": "pack.png",
@@ -25,24 +28,14 @@
       "net.satisfy.vinery.fabric.VineryFabricPre"
     ],
     "rei_client": [
-      "net.satisfy.vinery.fabric.rei.VineryReiClientPluginFabric"
+      "net.satisfy.vinery.fabric.core.rei.VineryReiClientPluginFabric"
     ],
     "jei_mod_plugin": [
-      "net.satisfy.vinery.compat.jei.VineryJEIPlugin"
+      "net.satisfy.vinery.core.compat.jei.VineryJEIPlugin"
     ],
     "modmenu": [
       "net.satisfy.vinery.fabric.config.ModMenu"
-    ],
-    "doapi": [
-      "net.satisfy.vinery.util.api.VineryDoApi"
     ]
-  },
-  "custom": {
-    "modmenu": {
-      "links": {
-        "modmenu.discord": "https://discord.gg/Vqu6wYZwdZ"
-      }
-    }
   },
   "mixins": [
     "vinery.mixins.json",
@@ -51,8 +44,7 @@
   "depends": {
     "fabric-api": "*",
     "minecraft": ">=1.20",
-    "architectury": ">=9.0.8",
-    "doapi": ">=1.2.9"
+    "architectury": ">=9.0.8"
   },
   "conflicts": {
     "copperative": "*"

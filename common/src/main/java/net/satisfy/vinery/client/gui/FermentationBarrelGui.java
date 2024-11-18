@@ -7,7 +7,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.satisfy.vinery.client.gui.handler.FermentationBarrelGuiHandler;
-import net.satisfy.vinery.util.VineryIdentifier;
+import net.satisfy.vinery.core.util.VineryIdentifier;
 
 @Environment(EnvType.CLIENT)
 public class FermentationBarrelGui extends AbstractRecipeBookGUIScreen<FermentationBarrelGuiHandler> {

@@ -7,7 +7,7 @@ import net.satisfy.vinery.fabric.client.renderer.StrawHatRenderer;
 import net.satisfy.vinery.fabric.client.renderer.WinemakerBootsRenderer;
 import net.satisfy.vinery.fabric.client.renderer.WinemakerChestplateRenderer;
 import net.satisfy.vinery.fabric.client.renderer.WinemakerLeggingsRenderer;
-import net.satisfy.vinery.registry.ObjectRegistry;
+import net.satisfy.vinery.core.registry.ObjectRegistry;
 
 public class VineryClientFabric implements ClientModInitializer {
     @Override

@@ -45,7 +45,6 @@ dependencies {
     modImplementation("me.shedaniel:RoughlyEnoughItems-fabric:$rei_version") { exclude group: 'net.fabricmc', module: 'fabric-loader' }
     modImplementation "com.terraformersmc.terraform-api:terraform-wood-api-v1:${rootProject.terraform_wood_api_version}"
     modImplementation "com.terraformersmc:modmenu:${rootProject.mod_menu_version}"
-    modImplementation "maven.modrinth:do-api:${project.doapi_version}-fabric"
 
     modApi( "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}") { exclude group: 'net.fabricmc', module: 'fabric-loader' }
     modApi( "dev.architectury:architectury-fabric:${rootProject.architectury_version}") { exclude group: 'net.fabricmc', module: 'fabric-loader' }

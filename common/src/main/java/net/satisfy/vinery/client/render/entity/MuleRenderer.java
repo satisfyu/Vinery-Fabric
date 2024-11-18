@@ -6,8 +6,8 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.satisfy.vinery.client.model.MuleModel;
-import net.satisfy.vinery.entity.TraderMuleEntity;
-import net.satisfy.vinery.util.VineryIdentifier;
+import net.satisfy.vinery.core.entity.TraderMuleEntity;
+import net.satisfy.vinery.core.util.VineryIdentifier;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(value= EnvType.CLIENT)

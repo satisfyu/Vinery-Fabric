@@ -2,7 +2,7 @@ package net.satisfy.vinery.client;
 
 import net.minecraft.resources.ResourceLocation;
 import net.satisfy.vinery.client.render.block.storage.*;
-import net.satisfy.vinery.registry.StorageTypeRegistry;
+import net.satisfy.vinery.core.registry.StorageTypeRegistry;
 
 public class ClientStorageTypes {
 

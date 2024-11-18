@@ -10,8 +10,8 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
-import net.satisfy.vinery.item.StrawHatItem;
-import net.satisfy.vinery.registry.ArmorRegistry;
+import net.satisfy.vinery.core.item.WinemakerHelmetItem;
+import net.satisfy.vinery.core.registry.ArmorRegistry;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import java.util.function.Consumer;
 
 @SuppressWarnings("all")
-@Mixin(StrawHatItem.class)
+@Mixin(WinemakerHelmetItem.class)
 public abstract class HelmetItemMixin extends ArmorItem {
     @Shadow
     @Final

@@ -5,7 +5,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.satisfy.vinery.terraform.boat.TerraformBoatType;
+import net.satisfy.vinery.core.terraform.boat.TerraformBoatType;
 
 import java.util.List;
 

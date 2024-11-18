@@ -7,8 +7,8 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
-import net.satisfy.vinery.block.entity.StorageBlockEntity;
-import net.satisfy.vinery.client.VineryClient;
+import net.satisfy.vinery.core.block.entity.StorageBlockEntity;
+import net.satisfy.vinery.client.util.ClientUtil;
 
 @Environment(EnvType.CLIENT)
 public class ShelfRenderer implements StorageTypeRenderer {
@@ -25,7 +25,7 @@ public class ShelfRenderer implements StorageTypeRenderer {
                 matrices.pushPose();
                 matrices.translate(0f, 0f, 0.2f * i);
                 matrices.mulPose(Axis.YN.rotationDegrees(22.5f));
-                VineryClient.renderItem(stack, matrices, vertexConsumers, entity);
+                ClientUtil.renderItem(stack, matrices, vertexConsumers, entity);
                 matrices.popPose();
             }
         }

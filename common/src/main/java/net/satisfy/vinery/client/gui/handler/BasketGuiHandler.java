@@ -8,7 +8,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.satisfy.vinery.client.gui.handler.slot.PicnicBasketSlot;
-import net.satisfy.vinery.registry.ScreenhandlerTypeRegistry;
+import net.satisfy.vinery.core.registry.ScreenhandlerTypeRegistry;
 import org.jetbrains.annotations.NotNull;
 
 public class BasketGuiHandler extends AbstractContainerMenu {
