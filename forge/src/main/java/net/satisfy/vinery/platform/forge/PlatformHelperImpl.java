@@ -1,18 +1,9 @@
 package net.satisfy.vinery.platform.forge;
 
-import com.mojang.datafixers.util.Pair;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.fml.ModContainer;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.forgespi.locating.IModFile;
-import net.minecraftforge.resource.PathPackResources;
 import net.satisfy.vinery.forge.core.config.VineryForgeConfig;
-import net.satisfy.vinery.forge.core.packs.BuiltInPackRegistry;
 import net.satisfy.vinery.forge.core.registry.BurningBlockRegistry;
 
-import javax.annotation.Nullable;
-import java.nio.file.Path;
 import java.util.List;
 
 public class PlatformHelperImpl {
@@ -70,32 +61,6 @@ public class PlatformHelperImpl {
 
     public static void addFlammable(int burnOdd, int igniteOdd, Block... blocks) {
         BurningBlockRegistry.add(burnOdd, igniteOdd, blocks);
-    }
-
-    @Nullable
-    public static Path getResourceDirectory(String modId, String subPath) {
-        ModContainer container = ModList.get().getModContainerById(modId).orElse(null);
-        if (container == null) {
-            System.out.println("Mod container for modId:" + modId + " is null");
-            return null;
-        } else {
-            IModFile file = container.getModInfo().getOwningFile().getFile();
-            Path path = file.findResource(subPath);
-            if (path == null) {
-                System.out.println("Path for subPath: " + subPath + " in modId: " + modId + " is null");
-            }
-
-            return path;
-        }
-    }
-
-    public static void registerBuiltInPack(String modId, ResourceLocation location, boolean alwaysEnabled) {
-        String stringPath = location.getPath();
-        Path path = getResourceDirectory(modId, "resourcepacks/" + stringPath);
-        if (path != null) {
-            String[] pathElements = stringPath.split("/");
-            BuiltInPackRegistry.packResources.put(location, new Pair(new PathPackResources(pathElements[pathElements.length - 1], true, path), alwaysEnabled));
-        }
     }
 
     public static List<? extends String> getBasketBlacklist() {

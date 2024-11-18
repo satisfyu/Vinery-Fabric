@@ -86,10 +86,6 @@ public class PlatformHelperImpl extends PlatformHelper {
         }
     }
 
-    public static void registerBuiltInPack(String modId, ResourceLocation location, boolean alwaysEnabled) {
-        FabricLoader.getInstance().getModContainer(modId).ifPresent((modContainer) -> ResourceManagerHelper.registerBuiltinResourcePack(location, modContainer, alwaysEnabled ? ResourcePackActivationType.ALWAYS_ENABLED : ResourcePackActivationType.NORMAL));
-    }
-
     public static List<String> getBasketBlacklist() {
         VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
         return config.items.basket.blacklist.basketBlacklist;

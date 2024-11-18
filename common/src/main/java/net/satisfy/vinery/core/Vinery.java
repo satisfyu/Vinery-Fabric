@@ -23,8 +23,6 @@ public class Vinery {
         SoundEventRegistry.init();
         EventHandler.register();
         TabRegistry.init();
-
-        PlatformHelper.registerBuiltInPack(Vinery.MOD_ID, new VineryIdentifier("bushy_leaves"), false);
     }
 
     public static void commonSetup() {

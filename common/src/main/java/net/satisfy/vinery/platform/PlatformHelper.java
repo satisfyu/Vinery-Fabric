@@ -78,11 +78,6 @@ public class PlatformHelper {
     }
 
     @ExpectPlatform
-    public static void registerBuiltInPack(String modId, ResourceLocation location, boolean alwaysEnabled) {
-        throw new AssertionError();
-    }
-
-    @ExpectPlatform
     public static List<String> getBasketBlacklist() {
         throw new AssertionError();
     }
