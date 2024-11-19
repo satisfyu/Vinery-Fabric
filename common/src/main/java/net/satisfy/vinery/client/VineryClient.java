@@ -17,6 +17,7 @@ import net.satisfy.vinery.client.gui.FermentationBarrelGui;
 import net.satisfy.vinery.client.model.*;
 import net.satisfy.vinery.client.render.block.BasketRenderer;
 import net.satisfy.vinery.client.render.block.CompletionistBannerRenderer;
+import net.satisfy.vinery.client.render.block.storage.StorageBlockEntityRenderer;
 import net.satisfy.vinery.client.render.entity.MuleRenderer;
 import net.satisfy.vinery.client.render.entity.WanderingWinemakerRenderer;
 import net.satisfy.vinery.core.registry.EntityTypeRegistry;
@@ -48,7 +49,6 @@ public class VineryClient {
                 MANGROVE_LATTICE.get()
         );
 
-        ClientStorageTypes.init();
         RenderTypeRegistry.register(RenderType.translucent(), WINDOW.get());
 
         ColorHandlerRegistry.registerItemColors((stack, tintIndex) -> GrassColor.get(0.5, 1.0), GRASS_SLAB);
@@ -60,8 +60,11 @@ public class VineryClient {
                 },  GRASS_SLAB.get()
         );
 
+        ClientStorageTypes.init();
+
         BlockEntityRendererRegistry.register(EntityTypeRegistry.BASKET_ENTITY.get(), BasketRenderer::new);
         BlockEntityRendererRegistry.register(EntityTypeRegistry.VINERY_STANDARD.get(), CompletionistBannerRenderer::new);
+        BlockEntityRendererRegistry.register(EntityTypeRegistry.STORAGE_ENTITY.get(), context -> new StorageBlockEntityRenderer());
         MenuRegistry.registerScreenFactory(ScreenhandlerTypeRegistry.FERMENTATION_BARREL_GUI_HANDLER.get(), FermentationBarrelGui::new);
         MenuRegistry.registerScreenFactory(ScreenhandlerTypeRegistry.APPLE_PRESS_GUI_HANDLER.get(), ApplePressGui::new);
         MenuRegistry.registerScreenFactory(ScreenhandlerTypeRegistry.BASKET_GUI_HANDLER.get(), BasketGui::new);

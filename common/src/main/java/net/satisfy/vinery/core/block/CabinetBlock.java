@@ -43,7 +43,7 @@ public class CabinetBlock extends BaseEntityBlock {
         super(settings);
         this.openSound = openSound;
         this.closeSound = closeSound;
-        this.registerDefaultState((BlockState)((BlockState)((BlockState)this.stateDefinition.any()).setValue(FACING, Direction.NORTH)).setValue(OPEN, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(OPEN, false));
     }
 
     public @NotNull InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
@@ -51,8 +51,7 @@ public class CabinetBlock extends BaseEntityBlock {
             return InteractionResult.SUCCESS;
         } else {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof CabinetBlockEntity) {
-                CabinetBlockEntity blockEntity1 = (CabinetBlockEntity)blockEntity;
+            if (blockEntity instanceof CabinetBlockEntity blockEntity1) {
                 player.openMenu(blockEntity1);
             }
 

@@ -1,4 +1,4 @@
-package net.satisfy.vinery.core.block.storage;
+package net.satisfy.vinery.core.block;
 
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;

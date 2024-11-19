@@ -12,7 +12,7 @@ import java.util.List;
 public class VineryForgeConfig {
     public static final ForgeConfigSpec COMMON_CONFIG;
 
-    
+
     public static final ForgeConfigSpec.IntValue TOTAL_FERMENTATION_TIME;
     public static final ForgeConfigSpec.IntValue APPLE_PRESS_CRAFTING_TIME;
     public static final ForgeConfigSpec.DoubleValue CHERRY_GROWTH_CHANCE;

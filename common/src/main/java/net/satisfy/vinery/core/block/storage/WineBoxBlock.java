@@ -20,9 +20,10 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.satisfy.vinery.core.item.DrinkBlockSmallItem;
 import net.satisfy.vinery.core.registry.StorageTypeRegistry;
 import org.jetbrains.annotations.NotNull;
+
+import static net.satisfy.vinery.core.registry.ObjectRegistry.*;
 
 public class WineBoxBlock extends StorageBlock {
 
@@ -73,7 +74,16 @@ public class WineBoxBlock extends StorageBlock {
 
     @Override
     public boolean canInsertStack(ItemStack stack) {
-        return stack.getItem() instanceof DrinkBlockSmallItem;
+        return stack.getItem() == CHERRY_WINE_ITEM.get() ||
+                stack.getItem() == RED_WINE_ITEM.get() ||
+                stack.getItem() == STAL_WINE_ITEM.get() ||
+                stack.getItem() == BOLVAR_WINE_ITEM.get() ||
+                stack.getItem() == SOLARIS_WINE_ITEM.get() ||
+                stack.getItem() == KELP_CIDER_ITEM.get() ||
+                stack.getItem() == CLARK_WINE_ITEM.get() ||
+                stack.getItem() == BOTTLE_MOJANG_NOIR_ITEM.get() ||
+                stack.getItem() == VILLAGERS_FRIGHT_ITEM.get() ||
+                stack.getItem() == NOIR_WINE_ITEM.get();
     }
 
     @Override

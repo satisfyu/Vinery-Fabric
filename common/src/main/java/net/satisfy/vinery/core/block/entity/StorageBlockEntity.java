@@ -16,6 +16,7 @@ import net.satisfy.vinery.core.registry.EntityTypeRegistry;
 import net.satisfy.vinery.core.util.GeneralUtil;
 
 public class StorageBlockEntity extends BlockEntity {
+    
 
     private int size;
 

@@ -260,7 +260,6 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Item> MEAD_ITEM = registerWineItemConstantDuration("mead",MEAD, () -> createWineSettings(() -> MobEffects.SATURATION, 2400, 0));
     public static final RegistrySupplier<Item> NOIR_WINE_ITEM = registerWineItemConstantDuration("noir_wine",NOIR_WINE, () -> createWineSettings(() -> MobEffects.HEAL, 1800, 2));
 
-
     public static void init() {
         ITEMS.register();
         BLOCKS.register();
@@ -290,7 +289,7 @@ public class ObjectRegistry {
     }
 
     private static RegistrySupplier<Item> registerWineItem(String name, Supplier<Block> wineBlock, Supplier<WineSettings> wineSettings, boolean scaleDurationWithAge) {
-        return registerItem(name, () -> new DrinkBlockBigItem(
+        return registerItem(name, () -> new DrinkBlockItem(
                 wineBlock.get(),
                 wineSettings.get().getProperties(),
                 wineSettings.get().getBaseDuration(),
@@ -299,7 +298,7 @@ public class ObjectRegistry {
     }
 
     private static RegistrySupplier<Item> registerWineItemConstantDuration(String name, Supplier<Block> wineBlock, Supplier<WineSettings> wineSettings) {
-        return registerItem(name, () -> new DrinkBlockBigItem(
+        return registerItem(name, () -> new DrinkBlockItem(
                 wineBlock.get(),
                 wineSettings.get().getProperties(),
                 wineSettings.get().getBaseDuration(),

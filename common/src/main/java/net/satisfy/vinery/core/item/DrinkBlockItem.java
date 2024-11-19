@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class DrinkBlockItem extends BlockItem {
-    public DrinkBlockItem(Block block, Properties settings) {
+    public DrinkBlockItem(Block block, Properties settings, int baseDuration, boolean scaleDurationWithAge) {
         super(block, settings);
     }
 

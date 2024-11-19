@@ -22,6 +22,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.satisfy.vinery.core.util.ChairUtil;
+import org.jetbrains.annotations.NotNull;
 
 public class ChairBlock extends Block {
     public static final DirectionProperty FACING;
@@ -38,11 +39,11 @@ public class ChairBlock extends Block {
         VoxelShape leg2 = Block.box(3.0, 0.0, 11.0, 5.0, 9.0, 13.0);
         VoxelShape leg3 = Block.box(11.0, 0.0, 11.0, 13.0, 9.0, 13.0);
         VoxelShape leg4 = Block.box(11.0, 0.0, 3.0, 13.0, 9.0, 5.0);
-        return Shapes.or(top, new VoxelShape[]{leg1, leg2, leg3, leg4});
+        return Shapes.or(top, leg1, leg2, leg3, leg4);
     }
 
-    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-        switch ((Direction)state.getValue(FACING)) {
+    public @NotNull VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        switch (state.getValue(FACING)) {
             case WEST -> {
                 return Shapes.or(SINGLE_SHAPE, SHAPE[1]);
             }
@@ -58,7 +59,7 @@ public class ChairBlock extends Block {
         }
     }
 
-    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    public @NotNull InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         return ChairUtil.onUse(world, player, hand, hit, 0.1);
     }
 
