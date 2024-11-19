@@ -20,7 +20,7 @@ public class StorageTypeRegistry {
     public static final ResourceLocation FLOWER_POT_BIG = new VineryIdentifier("flower_pot_big");
     public static final ResourceLocation FLOWER_BOX = new VineryIdentifier("flower_box");
 
-    public static void registerBlocks(Set<Block> blocks) {
+    public static Set<Block> registerBlocks(Set<Block> blocks) {
         blocks.add(DARK_CHERRY_WINE_RACK_SMALL.get());
         blocks.add(DARK_CHERRY_WINE_RACK_BIG.get());
         blocks.add(DARK_CHERRY_WINE_RACK_MID.get());
@@ -63,5 +63,6 @@ public class StorageTypeRegistry {
                 BOTTLE_MOJANG_NOIR.get(), VILLAGERS_FRIGHT.get(), MEAD.get(), EISWEIN.get()
         ));
 
+        return blocks;
     }
 }
