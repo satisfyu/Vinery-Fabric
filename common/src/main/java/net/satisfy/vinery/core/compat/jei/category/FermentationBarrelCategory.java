@@ -57,11 +57,6 @@ public class FermentationBarrelCategory implements IRecipeCategory<FermentationB
     }
 
     @Override
-    public void draw(FermentationBarrelRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
-        arrow.draw(guiGraphics, FermentationBarrelGui.ARROW_X - WIDTH_OF, FermentationBarrelGui.ARROW_Y - HEIGHT_OF);
-    }
-
-    @Override
     public @NotNull RecipeType<FermentationBarrelRecipe> getRecipeType() {
         return FERMENTATION_BARREL;
     }
