@@ -72,6 +72,7 @@ public class TabRegistry {
                 //out.accept(new ItemStack(BoatAndSignRegistry.DARK_CHERRY_HANGING_SIGN_ITEM.get()));
                 out.accept(new ItemStack(ObjectRegistry.DARK_CHERRY_BARREL.get()));
                 out.accept(new ItemStack(ObjectRegistry.DARK_CHERRY_TRAPDOOR.get()));
+                out.accept(new ItemStack(ObjectRegistry.WINDOW_BLOCK.get()));
                 out.accept(new ItemStack(ObjectRegistry.WINDOW.get()));
                 out.accept(new ItemStack(ObjectRegistry.LOAM.get()));
                 out.accept(new ItemStack(ObjectRegistry.LOAM_STAIRS.get()));
@@ -79,6 +80,7 @@ public class TabRegistry {
                 out.accept(new ItemStack(ObjectRegistry.COARSE_DIRT_SLAB.get()));
                 out.accept(new ItemStack(ObjectRegistry.DIRT_SLAB.get()));
                 out.accept(new ItemStack(ObjectRegistry.GRASS_SLAB.get()));
+                out.accept(new ItemStack(ObjectRegistry.DIRT_PATH_SLAB.get()));
                 out.accept(new ItemStack(ObjectRegistry.APPLE_JUICE.get()));
                 out.accept(new ItemStack(ObjectRegistry.RED_GRAPEJUICE.get()));
                 out.accept(new ItemStack(ObjectRegistry.WHITE_GRAPEJUICE.get()));

@@ -49,7 +49,7 @@ public class VineryClient {
                 MANGROVE_LATTICE.get()
         );
 
-        RenderTypeRegistry.register(RenderType.translucent(), WINDOW.get());
+        RenderTypeRegistry.register(RenderType.translucent(), WINDOW.get(), WINDOW_BLOCK.get());
 
         ColorHandlerRegistry.registerItemColors((stack, tintIndex) -> GrassColor.get(0.5, 1.0), GRASS_SLAB);
         ColorHandlerRegistry.registerBlockColors((state,world,pos,tintIndex)->{

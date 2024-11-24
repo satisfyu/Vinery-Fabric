@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "#": {
-      "item": "minecraft:glass"
+      "item": "minecraft:glass_pane"
     },
     "$": {
       "item": "minecraft:yellow_dye"
@@ -21,6 +21,6 @@
   ],
   "result": {
     "count": 8,
-    "item": "vinery:window_block"
+    "item": "vinery:window"
   }
 }
