@@ -13,6 +13,11 @@ public class PlatformHelper {
     }
 
     @ExpectPlatform
+    public static int getMaxFluidLevel() {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
     public static int getApplePressMaxProgress() {
         throw new AssertionError();
     }

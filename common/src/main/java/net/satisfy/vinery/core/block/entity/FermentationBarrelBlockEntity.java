@@ -36,7 +36,6 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Implem
 
     private NonNullList<ItemStack> inventory;
     private int fermentationTime = 0;
-    private int totalFermentationTime;
     private int fluidLevel = 0;
     private String juiceType = "";
 
@@ -46,7 +45,7 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Implem
         public int get(int index) {
             return switch (index) {
                 case 0 -> FermentationBarrelBlockEntity.this.fermentationTime;
-                case 1 -> FermentationBarrelBlockEntity.this.totalFermentationTime;
+                case 1 -> PlatformHelper.getTotalFermentationTime(); 
                 case 2 -> FermentationBarrelBlockEntity.this.fluidLevel;
                 case 3 -> "red".equals(FermentationBarrelBlockEntity.this.juiceType) ? 1 : ("white".equals(FermentationBarrelBlockEntity.this.juiceType) ? 0 : -1);
                 default -> 0;
@@ -57,7 +56,7 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Implem
         public void set(int index, int value) {
             switch (index) {
                 case 0 -> FermentationBarrelBlockEntity.this.fermentationTime = value;
-                case 1 -> FermentationBarrelBlockEntity.this.updateTotalFermentationTime();
+                case 1 -> FermentationBarrelBlockEntity.this.updateTotalFermentationTime(); 
                 case 2 -> FermentationBarrelBlockEntity.this.setFluidLevel(value);
                 case 3 -> FermentationBarrelBlockEntity.this.juiceType = value == 1 ? "red" : (value == 0 ? "white" : "");
                 default -> {}
@@ -73,11 +72,11 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Implem
     public FermentationBarrelBlockEntity(BlockPos pos, BlockState state) {
         super(EntityTypeRegistry.FERMENTATION_BARREL_ENTITY.get(), pos, state);
         this.inventory = NonNullList.withSize(INVENTORY_SIZE, ItemStack.EMPTY);
-        this.totalFermentationTime = PlatformHelper.getTotalFermentationTime();
+        
     }
 
     public void updateTotalFermentationTime() {
-        this.totalFermentationTime = PlatformHelper.getTotalFermentationTime();
+        
         setChanged();
     }
 
@@ -108,7 +107,6 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Implem
         this.inventory = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
         ContainerHelper.loadAllItems(nbt, this.inventory);
         this.fermentationTime = nbt.getInt("FermentationTime");
-        this.totalFermentationTime = nbt.getInt("TotalFermentationTime");
         this.fluidLevel = nbt.getInt("FluidLevel");
         this.juiceType = nbt.getString("JuiceType");
     }
@@ -118,7 +116,6 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Implem
         super.saveAdditional(nbt);
         ContainerHelper.saveAllItems(nbt, this.inventory);
         nbt.putInt("FermentationTime", this.fermentationTime);
-        nbt.putInt("TotalFermentationTime", this.totalFermentationTime);
         nbt.putInt("FluidLevel", this.fluidLevel);
         nbt.putString("JuiceType", this.juiceType);
     }
@@ -141,7 +138,7 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Implem
         if (blockEntity.canCraft(recipe, access)) {
             blockEntity.fermentationTime++;
 
-            if (blockEntity.fermentationTime >= blockEntity.totalFermentationTime) {
+            if (blockEntity.fermentationTime >= PlatformHelper.getTotalFermentationTime()) {
                 blockEntity.fermentationTime = 0;
                 blockEntity.craft(recipe, access);
                 dirty = true;
@@ -157,9 +154,8 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Implem
             if (blockEntity.fluidLevel == 0 || blockEntity.juiceType.equals(newJuiceType)) {
                 blockEntity.setJuiceType(newJuiceType);
                 int currentLevel = blockEntity.getFluidLevel();
-                int maxFluidLevel = 100;
+                int maxFluidLevel = PlatformHelper.getMaxFluidLevel();
                 int grapeJuiceCount = stack.getCount();
-
                 int grapesToConsume = Math.min(grapeJuiceCount, 4);
                 int fluidIncrease = grapesToConsume * 25;
 

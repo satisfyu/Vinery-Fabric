@@ -11,6 +11,10 @@ public class PlatformHelperImpl {
         return VineryForgeConfig.TOTAL_FERMENTATION_TIME.get();
     }
 
+    public static int getMaxFluidLevel() {
+        return VineryForgeConfig.MAX_FLUID_LEVEL.get();
+    }
+
     public static int getApplePressMaxProgress() {
         return VineryForgeConfig.APPLE_PRESS_CRAFTING_TIME.get();
     }

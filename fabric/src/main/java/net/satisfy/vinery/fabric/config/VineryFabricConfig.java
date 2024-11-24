@@ -25,6 +25,9 @@ public class VineryFabricConfig implements ConfigData {
         @ConfigEntry.BoundedDiscrete(min = 1, max = 10000)
         public int totalFermentationTime = 6000;
 
+        @ConfigEntry.BoundedDiscrete(min = 100, max = 10000)
+        public int maxFluidLevel = 100;
+
         @ConfigEntry.BoundedDiscrete(min = 1, max = 10000)
         public int applePressMaxProgress = 600;
 

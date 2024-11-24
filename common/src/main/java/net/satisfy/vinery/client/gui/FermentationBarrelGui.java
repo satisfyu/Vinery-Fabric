@@ -11,6 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.satisfy.vinery.client.gui.handler.FermentationBarrelGuiHandler;
 import net.satisfy.vinery.core.util.VineryIdentifier;
+import net.satisfy.vinery.platform.PlatformHelper;
 
 @Environment(EnvType.CLIENT)
 public class FermentationBarrelGui extends AbstractContainerScreen<FermentationBarrelGuiHandler> {
@@ -31,10 +32,10 @@ public class FermentationBarrelGui extends AbstractContainerScreen<FermentationB
     private static final int CRAFT_PROGRESS_TEXTURE_X = 176;
     private static final int CRAFT_PROGRESS_TEXTURE_Y = 0;
     private static final int CRAFT_PROGRESS_WIDTH = 11;
-    private static final int CRAFT_PROGRESS_HEIGHT = 28;
+    private static final int CRAFT_PROGRESS_HEIGHT = 29;
     private static final int CRAFT_PROGRESS_GUI_X = 122;
     private static final int CRAFT_PROGRESS_GUI_Y = 20;
-    private static final int CRAFT_PROGRESS_GUI_HEIGHT = 28;
+    private static final int CRAFT_PROGRESS_GUI_HEIGHT = 29;
 
     public FermentationBarrelGui(FermentationBarrelGuiHandler handler, Inventory inventory, Component title) {
         super(handler, inventory, title);
@@ -60,54 +61,74 @@ public class FermentationBarrelGui extends AbstractContainerScreen<FermentationB
         this.renderTooltip(guiGraphics, mouseX, mouseY);
 
         if (isMouseOverFluidArea(mouseX, mouseY)) {
-            String juiceType = this.menu.getJuiceType();
-            int fluidLevel = this.menu.getFluidLevel();
-
-            Component tooltip;
-            if ("red".equals(juiceType)) {
-                tooltip = Component.translatable("tooltip.vinery.fermentation_barrel.red_juice_with_percentage", fluidLevel);
-            } else {
-                tooltip = Component.translatable("tooltip.vinery.fermentation_barrel.white_juice_with_percentage", fluidLevel);
-            }
-
+            Component tooltip = getFluidTooltip();
             guiGraphics.renderTooltip(this.font, tooltip, mouseX, mouseY);
         }
 
         if (isMouseOverCraftingTimeArea(mouseX, mouseY)) {
-            int totalTicks = this.menu.data.get(1); 
-            int currentTicks = this.menu.data.get(0); 
-            int remainingTicks = totalTicks - currentTicks; 
+            Component tooltip = getCraftingTimeTooltip();
+            guiGraphics.renderTooltip(this.font, tooltip, mouseX, mouseY);
+        }
+    }
 
-            if (remainingTicks > 0) {
-                int seconds = remainingTicks / 20;
-                int minutes = seconds / 60;
-                seconds %= 60;
+    private Component getFluidTooltip() {
+        String juiceType = this.menu.getJuiceType();
+        int fluidLevel = this.menu.getFluidLevel();
+        int maxFluidLevel = PlatformHelper.getMaxFluidLevel();
 
-                String formattedTime = String.format("%d:%02d Seconds", minutes, seconds);
-                Component tooltip = Component.translatable("tooltip.vinery.fermentation_barrel.crafting_time", formattedTime);
-                guiGraphics.renderTooltip(this.font, tooltip, mouseX, mouseY);
-            } else {
-                Component tooltip = Component.translatable("tooltip.vinery.fermentation_barrel.crafting_time", "0:00 Seconds");
-                guiGraphics.renderTooltip(this.font, tooltip, mouseX, mouseY);
-            }
+        double percentage = (double) fluidLevel / maxFluidLevel * 100;
+        String percentageStr = String.format("%.2f", percentage);
+
+        if ("red".equals(juiceType)) {
+            return Component.translatable(
+                    "tooltip.vinery.fermentation_barrel.red_juice_with_percentage",
+                    percentageStr
+            );
+
+        } else if ("white".equals(juiceType)) {
+            return Component.translatable(
+                    "tooltip.vinery.fermentation_barrel.white_juice_with_percentage",
+                    percentageStr
+            );
+        } else {
+            return Component.translatable("tooltip.vinery.fermentation_barrel.empty");
         }
     }
     
+
+    private Component getCraftingTimeTooltip() {
+        int totalTicks = this.menu.data.get(1);
+        int currentTicks = this.menu.data.get(0);
+        int remainingTicks = totalTicks - currentTicks;
+
+        if (remainingTicks > 0) {
+            int seconds = remainingTicks / 20;
+            int minutes = seconds / 60;
+            seconds %= 60;
+
+            String formattedTime = String.format("%d:%02d Seconds", minutes, seconds);
+            return Component.translatable("tooltip.vinery.fermentation_barrel.crafting_time", formattedTime);
+        } else {
+            return Component.translatable("tooltip.vinery.fermentation_barrel.crafting_time", "0:00 Seconds");
+        }
+    }
+
+
     private boolean isMouseOverFluidArea(int mouseX, int mouseY) {
-        int fluidAreaLeft = this.leftPos + 80; 
-        int fluidAreaTop = this.topPos + 42;  
-        int fluidAreaRight = this.leftPos + 103; 
-        int fluidAreaBottom = this.topPos + 49; 
+        int fluidAreaLeft = this.leftPos + FLUID_X - 1;
+        int fluidAreaTop = this.topPos + FLUID_Y - 5;
+        int fluidAreaRight = this.leftPos + FLUID_X + FLUID_WIDTH + 1;
+        int fluidAreaBottom = this.topPos + FLUID_Y + 10;
 
         return mouseX >= fluidAreaLeft && mouseX <= fluidAreaRight &&
                 mouseY >= fluidAreaTop && mouseY <= fluidAreaBottom;
     }
 
     private boolean isMouseOverCraftingTimeArea(int mouseX, int mouseY) {
-        int craftingTimeAreaLeft = this.leftPos + 121;
-        int craftingTimeAreaTop = this.topPos + 20;
-        int craftingTimeAreaRight = this.leftPos + 133;
-        int craftingTimeAreaBottom = this.topPos + 48;
+        int craftingTimeAreaLeft = this.leftPos + CRAFT_PROGRESS_GUI_X;
+        int craftingTimeAreaTop = this.topPos + CRAFT_PROGRESS_GUI_Y;
+        int craftingTimeAreaRight = this.leftPos + CRAFT_PROGRESS_GUI_X + CRAFT_PROGRESS_WIDTH;
+        int craftingTimeAreaBottom = this.topPos + CRAFT_PROGRESS_GUI_Y + CRAFT_PROGRESS_GUI_HEIGHT;
 
         return mouseX >= craftingTimeAreaLeft && mouseX <= craftingTimeAreaRight &&
                 mouseY >= craftingTimeAreaTop && mouseY <= craftingTimeAreaBottom;
@@ -122,9 +143,13 @@ public class FermentationBarrelGui extends AbstractContainerScreen<FermentationB
         int y = this.topPos;
         guiGraphics.blit(BACKGROUND, x, y, 0, 0, this.imageWidth, this.imageHeight);
 
-        int fluidWidth = getScaledFluidLevel();
-
         String juiceType = this.menu.getJuiceType();
+        int fluidLevel = this.menu.getFluidLevel();
+        int maxFluidLevel = PlatformHelper.getMaxFluidLevel();
+
+        int scaledFluidWidth = (int) ((double) fluidLevel / maxFluidLevel * FLUID_WIDTH);
+        scaledFluidWidth = Math.max(0, Math.min(FLUID_WIDTH, scaledFluidWidth));
+
         int textureX = WHITE_FLUID_TEXTURE_X;
         int textureY = WHITE_FLUID_TEXTURE_Y_START;
         int fluidHeight = WHITE_FLUID_HEIGHT;
@@ -135,7 +160,7 @@ public class FermentationBarrelGui extends AbstractContainerScreen<FermentationB
             fluidHeight = RED_FLUID_HEIGHT;
         }
 
-        guiGraphics.blit(BACKGROUND, x + FLUID_X, y + FLUID_Y, textureX, textureY, fluidWidth, fluidHeight);
+        guiGraphics.blit(BACKGROUND, x + FLUID_X, y + FLUID_Y, textureX, textureY, scaledFluidWidth, fluidHeight);
 
         this.renderCraftingProgress(guiGraphics, x, y);
     }
@@ -147,17 +172,12 @@ public class FermentationBarrelGui extends AbstractContainerScreen<FermentationB
     }
 
     protected void renderCraftingProgress(GuiGraphics guiGraphics, int guiLeft, int guiTop) {
-        int filledHeight = this.menu.getScaledProgress(28);
+        int filledHeight = this.menu.getScaledProgress(CRAFT_PROGRESS_HEIGHT);
 
         int drawY = guiTop + CRAFT_PROGRESS_GUI_Y + (CRAFT_PROGRESS_GUI_HEIGHT - filledHeight);
 
         RenderSystem.setShaderTexture(0, BACKGROUND);
 
         guiGraphics.blit(BACKGROUND, guiLeft + CRAFT_PROGRESS_GUI_X, drawY, CRAFT_PROGRESS_TEXTURE_X, CRAFT_PROGRESS_TEXTURE_Y + (CRAFT_PROGRESS_HEIGHT - filledHeight), CRAFT_PROGRESS_WIDTH, filledHeight);
-    }
-
-    protected int getScaledFluidLevel() {
-        int fluidLevel = this.menu.getFluidLevel();
-        return fluidLevel * FermentationBarrelGui.FLUID_WIDTH / 100;
     }
 }

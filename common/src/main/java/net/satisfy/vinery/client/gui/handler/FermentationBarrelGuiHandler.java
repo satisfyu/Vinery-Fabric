@@ -40,13 +40,12 @@ public class FermentationBarrelGuiHandler extends AbstractContainerMenu {
     private void addBlockEntitySlots(Inventory playerInventory) {
         this.addSlot(new ExtendedSlot(inventory, 0, 39, 17, stack -> {
             if (stack.is(ObjectRegistry.WHITE_GRAPEJUICE.get())) {
-                return this.data.get(3) != 1 || this.data.get(2) == 0; 
+                return this.data.get(3) != 1 || this.data.get(2) == 0;
             } else if (stack.is(ObjectRegistry.RED_GRAPEJUICE.get())) {
-                return this.data.get(3) != 0 || this.data.get(2) == 0; 
+                return this.data.get(3) != 0 || this.data.get(2) == 0;
             }
             return false;
         }));
-
 
         this.addSlot(new ExtendedSlot(inventory, 1, 67, 58, this::isIngredient));
         this.addSlot(new ExtendedSlot(inventory, 2, 85, 58, this::isIngredient));
@@ -99,8 +98,10 @@ public class FermentationBarrelGuiHandler extends AbstractContainerMenu {
                     if (!this.moveItemStackTo(stackInSlot, this.slots.size() - 9, this.slots.size(), false)) {
                         return ItemStack.EMPTY;
                     }
-                } else if (!this.moveItemStackTo(stackInSlot, containerSlots, this.slots.size() - 9, false)) {
-                    return ItemStack.EMPTY;
+                } else {
+                    if (!this.moveItemStackTo(stackInSlot, containerSlots, this.slots.size() - 9, false)) {
+                        return ItemStack.EMPTY;
+                    }
                 }
             }
 
@@ -133,11 +134,11 @@ public class FermentationBarrelGuiHandler extends AbstractContainerMenu {
         }
         return "";
     }
-    
+
     public int getFluidLevel() {
         return this.data.get(2);
     }
-    
+
     public int getScaledProgress(int maxProgress) {
         int progress = this.data.get(0);
         int totalProgress = this.data.get(1);

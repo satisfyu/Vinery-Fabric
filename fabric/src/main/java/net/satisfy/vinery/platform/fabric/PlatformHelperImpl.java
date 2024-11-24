@@ -18,6 +18,11 @@ public class PlatformHelperImpl extends PlatformHelper {
         return config.blocks.totalFermentationTime;
     }
 
+    public static int getMaxFluidLevel() {
+        VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
+        return config.blocks.maxFluidLevel;
+    }
+
     public static int getApplePressMaxProgress() {
         VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
         return config.blocks.applePressMaxProgress;

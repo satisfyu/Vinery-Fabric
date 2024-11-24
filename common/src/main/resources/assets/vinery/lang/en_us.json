@@ -270,6 +270,7 @@
   "text.autoconfig.vinery.option.blocks": "Blocks",
   "text.autoconfig.vinery.option.villager": "Villager",
   "text.autoconfig.vinery.option.blocks.totalFermentationTime": "Fermentation Barrel: Crafting Time",
+  "text.autoconfig.vinery.option.blocks.maxFluidLevel": "Fermentation Barrel: Max Fluid Level",
   "text.autoconfig.vinery.option.blocks.applePressMaxProgress": "Apple Press: Crafting Time",
   "text.autoconfig.vinery.option.blocks.cherryGrowthChance": "Cherry Growth Chance",
   "text.autoconfig.vinery.option.blocks.appleGrowthChance": "Apple Growth Chance",
@@ -317,6 +318,7 @@
   "text.autoconfig.vinery.option.trader.spawnDelay": "Spawn Delay",
   "tooltip.vinery.fermentation_barrel.white_juice_with_percentage": "White Grapejuice: %s%%",
   "tooltip.vinery.fermentation_barrel.red_juice_with_percentage": "Red Grapejuice: %s%%",
-  "tooltip.vinery.fermentation_barrel.crafting_time": "Remaining Time: %s"
+  "tooltip.vinery.fermentation_barrel.crafting_time": "Remaining Time: %s",
+  "tooltip.vinery.fermentation_barrel.empty": "Empty"
 
 }
