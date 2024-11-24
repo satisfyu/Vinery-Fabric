@@ -12,7 +12,6 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -22,7 +21,7 @@ public class WindowBlock extends IronBarsBlock {
 
     public WindowBlock(BlockBehaviour.Properties settings) {
         super(settings);
-        this.registerDefaultState((BlockState)((BlockState)((BlockState)((BlockState)((BlockState)((BlockState)this.stateDefinition.any()).setValue(NORTH, false)).setValue(EAST, false)).setValue(SOUTH, false)).setValue(WEST, false)).setValue(WATERLOGGED, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(NORTH, false).setValue(EAST, false).setValue(SOUTH, false).setValue(WEST, false).setValue(WATERLOGGED, false));
     }
 
     public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
@@ -33,7 +32,7 @@ public class WindowBlock extends IronBarsBlock {
     }
 
     public @NotNull BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
-        if ((Boolean)state.getValue(WATERLOGGED)) {
+        if (state.getValue(WATERLOGGED)) {
             world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
         }
 
@@ -51,18 +50,18 @@ public class WindowBlock extends IronBarsBlock {
         }
 
         if (height == 1) {
-            world.setBlock(lowest, (BlockState)state.setValue(PART, 0), 3);
+            world.setBlock(lowest, state.setValue(PART, 0), 3);
         } else if (height == 2) {
-            world.setBlock(lowest, (BlockState)state.setValue(PART, 1), 3);
-            world.setBlock(highest, (BlockState)state.setValue(PART, 3), 3);
+            world.setBlock(lowest, state.setValue(PART, 1), 3);
+            world.setBlock(highest, state.setValue(PART, 3), 3);
         } else {
-            world.setBlock(lowest, (BlockState)state.setValue(PART, 1), 3);
+            world.setBlock(lowest, state.setValue(PART, 1), 3);
 
             for(current = lowest.above(); current.compareTo(highest) < 0; current = current.above()) {
-                world.setBlock(current, (BlockState)state.setValue(PART, 2), 3);
+                world.setBlock(current, state.setValue(PART, 2), 3);
             }
 
-            world.setBlock(highest, (BlockState)state.setValue(PART, 3), 3);
+            world.setBlock(highest, state.setValue(PART, 3), 3);
         }
 
     }
@@ -83,6 +82,7 @@ public class WindowBlock extends IronBarsBlock {
         return pos;
     }
 
+    @SuppressWarnings("deprecation")
     public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
         super.neighborChanged(state, world, pos, block, fromPos, isMoving);
         if (!world.isClientSide()) {
@@ -95,17 +95,17 @@ public class WindowBlock extends IronBarsBlock {
         boolean hasBelow = world.getBlockState(pos.below()).getBlock() == this;
         boolean hasAbove = world.getBlockState(pos.above()).getBlock() == this;
         if (!hasBelow && !hasAbove) {
-            world.setBlock(pos, (BlockState)state.setValue(PART, 0), 3);
+            world.setBlock(pos, state.setValue(PART, 0), 3);
         } else if (!hasBelow) {
-            world.setBlock(pos, (BlockState)state.setValue(PART, 1), 3);
+            world.setBlock(pos, state.setValue(PART, 1), 3);
         } else if (!hasAbove) {
-            world.setBlock(pos, (BlockState)state.setValue(PART, 3), 3);
+            world.setBlock(pos, state.setValue(PART, 3), 3);
         }
 
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{PART, NORTH, EAST, WEST, SOUTH, WATERLOGGED});
+        builder.add(PART, NORTH, EAST, WEST, SOUTH, WATERLOGGED);
     }
 }
 

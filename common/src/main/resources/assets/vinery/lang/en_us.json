@@ -317,6 +317,6 @@
   "tooltip.vinery.fermentation_barrel.white_juice_with_percentage": "White Grapejuice: %s%%",
   "tooltip.vinery.fermentation_barrel.red_juice_with_percentage": "Red Grapejuice: %s%%",
   "tooltip.vinery.fermentation_barrel.crafting_time": "Remaining Time: %s",
-  "tooltip.vinery.fermentation_barrel.empty": "Empty"
-
+  "tooltip.vinery.fermentation_barrel.empty": "Empty",
+  "tooltip.vinery.fermentation_barrel.apple_juice_with_percentage": "Applejuice: %s%%"
 }

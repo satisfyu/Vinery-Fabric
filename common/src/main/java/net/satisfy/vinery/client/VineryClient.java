@@ -10,6 +10,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.GrassColor;
 import net.satisfy.vinery.client.gui.ApplePressGui;
 import net.satisfy.vinery.client.gui.BasketGui;
@@ -17,11 +18,13 @@ import net.satisfy.vinery.client.gui.FermentationBarrelGui;
 import net.satisfy.vinery.client.model.*;
 import net.satisfy.vinery.client.render.block.BasketRenderer;
 import net.satisfy.vinery.client.render.block.CompletionistBannerRenderer;
-import net.satisfy.vinery.client.render.block.storage.StorageBlockEntityRenderer;
+import net.satisfy.vinery.client.render.block.storage.*;
+import net.satisfy.vinery.client.render.entity.ChairRenderer;
 import net.satisfy.vinery.client.render.entity.MuleRenderer;
 import net.satisfy.vinery.client.render.entity.WanderingWinemakerRenderer;
 import net.satisfy.vinery.core.registry.EntityTypeRegistry;
 import net.satisfy.vinery.core.registry.ScreenhandlerTypeRegistry;
+import net.satisfy.vinery.core.registry.StorageTypeRegistry;
 
 import static net.satisfy.vinery.core.registry.ObjectRegistry.*;
 
@@ -52,33 +55,62 @@ public class VineryClient {
         RenderTypeRegistry.register(RenderType.translucent(), WINDOW.get(), WINDOW_BLOCK.get());
 
         ColorHandlerRegistry.registerItemColors((stack, tintIndex) -> GrassColor.get(0.5, 1.0), GRASS_SLAB);
-        ColorHandlerRegistry.registerBlockColors((state,world,pos,tintIndex)->{
-                    if(world== null || pos == null){
+        ColorHandlerRegistry.registerBlockColors((state, world, pos, tintIndex) -> {
+                    if (world == null || pos == null) {
                         return -1;
                     }
-                    return BiomeColors.getAverageGrassColor(world,pos);
-                },  GRASS_SLAB.get()
+                    return BiomeColors.getAverageGrassColor(world, pos);
+                }, GRASS_SLAB.get()
         );
 
-        ClientStorageTypes.init();
+        registerStorageType();
+        registerScreenFactory();
+        registerBlockEntityRenderer();
+    }
 
-        BlockEntityRendererRegistry.register(EntityTypeRegistry.BASKET_ENTITY.get(), BasketRenderer::new);
-        BlockEntityRendererRegistry.register(EntityTypeRegistry.VINERY_STANDARD.get(), CompletionistBannerRenderer::new);
-        BlockEntityRendererRegistry.register(EntityTypeRegistry.STORAGE_ENTITY.get(), context -> new StorageBlockEntityRenderer());
+    public static void preInitClient() {
+        registerEntityModelLayer();
+        registerEntityRenderers();
+    }
+
+    public static void registerStorageTypes(ResourceLocation location, StorageTypeRenderer renderer){
+        StorageBlockEntityRenderer.registerStorageType(location, renderer);
+    }
+
+    public static void registerStorageType(){
+        registerStorageTypes(StorageTypeRegistry.BIG_BOTTLE, new BigBottleRenderer());
+        registerStorageTypes(StorageTypeRegistry.FOUR_BOTTLE, new FourBottleRenderer());
+        registerStorageTypes(StorageTypeRegistry.NINE_BOTTLE, new NineBottleRenderer());
+        registerStorageTypes(StorageTypeRegistry.SHELF, new ShelfRenderer());
+        registerStorageTypes(StorageTypeRegistry.WINE_BOX, new WineBoxRenderer());
+        registerStorageTypes(StorageTypeRegistry.WINE_BOTTLE, new WineBottleRenderer());
+    }
+
+    public static void registerScreenFactory() {
         MenuRegistry.registerScreenFactory(ScreenhandlerTypeRegistry.FERMENTATION_BARREL_GUI_HANDLER.get(), FermentationBarrelGui::new);
         MenuRegistry.registerScreenFactory(ScreenhandlerTypeRegistry.APPLE_PRESS_GUI_HANDLER.get(), ApplePressGui::new);
         MenuRegistry.registerScreenFactory(ScreenhandlerTypeRegistry.BASKET_GUI_HANDLER.get(), BasketGui::new);
     }
 
-    public static void preInitClient(){
+    public static void registerBlockEntityRenderer() {
+        BlockEntityRendererRegistry.register(EntityTypeRegistry.BASKET_ENTITY.get(), BasketRenderer::new);
+        BlockEntityRendererRegistry.register(EntityTypeRegistry.VINERY_STANDARD.get(), CompletionistBannerRenderer::new);
+        BlockEntityRendererRegistry.register(EntityTypeRegistry.STORAGE_ENTITY.get(), context -> new StorageBlockEntityRenderer());
+    }
+
+    public static void registerEntityModelLayer() {
         EntityModelLayerRegistry.register(MuleModel.LAYER_LOCATION, MuleModel::getTexturedModelData);
         EntityModelLayerRegistry.register(BasketRenderer.LAYER_LOCATION, BasketRenderer::getTexturedModelData);
-        EntityRendererRegistry.register(EntityTypeRegistry.MULE, MuleRenderer::new);
-        EntityRendererRegistry.register(EntityTypeRegistry.WANDERING_WINEMAKER, WanderingWinemakerRenderer::new);
         EntityModelLayerRegistry.register(StrawHatModel.LAYER_LOCATION, StrawHatModel::createBodyLayer);
         EntityModelLayerRegistry.register(WinemakerChestplateModel.LAYER_LOCATION, WinemakerChestplateModel::createBodyLayer);
         EntityModelLayerRegistry.register(WinemakerLeggingsModel.LAYER_LOCATION, WinemakerLeggingsModel::createBodyLayer);
         EntityModelLayerRegistry.register(WinemakerBootsModel.LAYER_LOCATION, WinemakerBootsModel::createBodyLayer);
         EntityModelLayerRegistry.register(CompletionistBannerRenderer.LAYER_LOCATION, CompletionistBannerRenderer::createBodyLayer);
+    }
+
+    public static void registerEntityRenderers() {
+        EntityRendererRegistry.register(EntityTypeRegistry.CHAIR, ChairRenderer::new);
+        EntityRendererRegistry.register(EntityTypeRegistry.MULE, MuleRenderer::new);
+        EntityRendererRegistry.register(EntityTypeRegistry.WANDERING_WINEMAKER, WanderingWinemakerRenderer::new);
     }
 }

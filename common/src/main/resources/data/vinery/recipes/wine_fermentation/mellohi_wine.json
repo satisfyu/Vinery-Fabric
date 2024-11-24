@@ -1,9 +1,10 @@
 {
   "type": "vinery:wine_fermentation",
+  "juice": {
+    "type": "white",
+    "amount": 9
+  },
   "ingredients": [
-    {
-      "item": "vinery:white_jungle_grapejuice"
-    },
     {
       "item": "minecraft:sugar"
     },
@@ -11,8 +12,11 @@
       "item": "minecraft:rabbit_foot"
     }
   ],
+  "wine_bottle": {
+    "required": true
+  },
   "result": {
-    "item": "vinery:mellohi_wine"
+    "item": "vinery:mellohi_wine",
+    "count": 1
   }
 }
-

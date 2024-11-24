@@ -16,6 +16,7 @@ public class VineryForgeConfig {
     public static final ForgeConfigSpec.IntValue TOTAL_FERMENTATION_TIME;
     public static final ForgeConfigSpec.IntValue MAX_FLUID_LEVEL;
     public static final ForgeConfigSpec.IntValue APPLE_PRESS_CRAFTING_TIME;
+    public static final ForgeConfigSpec.IntValue GRAPEVINE_POT_MAX_STORAGE;
     public static final ForgeConfigSpec.DoubleValue CHERRY_GROWTH_CHANCE;
     public static final ForgeConfigSpec.DoubleValue APPLE_GROWTH_CHANCE;
     public static final ForgeConfigSpec.DoubleValue GRAPE_GROWTH_CHANCE;
@@ -48,6 +49,10 @@ public class VineryForgeConfig {
         MAX_FLUID_LEVEL = COMMON_BUILDER
                 .comment("Maximum fluid level in the fermentation barrel")
                 .defineInRange("maxFluidLevel", 100, 10, 1000);
+
+        GRAPEVINE_POT_MAX_STORAGE = COMMON_BUILDER
+                .comment("Maximum Grape storage capacity for Grapevine pots")
+                .defineInRange("maxStorageCapacity", 6, 6, 100);
 
         APPLE_PRESS_CRAFTING_TIME = COMMON_BUILDER
                 .comment("Apple Press crafting time in ticks")

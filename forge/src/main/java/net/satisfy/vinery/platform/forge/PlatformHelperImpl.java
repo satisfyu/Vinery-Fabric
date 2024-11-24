@@ -82,4 +82,8 @@ public class PlatformHelperImpl {
     public static int getTraderSpawnDelay() {
         return VineryForgeConfig.TRADER_SPAWN_DELAY.get();
     }
+
+    public static int getGrapevinePotMaxStorage() {
+        return VineryForgeConfig.GRAPEVINE_POT_MAX_STORAGE.get();
+    }
 }

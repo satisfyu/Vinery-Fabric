@@ -24,6 +24,7 @@ import net.satisfy.vinery.core.item.GrapeItem;
 import net.satisfy.vinery.core.registry.GrapeTypeRegistry;
 import net.satisfy.vinery.core.registry.ObjectRegistry;
 import net.satisfy.vinery.core.registry.SoundEventRegistry;
+import net.satisfy.vinery.platform.PlatformHelper;
 import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("deprecation")
@@ -45,7 +46,7 @@ public class GrapevinePotBlock extends Block {
             Block.box(0.0, 0.0, 0.0, 16.0, 4.0, 16.0)
     );
     private static final int MAX_STAGE = 6;
-    private static final int MAX_STORAGE = 6;
+    private static final int MAX_STORAGE = PlatformHelper.getGrapevinePotMaxStorage();
     private static final IntegerProperty STAGE = IntegerProperty.create("stage", 0, MAX_STAGE);
     private static final IntegerProperty STORAGE = IntegerProperty.create("storage", 0, MAX_STORAGE);
     private static final int DECREMENT_PER_WINE_BOTTLE = 3;

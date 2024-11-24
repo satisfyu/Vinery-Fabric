@@ -57,6 +57,7 @@ public class FlowerPotBigBlock extends StorageBlock {
         return 0;
     }
 
+    @SuppressWarnings("deprecation")
     public @NotNull VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
@@ -70,7 +71,7 @@ public class FlowerPotBigBlock extends StorageBlock {
     }
 
     static {
-        SHAPE = (VoxelShape)voxelShapeSupplier.get();
+        SHAPE = voxelShapeSupplier.get();
     }
 }
 

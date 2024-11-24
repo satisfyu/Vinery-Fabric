@@ -123,6 +123,13 @@ public class FermentationBarrelGui extends AbstractContainerScreen<FermentationB
     }
 
     private boolean isMouseOverCraftingTimeArea(int mouseX, int mouseY) {
+        int totalTicks = this.menu.data.get(1);
+        int currentTicks = this.menu.data.get(0);
+
+        if (totalTicks <= 0 || currentTicks >= totalTicks) {
+            return false;
+        }
+
         int craftingTimeAreaLeft = this.leftPos + CRAFT_PROGRESS_GUI_X;
         int craftingTimeAreaTop = this.topPos + CRAFT_PROGRESS_GUI_Y;
         int craftingTimeAreaRight = this.leftPos + CRAFT_PROGRESS_GUI_X + CRAFT_PROGRESS_WIDTH;

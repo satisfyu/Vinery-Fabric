@@ -4,90 +4,142 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.Rotation;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.satisfy.vinery.core.util.ChairUtil;
+import net.satisfy.vinery.core.util.GeneralUtil;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
+import java.util.Map;
+
+@SuppressWarnings("deprecation")
 public class ChairBlock extends Block {
-    public static final DirectionProperty FACING;
-    private static final VoxelShape SINGLE_SHAPE;
-    private static final VoxelShape[] SHAPE;
+    public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
+    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
-    public ChairBlock(BlockBehaviour.Properties settings) {
-        super(settings);
+    private static final VoxelShape SHAPE_LOWER = makeLowerShape();
+    private static final VoxelShape SHAPE_UPPER = makeUpperShape();
+
+    public static final Map<Direction, VoxelShape> SHAPE_LOWER_MAP = net.minecraft.Util.make(new HashMap<>(), map -> {
+        for (Direction direction : Direction.Plane.HORIZONTAL.stream().toList()) {
+            map.put(direction, GeneralUtil.rotateShape(Direction.NORTH, direction, SHAPE_LOWER));
+        }
+    });
+
+    public static final Map<Direction, VoxelShape> SHAPE_UPPER_MAP = net.minecraft.Util.make(new HashMap<>(), map -> {
+        for (Direction direction : Direction.Plane.HORIZONTAL.stream().toList()) {
+            map.put(direction, GeneralUtil.rotateShape(Direction.NORTH, direction, SHAPE_UPPER));
+        }
+    });
+
+    private static VoxelShape makeLowerShape() {
+        VoxelShape shape = Shapes.empty();
+        shape = Shapes.join(shape, Shapes.box(0.1875, 0.5625, 0.1875, 0.8125, 0.625, 0.8125), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.6875, 0, 0.1875, 0.8125, 0.5625, 0.3125), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.1875, 0, 0.1875, 0.3125, 0.5625, 0.3125), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.1875, 0, 0.6875, 0.3125, 0.5625, 0.8125), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.6875, 0, 0.6875, 0.8125, 0.5625, 0.8125), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.6875, 0.625, 0.6875, 0.8125, 1, 0.8125), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.1875, 0.625, 0.6875, 0.3125, 1, 0.8125), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.25, 0.5, 0.25, 0.75, 0.5625, 0.75), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.3125, 0.625, 0.75, 0.6875, 1, 0.8125), BooleanOp.OR);
+        return shape;
     }
 
-    protected static VoxelShape makeSingleShape() {
-        VoxelShape top = Block.box(3.0, 9.0, 3.0, 13.0, 10.0, 13.0);
-        VoxelShape leg1 = Block.box(3.0, 0.0, 3.0, 5.0, 9.0, 5.0);
-        VoxelShape leg2 = Block.box(3.0, 0.0, 11.0, 5.0, 9.0, 13.0);
-        VoxelShape leg3 = Block.box(11.0, 0.0, 11.0, 13.0, 9.0, 13.0);
-        VoxelShape leg4 = Block.box(11.0, 0.0, 3.0, 13.0, 9.0, 5.0);
-        return Shapes.or(top, leg1, leg2, leg3, leg4);
+    private static VoxelShape makeUpperShape() {
+        VoxelShape shape = Shapes.empty();
+        shape = Shapes.join(shape, Shapes.box(0.6875, 0, 0.6875, 0.8125, 0.3125, 0.8125), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.1875, 0, 0.6875, 0.3125, 0.3125, 0.8125), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.25, 0.3125, 0.6875, 0.75, 0.375, 0.8125), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.3125, 0, 0.75, 0.6875, 0.3125, 0.8125), BooleanOp.OR);
+        return shape;
     }
 
-    public @NotNull VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-        switch (state.getValue(FACING)) {
-            case WEST -> {
-                return Shapes.or(SINGLE_SHAPE, SHAPE[1]);
-            }
-            case SOUTH -> {
-                return Shapes.or(SINGLE_SHAPE, SHAPE[2]);
-            }
-            case EAST -> {
-                return Shapes.or(SINGLE_SHAPE, SHAPE[3]);
-            }
-            default -> {
-                return Shapes.or(SINGLE_SHAPE, SHAPE[0]);
-            }
+    @Override
+    public void setPlacedBy(Level level, BlockPos blockPos, BlockState blockState, @Nullable LivingEntity livingEntity, ItemStack itemStack) {
+        BlockPos abovePos = blockPos.above();
+        level.setBlock(abovePos, this.defaultBlockState().setValue(HALF, DoubleBlockHalf.UPPER).setValue(FACING, blockState.getValue(FACING)), 3);
+        super.setPlacedBy(level, blockPos, blockState, livingEntity, itemStack);
+    }
+
+    @Override
+    public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
+        if (state.getValue(HALF) != DoubleBlockHalf.UPPER) {
+            return super.canSurvive(state, world, pos);
+        } else {
+            BlockState belowState = world.getBlockState(pos.below());
+            return belowState.is(this) && belowState.getValue(HALF) == DoubleBlockHalf.LOWER;
         }
     }
 
+    @Override
+    public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
+        BlockPos pos = context.getClickedPos();
+        Level world = context.getLevel();
+        return pos.getY() < world.getMaxBuildHeight() - 1 && world.getBlockState(pos.above()).canBeReplaced(context) ? this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite()).setValue(HALF, DoubleBlockHalf.LOWER) : null;
+    }
+
+    public ChairBlock(Properties settings) {
+        super(settings);
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(HALF, DoubleBlockHalf.LOWER));
+    }
+
+    @Override
     public @NotNull InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        return ChairUtil.onUse(world, player, hand, hit, 0.1);
+        if (state.getValue(HALF) == DoubleBlockHalf.LOWER) {
+            return GeneralUtil.onUse(world, player, hand, hit, 0);
+        }
+        return InteractionResult.PASS;
     }
 
+    @Override
     public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean moved) {
-        super.onRemove(state, world, pos, newState, moved);
-        ChairUtil.onStateReplaced(world, pos);
+        if (!state.is(newState.getBlock())) {
+            if (state.getValue(HALF) == DoubleBlockHalf.LOWER) {
+                BlockPos abovePos = pos.above();
+                BlockState aboveState = world.getBlockState(abovePos);
+                if (aboveState.getBlock() == this && aboveState.getValue(HALF) == DoubleBlockHalf.UPPER) {
+                    world.setBlock(abovePos, net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(), 35);
+                }
+            } else {
+                BlockPos belowPos = pos.below();
+                BlockState belowState = world.getBlockState(belowPos);
+                if (belowState.getBlock() == this && belowState.getValue(HALF) == DoubleBlockHalf.LOWER) {
+                    world.setBlock(belowPos, net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(), 35);
+                }
+            }
+            super.onRemove(state, world, pos, newState, moved);
+        }
     }
 
+    @Override
+    public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
+        return false;
+    }
+
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{FACING});
+        builder.add(FACING, HALF);
     }
 
-    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        return (BlockState)this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite());
-    }
-
-    public BlockState rotate(BlockState state, Rotation rotation) {
-        return (BlockState)state.setValue(FACING, rotation.rotate((Direction)state.getValue(FACING)));
-    }
-
-    public BlockState mirror(BlockState state, Mirror mirror) {
-        return state.rotate(mirror.getRotation((Direction)state.getValue(FACING)));
-    }
-
-    static {
-        FACING = HorizontalDirectionalBlock.FACING;
-        SINGLE_SHAPE = makeSingleShape();
-        SHAPE = new VoxelShape[]{Block.box(3.0, 10.0, 11.0, 13.0, 22.0, 13.0), Block.box(11.0, 10.0, 3.0, 13.0, 22.0, 13.0), Block.box(3.0, 10.0, 3.0, 13.0, 22.0, 5.0), Block.box(3.0, 10.0, 3.0, 5.0, 22.0, 13.0)};
+    @Override
+    public @NotNull VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        return state.getValue(HALF) == DoubleBlockHalf.UPPER ? SHAPE_UPPER_MAP.get(state.getValue(FACING)) : SHAPE_LOWER_MAP.get(state.getValue(FACING));
     }
 }
-

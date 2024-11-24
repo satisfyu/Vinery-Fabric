@@ -11,42 +11,52 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.satisfy.vinery.core.util.ChairUtil;
+import net.satisfy.vinery.core.util.GeneralUtil;
+import org.jetbrains.annotations.NotNull;
 
 public class ChairEntity extends Entity {
     public ChairEntity(EntityType<?> type, Level world) {
         super(type, world);
     }
 
+    @Override
     protected void defineSynchedData() {
+
     }
 
-    public Vec3 getDismountLocationForPassenger(LivingEntity passenger) {
+    @Override
+    public @NotNull Vec3 getDismountLocationForPassenger(LivingEntity passenger) {
         if (passenger instanceof Player p) {
-            BlockPos pos = ChairUtil.getPreviousPlayerPosition(p, this);
+            BlockPos pos = GeneralUtil.getPreviousPlayerPosition(p, this);
             if (pos != null) {
-                this.discard();
-                return new Vec3((double)pos.getX() + 0.5, (double)pos.getY(), (double)pos.getZ() + 0.5);
+                discard();
+                return new Vec3(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D);
             }
         }
 
-        this.discard();
+
+        discard();
         return super.getDismountLocationForPassenger(passenger);
     }
 
-    public void remove(Entity.RemovalReason reason) {
+    @Override
+    public void remove(RemovalReason reason) {
         super.remove(reason);
-        ChairUtil.removeChairEntity(this.level(), this.blockPosition());
+        GeneralUtil.removeChairEntity(level(), blockPosition());
     }
 
+    @Override
     protected void readAdditionalSaveData(CompoundTag nbt) {
+
     }
 
+    @Override
     protected void addAdditionalSaveData(CompoundTag nbt) {
+
     }
 
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
+    @Override
+    public @NotNull Packet<ClientGamePacketListener> getAddEntityPacket() {
         return new ClientboundAddEntityPacket(this);
     }
 }
-

@@ -16,54 +16,53 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.BlockHitResult;
 import net.satisfy.vinery.core.util.GeneralUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings("deprecation")
 public class LineConnectingBlock extends Block {
     public static final DirectionProperty FACING;
     public static final EnumProperty<GeneralUtil.LineConnectingType> TYPE;
 
     public LineConnectingBlock(BlockBehaviour.Properties settings) {
         super(settings);
-        this.registerDefaultState((BlockState)((BlockState)((BlockState)this.stateDefinition.any()).setValue(FACING, Direction.NORTH)).setValue(TYPE, GeneralUtil.LineConnectingType.NONE));
+        this.registerDefaultState(this.stateDefinition.any()
+                .setValue(FACING, Direction.NORTH)
+                .setValue(TYPE, GeneralUtil.LineConnectingType.NONE));
     }
 
-    public @NotNull InteractionResult use(BlockState arg, Level arg2, BlockPos arg3, Player arg4, InteractionHand arg5, BlockHitResult arg6) {
+    public @NotNull InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         return InteractionResult.PASS;
     }
 
     public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
         Direction facing = context.getHorizontalDirection().getOpposite();
-        BlockState blockState = (BlockState)this.defaultBlockState().setValue(FACING, facing);
+        BlockState blockState = this.defaultBlockState().setValue(FACING, facing);
         Level world = context.getLevel();
         BlockPos clickedPos = context.getClickedPos();
-        BlockState var10000;
-        switch (facing) {
-            case EAST -> var10000 = (BlockState)blockState.setValue(TYPE, this.getType(blockState, world.getBlockState(clickedPos.south()), world.getBlockState(clickedPos.north())));
-            case SOUTH -> var10000 = (BlockState)blockState.setValue(TYPE, this.getType(blockState, world.getBlockState(clickedPos.west()), world.getBlockState(clickedPos.east())));
-            case WEST -> var10000 = (BlockState)blockState.setValue(TYPE, this.getType(blockState, world.getBlockState(clickedPos.north()), world.getBlockState(clickedPos.south())));
-            default -> var10000 = (BlockState)blockState.setValue(TYPE, this.getType(blockState, world.getBlockState(clickedPos.east()), world.getBlockState(clickedPos.west())));
-        }
 
-        return var10000;
+        return switch (facing) {
+            case EAST -> blockState.setValue(TYPE, this.getType(blockState, world.getBlockState(clickedPos.south()), world.getBlockState(clickedPos.north())));
+            case SOUTH -> blockState.setValue(TYPE, this.getType(blockState, world.getBlockState(clickedPos.west()), world.getBlockState(clickedPos.east())));
+            case WEST -> blockState.setValue(TYPE, this.getType(blockState, world.getBlockState(clickedPos.north()), world.getBlockState(clickedPos.south())));
+            default -> blockState.setValue(TYPE, this.getType(blockState, world.getBlockState(clickedPos.east()), world.getBlockState(clickedPos.west())));
+        };
     }
 
     public void neighborChanged(BlockState state, Level world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
         if (!world.isClientSide) {
-            Direction facing = (Direction)state.getValue(FACING);
-            GeneralUtil.LineConnectingType type;
-            switch (facing) {
-                case EAST -> type = this.getType(state, world.getBlockState(pos.south()), world.getBlockState(pos.north()));
-                case SOUTH -> type = this.getType(state, world.getBlockState(pos.west()), world.getBlockState(pos.east()));
-                case WEST -> type = this.getType(state, world.getBlockState(pos.north()), world.getBlockState(pos.south()));
-                default -> type = this.getType(state, world.getBlockState(pos.east()), world.getBlockState(pos.west()));
-            }
+            Direction facing = state.getValue(FACING);
+            GeneralUtil.LineConnectingType type = switch (facing) {
+                case EAST -> this.getType(state, world.getBlockState(pos.south()), world.getBlockState(pos.north()));
+                case SOUTH -> this.getType(state, world.getBlockState(pos.west()), world.getBlockState(pos.east()));
+                case WEST -> this.getType(state, world.getBlockState(pos.north()), world.getBlockState(pos.south()));
+                default -> this.getType(state, world.getBlockState(pos.east()), world.getBlockState(pos.west()));
+            };
 
             if (state.getValue(TYPE) != type) {
-                state = (BlockState)state.setValue(TYPE, type);
+                state = state.setValue(TYPE, type);
             }
 
             world.setBlock(pos, state, 3);
@@ -71,27 +70,28 @@ public class LineConnectingBlock extends Block {
     }
 
     public GeneralUtil.LineConnectingType getType(BlockState state, BlockState left, BlockState right) {
-        boolean shape_left_same = left.getBlock() == state.getBlock() && left.getValue(FACING) == state.getValue(FACING);
-        boolean shape_right_same = right.getBlock() == state.getBlock() && right.getValue(FACING) == state.getValue(FACING);
-        if (shape_left_same && shape_right_same) {
+        boolean shapeLeftSame = left.getBlock() == state.getBlock() && left.getValue(FACING) == state.getValue(FACING);
+        boolean shapeRightSame = right.getBlock() == state.getBlock() && right.getValue(FACING) == state.getValue(FACING);
+
+        if (shapeLeftSame && shapeRightSame) {
             return GeneralUtil.LineConnectingType.MIDDLE;
-        } else if (shape_left_same) {
+        } else if (shapeLeftSame) {
             return GeneralUtil.LineConnectingType.LEFT;
         } else {
-            return shape_right_same ? GeneralUtil.LineConnectingType.RIGHT : GeneralUtil.LineConnectingType.NONE;
+            return shapeRightSame ? GeneralUtil.LineConnectingType.RIGHT : GeneralUtil.LineConnectingType.NONE;
         }
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{FACING, TYPE});
+        builder.add(FACING, TYPE);
     }
 
     public @NotNull BlockState rotate(BlockState state, Rotation rotation) {
-        return (BlockState)state.setValue(FACING, rotation.rotate((Direction)state.getValue(FACING)));
+        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
 
     public @NotNull BlockState mirror(BlockState state, Mirror mirror) {
-        return state.rotate(mirror.getRotation((Direction)state.getValue(FACING)));
+        return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
     static {
@@ -99,4 +99,3 @@ public class LineConnectingBlock extends Block {
         TYPE = GeneralUtil.LINE_CONNECTING_TYPE;
     }
 }
-

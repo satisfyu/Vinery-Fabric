@@ -2,10 +2,6 @@ package net.satisfy.vinery.platform.fabric;
 
 import me.shedaniel.autoconfig.AutoConfig;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
-import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.satisfy.vinery.fabric.config.VineryFabricConfig;
 import net.satisfy.vinery.platform.PlatformHelper;
@@ -26,6 +22,11 @@ public class PlatformHelperImpl extends PlatformHelper {
     public static int getApplePressMaxProgress() {
         VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
         return config.blocks.applePressMaxProgress;
+    }
+
+    public static int getGrapevinePotMaxStorage() {
+        VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
+        return config.blocks.grapevinePotMaxStorage;
     }
 
     public static double getCherryGrowthChance() {
@@ -108,4 +109,6 @@ public class PlatformHelperImpl extends PlatformHelper {
         VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
         return config.trader.spawnDelay;
     }
+
+
 }

@@ -40,7 +40,6 @@ public class FlowerBoxBlock extends StorageBlock {
         return shape;
     };
 
-    @SuppressWarnings("all")
     public static final Map<Direction, VoxelShape> SHAPE = (Map)Util.make(new HashMap(), (map) -> {
         Iterator var1 = Plane.HORIZONTAL.stream().toList().iterator();
 
@@ -56,7 +55,7 @@ public class FlowerBoxBlock extends StorageBlock {
     }
 
     public @NotNull VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-        return (VoxelShape)SHAPE.get(state.getValue(FACING));
+        return SHAPE.get(state.getValue(FACING));
     }
 
     public @NotNull InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {

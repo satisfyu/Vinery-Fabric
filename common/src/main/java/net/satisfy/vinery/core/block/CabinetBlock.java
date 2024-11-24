@@ -33,6 +33,7 @@ import net.satisfy.vinery.core.block.entity.CabinetBlockEntity;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings("deprecation")
 public class CabinetBlock extends BaseEntityBlock {
     public static final DirectionProperty FACING;
     public static final BooleanProperty OPEN;
@@ -62,8 +63,7 @@ public class CabinetBlock extends BaseEntityBlock {
     public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean moved) {
         if (!state.is(newState.getBlock())) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof Container) {
-                Container container = (Container)blockEntity;
+            if (blockEntity instanceof Container container) {
                 Containers.dropContents(world, pos, container);
                 world.updateNeighbourForOutputSignal(pos, this);
             }
@@ -84,9 +84,8 @@ public class CabinetBlock extends BaseEntityBlock {
     public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         if (itemStack.hasCustomHoverName()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof CabinetBlockEntity) {
-                CabinetBlockEntity blockEntity1 = (CabinetBlockEntity)blockEntity;
-                blockEntity1.setCustomName(itemStack.getHoverName());
+            if (blockEntity instanceof CabinetBlockEntity cabinetBlockEntity) {
+                cabinetBlockEntity.setCustomName(itemStack.getHoverName());
             }
         }
 
@@ -101,23 +100,23 @@ public class CabinetBlock extends BaseEntityBlock {
     }
 
     public @NotNull BlockState rotate(BlockState state, Rotation rotation) {
-        return (BlockState)state.setValue(FACING, rotation.rotate((Direction)state.getValue(FACING)));
+        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
 
     public @NotNull BlockState mirror(BlockState state, Mirror mirror) {
-        return state.rotate(mirror.getRotation((Direction)state.getValue(FACING)));
+        return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{FACING, OPEN});
+        builder.add(FACING, OPEN);
     }
 
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        return (BlockState)this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite());
+        return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite());
     }
 
     public void playSound(Level world, BlockPos pos, boolean isOpen) {
-        world.playSound((Player)null, pos, isOpen ? (SoundEvent)this.openSound.get() : (SoundEvent)this.closeSound.get(), SoundSource.BLOCKS, 1.0F, 1.1F);
+        world.playSound(null, pos, isOpen ? this.openSound.get() : this.closeSound.get(), SoundSource.BLOCKS, 1.0F, 1.1F);
     }
 
     static {

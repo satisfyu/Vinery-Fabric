@@ -1,5 +1,6 @@
 package net.satisfy.vinery.core.block;
 
+import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
@@ -11,7 +12,7 @@ public class FacingBlock extends HorizontalDirectionalBlock {
 
     public FacingBlock(Properties settings) {
         super(settings);
-        //this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH));
+        this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH));
     }
 
     @Nullable
