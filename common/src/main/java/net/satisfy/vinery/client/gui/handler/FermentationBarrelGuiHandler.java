@@ -12,6 +12,7 @@ import net.satisfy.vinery.client.gui.handler.slot.FermentationBarrelOutputSlot;
 import net.satisfy.vinery.core.registry.ObjectRegistry;
 import net.satisfy.vinery.core.registry.RecipeTypesRegistry;
 import net.satisfy.vinery.core.registry.ScreenhandlerTypeRegistry;
+import net.satisfy.vinery.core.util.JuiceUtil;
 import org.jetbrains.annotations.NotNull;
 
 public class FermentationBarrelGuiHandler extends AbstractContainerMenu {
@@ -39,22 +40,18 @@ public class FermentationBarrelGuiHandler extends AbstractContainerMenu {
     }
 
     private void addBlockEntitySlots(Inventory playerInventory) {
-        this.addSlot(new ExtendedSlot(inventory, 0, 39, 17, stack -> {
-            if (stack.is(ObjectRegistry.WHITE_GRAPEJUICE.get())) {
-                return this.data.get(3) != 1 || this.data.get(2) == 0;
-            } else if (stack.is(ObjectRegistry.RED_GRAPEJUICE.get())) {
-                return this.data.get(3) != 0 || this.data.get(2) == 0;
-            }
-            return false;
-        }));
-
+        this.addSlot(new ExtendedSlot(inventory, 0, 39, 17, stack -> JuiceUtil.isJuice(stack) && canAddJuice(stack)));
         this.addSlot(new ExtendedSlot(inventory, 1, 67, 58, this::isIngredient));
         this.addSlot(new ExtendedSlot(inventory, 2, 85, 58, this::isIngredient));
         this.addSlot(new ExtendedSlot(inventory, 3, 103, 58, this::isIngredient));
-
         this.addSlot(new ExtendedSlot(inventory, WINE_BOTTLE_SLOT, 121, 58, stack -> stack.is(ObjectRegistry.WINE_BOTTLE.get())));
-
         this.addSlot(new FermentationBarrelOutputSlot(playerInventory.player, inventory, OUTPUT_SLOT_GENERAL, 103, 17));
+    }
+
+    private boolean canAddJuice(ItemStack stack) {
+        String newJuiceType = JuiceUtil.getJuiceType(stack);
+        String currentJuiceType = getJuiceType();
+        return currentJuiceType.isEmpty() || currentJuiceType.equals(newJuiceType);
     }
 
     private void addPlayerInventory(Inventory playerInventory) {
@@ -88,7 +85,7 @@ public class FermentationBarrelGuiHandler extends AbstractContainerMenu {
                     return ItemStack.EMPTY;
                 }
             } else {
-                if (stackInSlot.is(ObjectRegistry.WHITE_GRAPEJUICE.get()) || stackInSlot.is(ObjectRegistry.RED_GRAPEJUICE.get())) {
+                if (JuiceUtil.isJuice(stackInSlot)) {
                     if (!this.moveItemStackTo(stackInSlot, 0, 1, false)) {
                         return ItemStack.EMPTY;
                     }
@@ -97,7 +94,7 @@ public class FermentationBarrelGuiHandler extends AbstractContainerMenu {
                         return ItemStack.EMPTY;
                     }
                 } else if (isIngredient(stackInSlot)) {
-                    if (!this.moveItemStackTo(stackInSlot, 1, 4, false)) { 
+                    if (!this.moveItemStackTo(stackInSlot, 1, 4, false)) {
                         return ItemStack.EMPTY;
                     }
                 } else if (index < this.slots.size() - 9) {
@@ -133,10 +130,15 @@ public class FermentationBarrelGuiHandler extends AbstractContainerMenu {
 
     public String getJuiceType() {
         int juiceTypeValue = this.data.get(3);
-        if (juiceTypeValue == 1) {
-            return "red";
-        } else if (juiceTypeValue == 0) {
-            return "white";
+        if (juiceTypeValue >= 0) {
+            return juiceTypeValue == 0 ? "white_general" :
+                    juiceTypeValue == 1 ? "red_general" :
+                            juiceTypeValue == 2 ? "white_savanna" :
+                                    juiceTypeValue == 3 ? "red_savanna" :
+                                            juiceTypeValue == 4 ? "white_taiga" :
+                                                    juiceTypeValue == 5 ? "red_taiga" :
+                                                            juiceTypeValue == 6 ? "white_jungle" :
+                                                                    juiceTypeValue == 7 ? "red_jungle" : "";
         }
         return "";
     }

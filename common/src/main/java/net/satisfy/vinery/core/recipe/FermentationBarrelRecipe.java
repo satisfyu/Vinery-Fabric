@@ -14,7 +14,6 @@ import net.minecraft.world.level.Level;
 import net.satisfy.vinery.core.block.entity.FermentationBarrelBlockEntity;
 import net.satisfy.vinery.core.registry.ObjectRegistry;
 import net.satisfy.vinery.core.registry.RecipeTypesRegistry;
-import net.satisfy.vinery.core.util.GeneralUtil;
 import org.jetbrains.annotations.NotNull;
 
 public class FermentationBarrelRecipe implements Recipe<FermentationBarrelBlockEntity> {
@@ -121,18 +120,22 @@ public class FermentationBarrelRecipe implements Recipe<FermentationBarrelBlockE
 
         @Override
         public @NotNull FermentationBarrelRecipe fromJson(ResourceLocation id, JsonObject json) {
-            NonNullList<Ingredient> ingredients = GeneralUtil.deserializeIngredients(GsonHelper.getAsJsonArray(json, "ingredients"));
+            NonNullList<Ingredient> ingredients = NonNullList.withSize(3, Ingredient.EMPTY);
+            if (json.has("ingredients")) {
+                var jsonArray = GsonHelper.getAsJsonArray(json, "ingredients");
+                for (int i = 0; i < jsonArray.size() && i < 3; i++) {
+                    ingredients.set(i, Ingredient.fromJson(jsonArray.get(i)));
+                }
+            }
             if (ingredients.isEmpty()) {
                 throw new JsonParseException("No ingredients for Fermentation Barrel recipe");
-            } else if (ingredients.size() > 3) {
-                throw new JsonParseException("Too many ingredients for Fermentation Barrel recipe");
             }
 
-            String juiceType = "white";
+            String juiceType = "white_general";
             int juiceAmount = 10;
             if (json.has("juice")) {
                 JsonObject juiceObject = GsonHelper.getAsJsonObject(json, "juice");
-                juiceType = GsonHelper.getAsString(juiceObject, "type", "white");
+                juiceType = GsonHelper.getAsString(juiceObject, "type", "white_general");
                 juiceAmount = GsonHelper.getAsInt(juiceObject, "amount", 10);
             }
 
@@ -149,8 +152,8 @@ public class FermentationBarrelRecipe implements Recipe<FermentationBarrelBlockE
         @Override
         public @NotNull FermentationBarrelRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
             int ingredientCount = buf.readVarInt();
-            NonNullList<Ingredient> ingredients = NonNullList.withSize(ingredientCount, Ingredient.EMPTY);
-            for (int i = 0; i < ingredientCount; i++) {
+            NonNullList<Ingredient> ingredients = NonNullList.withSize(3, Ingredient.EMPTY);
+            for (int i = 0; i < ingredientCount && i < 3; i++) {
                 ingredients.set(i, Ingredient.fromNetwork(buf));
             }
             String juiceType = buf.readUtf();

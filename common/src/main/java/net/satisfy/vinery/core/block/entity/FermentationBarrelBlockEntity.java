@@ -23,6 +23,7 @@ import net.satisfy.vinery.core.recipe.FermentationBarrelRecipe;
 import net.satisfy.vinery.core.registry.EntityTypeRegistry;
 import net.satisfy.vinery.core.registry.ObjectRegistry;
 import net.satisfy.vinery.core.registry.RecipeTypesRegistry;
+import net.satisfy.vinery.core.util.JuiceUtil;
 import net.satisfy.vinery.core.util.WineYears;
 import net.satisfy.vinery.core.world.ImplementedInventory;
 import net.satisfy.vinery.platform.PlatformHelper;
@@ -48,7 +49,7 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Implem
                 case 0 -> FermentationBarrelBlockEntity.this.fermentationTime;
                 case 1 -> PlatformHelper.getTotalFermentationTime();
                 case 2 -> FermentationBarrelBlockEntity.this.fluidLevel;
-                case 3 -> "red".equals(FermentationBarrelBlockEntity.this.juiceType) ? 1 : ("white".equals(FermentationBarrelBlockEntity.this.juiceType) ? 0 : -1);
+                case 3 -> getJuiceTypeValue();
                 default -> 0;
             };
         }
@@ -59,7 +60,7 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Implem
                 case 0 -> FermentationBarrelBlockEntity.this.fermentationTime = value;
                 case 1 -> FermentationBarrelBlockEntity.this.updateTotalFermentationTime();
                 case 2 -> FermentationBarrelBlockEntity.this.setFluidLevel(value);
-                case 3 -> FermentationBarrelBlockEntity.this.juiceType = value == 1 ? "red" : (value == 0 ? "white" : "");
+                case 3 -> FermentationBarrelBlockEntity.this.juiceType = getJuiceTypeFromValue(value);
                 default -> {}
             }
         }
@@ -98,6 +99,34 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Implem
     public void setJuiceType(String juiceType) {
         this.juiceType = juiceType;
         setChanged();
+    }
+
+    private int getJuiceTypeValue() {
+        return switch (juiceType) {
+            case "red_general" -> 1;
+            case "white_general" -> 0;
+            case "red_savanna" -> 3;
+            case "white_savanna" -> 2;
+            case "red_taiga" -> 5;
+            case "white_taiga" -> 4;
+            case "red_jungle" -> 7;
+            case "white_jungle" -> 6;
+            default -> -1;
+        };
+    }
+
+    private String getJuiceTypeFromValue(int value) {
+        return switch (value) {
+            case 0 -> "white_general";
+            case 1 -> "red_general";
+            case 2 -> "white_savanna";
+            case 3 -> "red_savanna";
+            case 4 -> "white_taiga";
+            case 5 -> "red_taiga";
+            case 6 -> "white_jungle";
+            case 7 -> "red_jungle";
+            default -> "";
+        };
     }
 
     @Override
@@ -146,8 +175,8 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Implem
         }
 
         ItemStack stack = blockEntity.getItem(GRAPEJUICE_INPUT_SLOT);
-        if (stack.is(ObjectRegistry.WHITE_GRAPEJUICE.get()) || stack.is(ObjectRegistry.RED_GRAPEJUICE.get())) {
-            String newJuiceType = stack.is(ObjectRegistry.WHITE_GRAPEJUICE.get()) ? "white" : "red";
+        if (JuiceUtil.isJuice(stack)) {
+            String newJuiceType = JuiceUtil.getJuiceType(stack);
 
             if (blockEntity.fluidLevel == 0 || blockEntity.juiceType.equals(newJuiceType)) {
                 blockEntity.setJuiceType(newJuiceType);

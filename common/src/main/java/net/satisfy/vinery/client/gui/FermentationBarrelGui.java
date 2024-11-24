@@ -10,20 +10,13 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.satisfy.vinery.client.gui.handler.FermentationBarrelGuiHandler;
+import net.satisfy.vinery.core.util.JuiceUtil;
 import net.satisfy.vinery.core.util.VineryIdentifier;
 import net.satisfy.vinery.platform.PlatformHelper;
 
 @Environment(EnvType.CLIENT)
 public class FermentationBarrelGui extends AbstractContainerScreen<FermentationBarrelGuiHandler> {
     public static final ResourceLocation BACKGROUND = new VineryIdentifier("textures/gui/aging_barrel_gui.png");
-
-    private static final int WHITE_FLUID_TEXTURE_X = 176;
-    private static final int WHITE_FLUID_TEXTURE_Y_START = 33;
-    private static final int WHITE_FLUID_HEIGHT = 4;
-
-    private static final int RED_FLUID_TEXTURE_X = 176;
-    private static final int RED_FLUID_TEXTURE_Y_START = 29;
-    private static final int RED_FLUID_HEIGHT = 4;
 
     private static final int FLUID_WIDTH = 20;
     private static final int FLUID_X = 82;
@@ -79,21 +72,23 @@ public class FermentationBarrelGui extends AbstractContainerScreen<FermentationB
         double percentage = (double) fluidLevel / maxFluidLevel * 100;
         String percentageStr = String.format("%.2f", percentage);
 
-        if ("red".equals(juiceType)) {
+        if (juiceType.startsWith("red")) {
+            String region = juiceType.substring(4);
             return Component.translatable(
-                    "tooltip.vinery.fermentation_barrel.red_juice_with_percentage",
+                    "tooltip.vinery.fermentation_barrel.red_" + region + "_juice_with_percentage",
                     percentageStr
             );
-
-        } else if ("white".equals(juiceType)) {
+        } else if (juiceType.startsWith("white")) {
+            String region = juiceType.substring(6);
             return Component.translatable(
-                    "tooltip.vinery.fermentation_barrel.white_juice_with_percentage",
+                    "tooltip.vinery.fermentation_barrel.white_" + region + "_juice_with_percentage",
                     percentageStr
             );
         } else {
             return Component.translatable("tooltip.vinery.fermentation_barrel.empty");
         }
     }
+
 
     private Component getCraftingTimeTooltip() {
         int totalTicks = this.menu.data.get(1);
@@ -154,17 +149,10 @@ public class FermentationBarrelGui extends AbstractContainerScreen<FermentationB
         int scaledFluidWidth = (int) ((double) fluidLevel / maxFluidLevel * FLUID_WIDTH);
         scaledFluidWidth = Math.max(0, Math.min(FLUID_WIDTH, scaledFluidWidth));
 
-        int textureX = WHITE_FLUID_TEXTURE_X;
-        int textureY = WHITE_FLUID_TEXTURE_Y_START;
-        int fluidHeight = WHITE_FLUID_HEIGHT;
+        int textureX = 176;
+        int textureY = (juiceType.startsWith("red") ? 29 : 33);
 
-        if ("red".equals(juiceType)) {
-            textureX = RED_FLUID_TEXTURE_X;
-            textureY = RED_FLUID_TEXTURE_Y_START;
-            fluidHeight = RED_FLUID_HEIGHT;
-        }
-
-        guiGraphics.blit(BACKGROUND, x + FLUID_X, y + FLUID_Y, textureX, textureY, scaledFluidWidth, fluidHeight);
+        guiGraphics.blit(BACKGROUND, x + FLUID_X, y + FLUID_Y, textureX, textureY, scaledFluidWidth, 4);
 
         this.renderCraftingProgress(guiGraphics, x, y);
     }
