@@ -20,8 +20,8 @@ public class FermentationBarrelGuiHandler extends AbstractContainerMenu {
     private final Level level;
     public final ContainerData data;
 
+    private static final int WINE_BOTTLE_SLOT = 4;
     private static final int OUTPUT_SLOT_GENERAL = 5;
-    private static final int OUTPUT_SLOT_WINE = 4;
 
     public FermentationBarrelGuiHandler(int syncId, Inventory playerInventory) {
         this(syncId, playerInventory, new SimpleContainer(6), new SimpleContainerData(4));
@@ -52,12 +52,7 @@ public class FermentationBarrelGuiHandler extends AbstractContainerMenu {
         this.addSlot(new ExtendedSlot(inventory, 2, 85, 58, this::isIngredient));
         this.addSlot(new ExtendedSlot(inventory, 3, 103, 58, this::isIngredient));
 
-        this.addSlot(new FermentationBarrelOutputSlot(playerInventory.player, inventory, OUTPUT_SLOT_WINE, 123, 58) {
-            @Override
-            public boolean mayPlace(@NotNull ItemStack stack) {
-                return stack.is(ObjectRegistry.WINE_BOTTLE.get());
-            }
-        });
+        this.addSlot(new ExtendedSlot(inventory, WINE_BOTTLE_SLOT, 121, 58, stack -> stack.is(ObjectRegistry.WINE_BOTTLE.get())));
 
         this.addSlot(new FermentationBarrelOutputSlot(playerInventory.player, inventory, OUTPUT_SLOT_GENERAL, 103, 17));
     }
@@ -98,11 +93,11 @@ public class FermentationBarrelGuiHandler extends AbstractContainerMenu {
                         return ItemStack.EMPTY;
                     }
                 } else if (stackInSlot.is(ObjectRegistry.WINE_BOTTLE.get())) {
-                    if (!this.moveItemStackTo(stackInSlot, OUTPUT_SLOT_WINE, OUTPUT_SLOT_WINE + 1, false)) {
+                    if (!this.moveItemStackTo(stackInSlot, WINE_BOTTLE_SLOT, WINE_BOTTLE_SLOT + 1, false)) {
                         return ItemStack.EMPTY;
                     }
                 } else if (isIngredient(stackInSlot)) {
-                    if (!this.moveItemStackTo(stackInSlot, 1, 4, false)) {
+                    if (!this.moveItemStackTo(stackInSlot, 1, 4, false)) { 
                         return ItemStack.EMPTY;
                     }
                 } else if (index < this.slots.size() - 9) {

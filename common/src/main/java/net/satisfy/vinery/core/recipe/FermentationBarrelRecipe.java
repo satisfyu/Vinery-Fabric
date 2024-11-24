@@ -12,6 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.satisfy.vinery.core.block.entity.FermentationBarrelBlockEntity;
+import net.satisfy.vinery.core.registry.ObjectRegistry;
 import net.satisfy.vinery.core.registry.RecipeTypesRegistry;
 import net.satisfy.vinery.core.util.GeneralUtil;
 import org.jetbrains.annotations.NotNull;
@@ -20,16 +21,17 @@ public class FermentationBarrelRecipe implements Recipe<FermentationBarrelBlockE
     private final ResourceLocation identifier;
     private final NonNullList<Ingredient> inputs;
     private final String juiceType;
-
     private final int juiceAmount;
     private final ItemStack output;
+    private final boolean wineBottleRequired;
 
-    public FermentationBarrelRecipe(ResourceLocation identifier, NonNullList<Ingredient> inputs, String juiceType, int juiceAmount, ItemStack output) {
+    public FermentationBarrelRecipe(ResourceLocation identifier, NonNullList<Ingredient> inputs, String juiceType, int juiceAmount, ItemStack output, boolean wineBottleRequired) {
         this.identifier = identifier;
         this.inputs = inputs;
         this.juiceType = juiceType;
         this.juiceAmount = juiceAmount;
         this.output = output;
+        this.wineBottleRequired = wineBottleRequired;
     }
 
     public String getJuiceType() {
@@ -38,6 +40,10 @@ public class FermentationBarrelRecipe implements Recipe<FermentationBarrelBlockE
 
     public int getJuiceAmount() {
         return juiceAmount;
+    }
+
+    public boolean isWineBottleRequired() {
+        return wineBottleRequired;
     }
 
     @Override
@@ -50,10 +56,17 @@ public class FermentationBarrelRecipe implements Recipe<FermentationBarrelBlockE
             return false;
         }
 
+        if (this.wineBottleRequired) {
+            ItemStack wineBottle = blockEntity.getItem(FermentationBarrelBlockEntity.WINE_BOTTLE_SLOT);
+            if (wineBottle.isEmpty() || !wineBottle.is(ObjectRegistry.WINE_BOTTLE.get())) {
+                return false;
+            }
+        }
+
         StackedContents recipeMatcher = new StackedContents();
         int matchingStacks = 0;
 
-        for (int i = 1; i < 5; ++i) {
+        for (int i = 1; i < 4; ++i) {
             ItemStack itemStack = blockEntity.getItem(i);
             if (!itemStack.isEmpty()) {
                 ++matchingStacks;
@@ -111,7 +124,7 @@ public class FermentationBarrelRecipe implements Recipe<FermentationBarrelBlockE
             NonNullList<Ingredient> ingredients = GeneralUtil.deserializeIngredients(GsonHelper.getAsJsonArray(json, "ingredients"));
             if (ingredients.isEmpty()) {
                 throw new JsonParseException("No ingredients for Fermentation Barrel recipe");
-            } else if (ingredients.size() > 4) {
+            } else if (ingredients.size() > 3) {
                 throw new JsonParseException("Too many ingredients for Fermentation Barrel recipe");
             }
 
@@ -123,8 +136,14 @@ public class FermentationBarrelRecipe implements Recipe<FermentationBarrelBlockE
                 juiceAmount = GsonHelper.getAsInt(juiceObject, "amount", 10);
             }
 
+            boolean wineBottleRequired = false;
+            if (json.has("wine_bottle")) {
+                JsonObject wineBottleObject = GsonHelper.getAsJsonObject(json, "wine_bottle");
+                wineBottleRequired = GsonHelper.getAsBoolean(wineBottleObject, "required", false);
+            }
+
             ItemStack result = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result"));
-            return new FermentationBarrelRecipe(id, ingredients, juiceType, juiceAmount, result);
+            return new FermentationBarrelRecipe(id, ingredients, juiceType, juiceAmount, result, wineBottleRequired);
         }
 
         @Override
@@ -136,8 +155,9 @@ public class FermentationBarrelRecipe implements Recipe<FermentationBarrelBlockE
             }
             String juiceType = buf.readUtf();
             int juiceAmount = buf.readVarInt();
+            boolean wineBottleRequired = buf.readBoolean();
             ItemStack result = buf.readItem();
-            return new FermentationBarrelRecipe(id, ingredients, juiceType, juiceAmount, result);
+            return new FermentationBarrelRecipe(id, ingredients, juiceType, juiceAmount, result, wineBottleRequired);
         }
 
         @Override
@@ -148,6 +168,7 @@ public class FermentationBarrelRecipe implements Recipe<FermentationBarrelBlockE
             }
             buf.writeUtf(recipe.juiceType);
             buf.writeVarInt(recipe.juiceAmount);
+            buf.writeBoolean(recipe.wineBottleRequired);
             buf.writeItem(recipe.output);
         }
     }

@@ -15,6 +15,9 @@
       "item": "minecraft:iron_ingot"
     }
   ],
+  "wine_bottle": {
+    "required": true
+  },
   "result": {
     "item": "vinery:aegis_wine",
     "count": 1
