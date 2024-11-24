@@ -19,14 +19,21 @@ import org.jetbrains.annotations.NotNull;
 public class FermentationBarrelRecipe implements Recipe<FermentationBarrelBlockEntity> {
     private final ResourceLocation identifier;
     private final NonNullList<Ingredient> inputs;
-    private final ItemStack output;
-    private final int juiceAmount;
+    private final String juiceType;
 
-    public FermentationBarrelRecipe(ResourceLocation identifier, NonNullList<Ingredient> inputs, int juiceAmount, ItemStack output) {
+    private final int juiceAmount;
+    private final ItemStack output;
+
+    public FermentationBarrelRecipe(ResourceLocation identifier, NonNullList<Ingredient> inputs, String juiceType, int juiceAmount, ItemStack output) {
         this.identifier = identifier;
         this.inputs = inputs;
+        this.juiceType = juiceType;
         this.juiceAmount = juiceAmount;
         this.output = output;
+    }
+
+    public String getJuiceType() {
+        return juiceType;
     }
 
     public int getJuiceAmount() {
@@ -36,6 +43,10 @@ public class FermentationBarrelRecipe implements Recipe<FermentationBarrelBlockE
     @Override
     public boolean matches(FermentationBarrelBlockEntity blockEntity, Level world) {
         if (blockEntity.getFluidLevel() < this.juiceAmount) {
+            return false;
+        }
+
+        if (!this.juiceType.equals(blockEntity.getJuiceType())) {
             return false;
         }
 
@@ -104,14 +115,16 @@ public class FermentationBarrelRecipe implements Recipe<FermentationBarrelBlockE
                 throw new JsonParseException("Too many ingredients for Fermentation Barrel recipe");
             }
 
+            String juiceType = "white";
             int juiceAmount = 10;
             if (json.has("juice")) {
                 JsonObject juiceObject = GsonHelper.getAsJsonObject(json, "juice");
+                juiceType = GsonHelper.getAsString(juiceObject, "type", "white");
                 juiceAmount = GsonHelper.getAsInt(juiceObject, "amount", 10);
             }
 
             ItemStack result = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result"));
-            return new FermentationBarrelRecipe(id, ingredients, juiceAmount, result);
+            return new FermentationBarrelRecipe(id, ingredients, juiceType, juiceAmount, result);
         }
 
         @Override
@@ -121,9 +134,10 @@ public class FermentationBarrelRecipe implements Recipe<FermentationBarrelBlockE
             for (int i = 0; i < ingredientCount; i++) {
                 ingredients.set(i, Ingredient.fromNetwork(buf));
             }
-            int juiceAmount = buf.readVarInt(); // Read juice amount
+            String juiceType = buf.readUtf();
+            int juiceAmount = buf.readVarInt();
             ItemStack result = buf.readItem();
-            return new FermentationBarrelRecipe(id, ingredients, juiceAmount, result);
+            return new FermentationBarrelRecipe(id, ingredients, juiceType, juiceAmount, result);
         }
 
         @Override
@@ -132,6 +146,7 @@ public class FermentationBarrelRecipe implements Recipe<FermentationBarrelBlockE
             for (Ingredient ingredient : recipe.inputs) {
                 ingredient.toNetwork(buf);
             }
+            buf.writeUtf(recipe.juiceType);
             buf.writeVarInt(recipe.juiceAmount);
             buf.writeItem(recipe.output);
         }

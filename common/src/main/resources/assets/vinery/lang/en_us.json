@@ -150,6 +150,7 @@
   "block.vinery.spruce_wine_rack_small": "Small Spruce Wine Bottle Storage",
   "block.vinery.stackable_log": "Stackable Log",
   "block.vinery.stal_wine": "Stal Wine",
+  "block.vinery.dirt_path_slab": "Dirt Path Slab",
   "block.vinery.storage_pot": "Storage Pot",
   "block.vinery.strad_wine": "Strad Wine",
   "block.vinery.stripped_dark_cherry_log": "Stripped Dark Cherry Log",
@@ -313,5 +314,9 @@
   "text.autoconfig.vinery.option.trader": "Wandering Winemaker",
   "text.autoconfig.vinery.option.trader.spawnChance": "Spawn Weight",
   "text.autoconfig.vinery.option.trader.spawnWithMules": "Spawn with Mules",
-  "text.autoconfig.vinery.option.trader.spawnDelay": "Spawn Delay"
+  "text.autoconfig.vinery.option.trader.spawnDelay": "Spawn Delay",
+  "tooltip.vinery.fermentation_barrel.white_juice_with_percentage": "White Grapejuice: %s%%",
+  "tooltip.vinery.fermentation_barrel.red_juice_with_percentage": "Red Grapejuice: %s%%",
+  "tooltip.vinery.fermentation_barrel.crafting_time": "Remaining Time: %s"
+
 }
