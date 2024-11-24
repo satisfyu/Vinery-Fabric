@@ -3,6 +3,8 @@ package net.satisfy.vinery.core.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -56,15 +58,28 @@ public class FermentationBarrelBlock extends HorizontalDirectionalBlock implemen
 
     @Override
     public @NotNull InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        final BlockEntity entity = world.getBlockEntity(pos);
-        if (entity instanceof MenuProvider factory) {
-            player.openMenu(factory);
+        if (world.isClientSide) {
             return InteractionResult.SUCCESS;
-        } else {
-            return InteractionResult.PASS;
         }
-    }
 
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        if (blockEntity instanceof FermentationBarrelBlockEntity barrelBlockEntity) {
+            if (player.isShiftKeyDown()) {
+                if (barrelBlockEntity.getFluidLevel() > 0) {
+                    barrelBlockEntity.setFluidLevel(0);
+                    barrelBlockEntity.setJuiceType("");
+                    world.playSound(null, pos, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
+                    world.sendBlockUpdated(pos, state, state, 3);
+                    return InteractionResult.SUCCESS;
+                }
+            } else {
+                player.openMenu(barrelBlockEntity);
+                return InteractionResult.CONSUME;
+            }
+        }
+
+        return super.use(state, world, pos, player, hand, hit);
+    }
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {

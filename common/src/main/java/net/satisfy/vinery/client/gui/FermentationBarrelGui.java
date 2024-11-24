@@ -74,17 +74,25 @@ public class FermentationBarrelGui extends AbstractContainerScreen<FermentationB
         }
 
         if (isMouseOverCraftingTimeArea(mouseX, mouseY)) {
-            int remainingTicks = this.menu.getScaledProgress(this.menu.data.get(1)) - this.menu.data.get(0);
-            int seconds = remainingTicks / 20;
-            int minutes = seconds / 60;
-            seconds %= 60;
+            int totalTicks = this.menu.data.get(1); 
+            int currentTicks = this.menu.data.get(0); 
+            int remainingTicks = totalTicks - currentTicks; 
 
-            String formattedTime = String.format("%d:%02d Seconds", minutes, seconds);
-            Component tooltip = Component.translatable("tooltip.vinery.fermentation_barrel.crafting_time", formattedTime);
-            guiGraphics.renderTooltip(this.font, tooltip, mouseX, mouseY);
+            if (remainingTicks > 0) {
+                int seconds = remainingTicks / 20;
+                int minutes = seconds / 60;
+                seconds %= 60;
+
+                String formattedTime = String.format("%d:%02d Seconds", minutes, seconds);
+                Component tooltip = Component.translatable("tooltip.vinery.fermentation_barrel.crafting_time", formattedTime);
+                guiGraphics.renderTooltip(this.font, tooltip, mouseX, mouseY);
+            } else {
+                Component tooltip = Component.translatable("tooltip.vinery.fermentation_barrel.crafting_time", "0:00 Seconds");
+                guiGraphics.renderTooltip(this.font, tooltip, mouseX, mouseY);
+            }
         }
     }
-
+    
     private boolean isMouseOverFluidArea(int mouseX, int mouseY) {
         int fluidAreaLeft = this.leftPos + 80; 
         int fluidAreaTop = this.topPos + 42;  
