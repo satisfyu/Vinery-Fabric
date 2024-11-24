@@ -94,7 +94,6 @@ public class FermentationBarrelGui extends AbstractContainerScreen<FermentationB
             return Component.translatable("tooltip.vinery.fermentation_barrel.empty");
         }
     }
-    
 
     private Component getCraftingTimeTooltip() {
         int totalTicks = this.menu.data.get(1);
@@ -112,7 +111,6 @@ public class FermentationBarrelGui extends AbstractContainerScreen<FermentationB
             return Component.translatable("tooltip.vinery.fermentation_barrel.crafting_time", "0:00 Seconds");
         }
     }
-
 
     private boolean isMouseOverFluidArea(int mouseX, int mouseY) {
         int fluidAreaLeft = this.leftPos + FLUID_X - 1;
@@ -135,7 +133,6 @@ public class FermentationBarrelGui extends AbstractContainerScreen<FermentationB
     }
 
     @Override
-    @SuppressWarnings("all")
     protected void renderBg(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, BACKGROUND);
