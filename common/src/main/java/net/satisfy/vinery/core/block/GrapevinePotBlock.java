@@ -1,6 +1,7 @@
 package net.satisfy.vinery.core.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -27,34 +28,39 @@ import net.satisfy.vinery.core.registry.SoundEventRegistry;
 import net.satisfy.vinery.platform.PlatformHelper;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.UUID;
+
 @SuppressWarnings("deprecation")
 public class GrapevinePotBlock extends Block {
     private static final VoxelShape FILLING_SHAPE = Shapes.or(
-            Block.box(15.0, 0.0, 0.0,  16.0, 10.0, 16.0),
-            Block.box(0.0, 0.0, 0.0, 1.0, 10.0,  16.0),
+            Block.box(15.0, 0.0, 0.0, 16.0, 10.0, 16.0),
+            Block.box(0.0, 0.0, 0.0, 1.0, 10.0, 16.0),
             Block.box(1.0, 0.0, 0.0, 15.0, 10.0, 1.0),
             Block.box(1.0, 0.0, 15.0, 15.0, 10.0, 16.0),
             Block.box(0, 0, 0, 16.0, 6, 0.0),
-            Block.box(0, 0, 16, 16, 6,16),
+            Block.box(0, 0, 16, 16, 6, 16),
             Block.box(16, 0, 0, 16, 6, 16),
             Block.box(0, 0, 0, 0, 5, 16),
             Block.box(1, 1, 1, 15, 1, 15)
     );
+    private static final VoxelShape SMASHING_SHAPE = Shapes.or(FILLING_SHAPE, Block.box(0.0, 0.0, 0.0, 16.0, 4.0, 16.0));
 
-    private static final VoxelShape SMASHING_SHAPE = Shapes.or(
-            FILLING_SHAPE,
-            Block.box(0.0, 0.0, 0.0, 16.0, 4.0, 16.0)
-    );
+    private static final ConcurrentHashMap<UUID, Integer> jumpCounts = new ConcurrentHashMap<>();
+
     private static final int MAX_STAGE = 6;
-    private static final int MAX_STORAGE = PlatformHelper.getGrapevinePotMaxStorage();
-    private static final IntegerProperty STAGE = IntegerProperty.create("stage", 0, MAX_STAGE);
-    private static final IntegerProperty STORAGE = IntegerProperty.create("storage", 0, MAX_STORAGE);
-    private static final int DECREMENT_PER_WINE_BOTTLE = 3;
     private static final GrapeProperty GRAPEVINE_TYPE = GrapeProperty.create("type");
+    private static final int DECREMENT_PER_WINE_BOTTLE = 3;
+    private static final IntegerProperty STAGE = IntegerProperty.create("stage", 0, MAX_STAGE);
+    private static final IntegerProperty STORAGE = IntegerProperty.create("storage", 0, PlatformHelper.getGrapevinePotMaxStorage());
 
     public GrapevinePotBlock(Properties settings) {
         super(settings);
         this.registerDefaultState(this.defaultBlockState().setValue(STAGE, 0).setValue(STORAGE, 0).setValue(GRAPEVINE_TYPE, GrapeTypeRegistry.NONE));
+    }
+
+    private int getMaxStorage() {
+        return PlatformHelper.getGrapevinePotMaxStorage();
     }
 
     @Override
@@ -65,17 +71,54 @@ public class GrapevinePotBlock extends Block {
             return SMASHING_SHAPE;
         }
     }
+
     @Override
     public void fallOn(Level world, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
-        super.fallOn(world, state, pos, entity, fallDistance);
-        if (entity instanceof LivingEntity) {
-            final int activeStage = state.getValue(STAGE);
-            if (activeStage >= 3) {
-                if (activeStage < MAX_STAGE) {
-                    world.setBlock(pos, state.setValue(STAGE, activeStage + 1), Block.UPDATE_ALL);
-                }
-                world.playSound(null, pos, SoundEventRegistry.BLOCK_GRAPEVINE_POT_SQUEEZE.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+        if (entity instanceof Player player) {
+            UUID playerId = player.getUUID();
+            int currentJumps = jumpCounts.getOrDefault(playerId, 0) + 1;
+
+            int requiredJumps = PlatformHelper.getGrapevinePotRequiredJumps();
+
+            if (currentJumps >= requiredJumps) {
+                jumpCounts.remove(playerId);
+                handleSmash(world, state, pos);
+            } else {
+                jumpCounts.put(playerId, currentJumps);
             }
+        } else if (entity instanceof LivingEntity) {
+            handleSmash(world, state, pos);
+        }
+
+        super.fallOn(world, state, pos, entity, fallDistance);
+    }
+
+    private void handleSmash(Level world, BlockState state, BlockPos pos) {
+        final int activeStage = state.getValue(STAGE);
+        if (activeStage >= 3) {
+            if (activeStage < MAX_STAGE) {
+                world.setBlock(pos, state.setValue(STAGE, activeStage + 1), Block.UPDATE_ALL);
+            }
+            world.playSound(null, pos, SoundEventRegistry.BLOCK_GRAPEVINE_POT_SQUEEZE.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+            if (PlatformHelper.shouldShowSplashParticles()) {
+                spawnFallingParticles(world, pos);
+            }
+        }
+    }
+
+    private void spawnFallingParticles(Level world, BlockPos pos) {
+        int particleCount = 20;
+
+        for (int i = 0; i < particleCount; i++) {
+            double offsetX = Math.random();
+            double offsetY = Math.random();
+            double offsetZ = Math.random();
+
+            double x = pos.getX() + offsetX;
+            double y = pos.getY() + offsetY;
+            double z = pos.getZ() + offsetZ;
+
+            world.addParticle(ParticleTypes.SPLASH, x, y, z, 0, 0.1, 0);
         }
     }
 
@@ -88,16 +131,18 @@ public class GrapevinePotBlock extends Block {
             return false;
         }
     }
+
     private boolean canTakeWine(int storage) {
         return switch (storage) {
             case 3, 6, 9 -> true;
             default -> false;
         };
     }
+
     @Override
     public @NotNull InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         final ItemStack stack = player.getItemInHand(hand);
-        if (state.getValue(STAGE) > 3 || state.getValue(STORAGE) >= MAX_STORAGE) {
+        if (state.getValue(STAGE) > 3 || state.getValue(STORAGE) >= getMaxStorage()) {
             if (stack.getItem() instanceof GrapeItem) {
                 return InteractionResult.PASS;
             }
@@ -153,9 +198,8 @@ public class GrapevinePotBlock extends Block {
     }
 
     private boolean isFilled(BlockState state) {
-        return state.getValue(STORAGE) >= MAX_STORAGE;
+        return state.getValue(STORAGE) >= getMaxStorage();
     }
-
 
     @Override
     public @NotNull VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {

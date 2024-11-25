@@ -184,12 +184,12 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Implem
                 int maxFluidLevel = PlatformHelper.getMaxFluidLevel();
                 int grapeJuiceCount = stack.getCount();
                 int grapesToConsume = Math.min(grapeJuiceCount, 4);
-                int fluidIncrease = grapesToConsume * 25;
+                int fluidIncrease = grapesToConsume * PlatformHelper.getMaxFluidIncrease();
 
                 int newFluidLevel = Math.min(currentLevel + fluidIncrease, maxFluidLevel);
                 int actualFluidIncrease = newFluidLevel - currentLevel;
 
-                int actualGrapesConsumed = actualFluidIncrease / 25;
+                int actualGrapesConsumed = actualFluidIncrease / PlatformHelper.getMaxFluidIncrease();
 
                 if (actualGrapesConsumed > 0) {
                     blockEntity.setFluidLevel(newFluidLevel);

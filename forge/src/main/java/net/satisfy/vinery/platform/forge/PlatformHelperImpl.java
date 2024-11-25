@@ -11,9 +11,9 @@ public class PlatformHelperImpl {
         return VineryForgeConfig.TOTAL_FERMENTATION_TIME.get();
     }
 
-    public static int getMaxFluidLevel() {
-        return VineryForgeConfig.MAX_FLUID_LEVEL.get();
-    }
+    public static int getMaxFluidLevel() {return VineryForgeConfig.MAX_FLUID_LEVEL.get();}
+
+    public static int getMaxFluidIncrease() {return VineryForgeConfig.MAX_FLUID_INCREASE.get();}
 
     public static int getApplePressMaxProgress() {
         return VineryForgeConfig.APPLE_PRESS_CRAFTING_TIME.get();
@@ -86,4 +86,5 @@ public class PlatformHelperImpl {
     public static int getGrapevinePotMaxStorage() {
         return VineryForgeConfig.GRAPEVINE_POT_MAX_STORAGE.get();
     }
+
 }

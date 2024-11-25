@@ -1,6 +1,5 @@
 package net.satisfy.vinery.core.block.entity;
 
-import java.util.Iterator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -18,19 +17,9 @@ import org.jetbrains.annotations.NotNull;
 
 public class FlowerPotBlockEntity extends BlockEntity {
     private Item flower;
-    public static final String FLOWER_KEY = "flower";
 
     public FlowerPotBlockEntity(BlockPos pos, BlockState state) {
         super(EntityTypeRegistry.FLOWER_POT_ENTITY.get(), pos, state);
-    }
-
-    public Item getFlower() {
-        return this.flower;
-    }
-
-    public void setFlower(Item flower) {
-        this.flower = flower;
-        this.setChanged();
     }
 
     public void saveAdditional(CompoundTag nbt) {
@@ -75,10 +64,8 @@ public class FlowerPotBlockEntity extends BlockEntity {
     public void setChanged() {
         if (this.level != null && !this.level.isClientSide()) {
             Packet<ClientGamePacketListener> updatePacket = this.getUpdatePacket();
-            Iterator var2 = GeneralUtil.tracking((ServerLevel)this.level, this.getBlockPos()).iterator();
 
-            while(var2.hasNext()) {
-                ServerPlayer player = (ServerPlayer)var2.next();
+            for (ServerPlayer player : GeneralUtil.tracking((ServerLevel) this.level, this.getBlockPos())) {
                 player.connection.send(updatePacket);
             }
         }

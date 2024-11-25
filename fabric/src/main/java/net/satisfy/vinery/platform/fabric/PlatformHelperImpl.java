@@ -19,6 +19,11 @@ public class PlatformHelperImpl extends PlatformHelper {
         return config.blocks.maxFluidLevel;
     }
 
+    public static int getMaxFluidIncrease() {
+        VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
+        return config.blocks.maxFluidIncrease;
+    }
+
     public static int getApplePressMaxProgress() {
         VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
         return config.blocks.applePressMaxProgress;
@@ -27,6 +32,16 @@ public class PlatformHelperImpl extends PlatformHelper {
     public static int getGrapevinePotMaxStorage() {
         VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
         return config.blocks.grapevinePotMaxStorage;
+    }
+
+    public static int getGrapevinePotRequiredJumps() {
+        VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
+        return config.blocks.grapevinePotRequiredJumps;
+    }
+
+    public static boolean shouldShowSplashParticles() {
+        VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
+        return config.blocks.grapevinePotShowSplashParticles;
     }
 
     public static double getCherryGrowthChance() {
@@ -109,6 +124,4 @@ public class PlatformHelperImpl extends PlatformHelper {
         VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
         return config.trader.spawnDelay;
     }
-
-
 }

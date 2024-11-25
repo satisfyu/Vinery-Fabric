@@ -16,7 +16,6 @@ import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -33,11 +32,11 @@ public class CabinetBlockEntity extends RandomizableContainerBlockEntity {
     }
 
     public CabinetBlockEntity(BlockPos pos, BlockState state, final SoundEvent openSound, final SoundEvent closeSound) {
-        super((BlockEntityType) EntityTypeRegistry.CABINET_BLOCK_ENTITY.get(), pos, state);
+        super(EntityTypeRegistry.CABINET_BLOCK_ENTITY.get(), pos, state);
         this.inventory = NonNullList.withSize(18, ItemStack.EMPTY);
         this.stateManager = new ContainerOpenersCounter() {
             protected void onOpen(Level world, BlockPos pos, BlockState state) {
-                world.setBlock(pos, (BlockState)state.setValue(BlockStateProperties.OPEN, true), 3);
+                world.setBlock(pos, state.setValue(BlockStateProperties.OPEN, true), 3);
 
                 assert CabinetBlockEntity.this.level != null;
 
@@ -45,7 +44,7 @@ public class CabinetBlockEntity extends RandomizableContainerBlockEntity {
             }
 
             protected void onClose(Level world, BlockPos pos, BlockState state) {
-                world.setBlock(pos, (BlockState)state.setValue(BlockStateProperties.OPEN, false), 3);
+                world.setBlock(pos, state.setValue(BlockStateProperties.OPEN, false), 3);
 
                 assert CabinetBlockEntity.this.level != null;
 
@@ -53,10 +52,10 @@ public class CabinetBlockEntity extends RandomizableContainerBlockEntity {
             }
 
             static void playSound(Level level, BlockPos blockPos, SoundEvent soundEvent) {
-                double d = (double)blockPos.getX() + 0.5;
-                double e = (double)blockPos.getY() + 0.5;
-                double f = (double)blockPos.getZ() + 0.5;
-                level.playSound((Player)null, d, e, f, soundEvent, SoundSource.BLOCKS, 0.7F, level.random.nextFloat() * 0.1F + 0.9F);
+                double d = (double) blockPos.getX() + 0.5;
+                double e = (double) blockPos.getY() + 0.5;
+                double f = (double) blockPos.getZ() + 0.5;
+                level.playSound(null, d, e, f, soundEvent, SoundSource.BLOCKS, 0.7F, level.random.nextFloat() * 0.1F + 0.9F);
             }
 
             protected void openerCountChanged(Level world, BlockPos pos, BlockState state, int oldViewerCount, int newViewerCount) {
@@ -64,7 +63,7 @@ public class CabinetBlockEntity extends RandomizableContainerBlockEntity {
 
             protected boolean isOwnContainer(Player player) {
                 if (player.containerMenu instanceof ChestMenu) {
-                    Container inventory = ((ChestMenu)player.containerMenu).getContainer();
+                    Container inventory = ((ChestMenu) player.containerMenu).getContainer();
                     return inventory == CabinetBlockEntity.this;
                 } else {
                     return false;
@@ -129,12 +128,6 @@ public class CabinetBlockEntity extends RandomizableContainerBlockEntity {
             this.stateManager.recheckOpeners(this.getLevel(), this.getBlockPos(), this.getBlockState());
         }
 
-    }
-
-    public void setOpen(BlockState state, boolean open) {
-        assert this.level != null;
-
-        this.level.setBlock(this.getBlockPos(), (BlockState)state.setValue(BlockStateProperties.OPEN, open), 3);
     }
 }
 

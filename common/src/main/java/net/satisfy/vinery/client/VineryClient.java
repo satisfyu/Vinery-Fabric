@@ -84,6 +84,8 @@ public class VineryClient {
         registerStorageTypes(StorageTypeRegistry.SHELF, new ShelfRenderer());
         registerStorageTypes(StorageTypeRegistry.WINE_BOX, new WineBoxRenderer());
         registerStorageTypes(StorageTypeRegistry.WINE_BOTTLE, new WineBottleRenderer());
+        registerStorageTypes(StorageTypeRegistry.FLOWER_POT_BIG, new FlowerPotBigRenderer());
+        registerStorageTypes(StorageTypeRegistry.FLOWER_BOX, new FlowerBoxRenderer());
     }
 
     public static void registerScreenFactory() {

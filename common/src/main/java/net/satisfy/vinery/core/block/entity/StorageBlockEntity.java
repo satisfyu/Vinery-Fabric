@@ -14,10 +14,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.satisfy.vinery.core.registry.EntityTypeRegistry;
 import net.satisfy.vinery.core.util.GeneralUtil;
+import org.jetbrains.annotations.NotNull;
 
 public class StorageBlockEntity extends BlockEntity {
-    
-
     private int size;
 
     private NonNullList<ItemStack> inventory;
@@ -32,20 +31,20 @@ public class StorageBlockEntity extends BlockEntity {
         this.inventory = NonNullList.withSize(this.size, ItemStack.EMPTY);
     }
 
-    public ItemStack removeStack(int slot){
+    public ItemStack removeStack(int slot) {
         ItemStack stack = inventory.set(slot, ItemStack.EMPTY);
         setChanged();
         return stack;
     }
 
-    public void setStack(int slot, ItemStack stack){
+    public void setStack(int slot, ItemStack stack) {
         inventory.set(slot, stack);
         setChanged();
     }
 
     @Override
     public void setChanged() {
-        if(level != null && !level.isClientSide()) {
+        if (level != null && !level.isClientSide()) {
             Packet<ClientGamePacketListener> updatePacket = getUpdatePacket();
             for (ServerPlayer player : GeneralUtil.tracking((ServerLevel) level, getBlockPos())) {
                 player.connection.send(updatePacket);
@@ -62,8 +61,6 @@ public class StorageBlockEntity extends BlockEntity {
         ContainerHelper.loadAllItems(nbt, this.inventory);
     }
 
-
-
     @Override
     protected void saveAdditional(CompoundTag nbt) {
         ContainerHelper.saveAllItems(nbt, this.inventory);
@@ -77,7 +74,7 @@ public class StorageBlockEntity extends BlockEntity {
     }
 
     @Override
-    public CompoundTag getUpdateTag() {
+    public @NotNull CompoundTag getUpdateTag() {
         return this.saveWithoutMetadata();
     }
 

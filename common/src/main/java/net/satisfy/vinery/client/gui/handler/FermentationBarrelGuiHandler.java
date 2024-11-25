@@ -44,7 +44,7 @@ public class FermentationBarrelGuiHandler extends AbstractContainerMenu {
         this.addSlot(new ExtendedSlot(inventory, 1, 67, 58, this::isIngredient));
         this.addSlot(new ExtendedSlot(inventory, 2, 85, 58, this::isIngredient));
         this.addSlot(new ExtendedSlot(inventory, 3, 103, 58, this::isIngredient));
-        this.addSlot(new ExtendedSlot(inventory, WINE_BOTTLE_SLOT, 121, 58, stack -> stack.is(ObjectRegistry.WINE_BOTTLE.get())));
+        this.addSlot(new ExtendedSlot(inventory, WINE_BOTTLE_SLOT, 123, 58, stack -> stack.is(ObjectRegistry.WINE_BOTTLE.get())));
         this.addSlot(new FermentationBarrelOutputSlot(playerInventory.player, inventory, OUTPUT_SLOT_GENERAL, 103, 17));
     }
 

@@ -16,7 +16,6 @@ public class StorageTypeRegistry {
     public static final ResourceLocation SHELF = new VineryIdentifier("shelf");
     public static final ResourceLocation WINE_BOX = new VineryIdentifier("wine_box");
     public static final ResourceLocation WINE_BOTTLE = new VineryIdentifier("wine_bottle");
-
     public static final ResourceLocation FLOWER_POT_BIG = new VineryIdentifier("flower_pot_big");
     public static final ResourceLocation FLOWER_BOX = new VineryIdentifier("flower_box");
 
