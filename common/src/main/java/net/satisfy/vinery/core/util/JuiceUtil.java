@@ -4,46 +4,59 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.satisfy.vinery.core.registry.ObjectRegistry;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class JuiceUtil {
     public static final Set<Item> RED_JUICES = new HashSet<>();
     public static final Set<Item> WHITE_JUICES = new HashSet<>();
+    public static final Set<Item> APPLE_JUICES = new HashSet<>();
+    public static final Map<Item, String> ITEM_REGION_MAP = new HashMap<>();
 
     static {
-        RED_JUICES.add(ObjectRegistry.RED_GRAPEJUICE.get());
-        RED_JUICES.add(ObjectRegistry.RED_SAVANNA_GRAPEJUICE.get());
-        RED_JUICES.add(ObjectRegistry.RED_TAIGA_GRAPEJUICE.get());
-        RED_JUICES.add(ObjectRegistry.RED_JUNGLE_GRAPEJUICE.get());
-        WHITE_JUICES.add(ObjectRegistry.WHITE_GRAPEJUICE.get());
-        WHITE_JUICES.add(ObjectRegistry.WHITE_SAVANNA_GRAPEJUICE.get());
-        WHITE_JUICES.add(ObjectRegistry.WHITE_TAIGA_GRAPEJUICE.get());
-        WHITE_JUICES.add(ObjectRegistry.WHITE_JUNGLE_GRAPEJUICE.get());
+        addRedJuice(ObjectRegistry.RED_GRAPEJUICE.get(), "general");
+        addRedJuice(ObjectRegistry.RED_SAVANNA_GRAPEJUICE.get(), "savanna");
+        addRedJuice(ObjectRegistry.RED_TAIGA_GRAPEJUICE.get(), "taiga");
+        addRedJuice(ObjectRegistry.RED_JUNGLE_GRAPEJUICE.get(), "jungle");
+
+        addWhiteJuice(ObjectRegistry.WHITE_GRAPEJUICE.get(), "general");
+        addWhiteJuice(ObjectRegistry.WHITE_SAVANNA_GRAPEJUICE.get(), "savanna");
+        addWhiteJuice(ObjectRegistry.WHITE_TAIGA_GRAPEJUICE.get(), "taiga");
+        addWhiteJuice(ObjectRegistry.WHITE_JUNGLE_GRAPEJUICE.get(), "jungle");
+
+        addAppleJuice(ObjectRegistry.APPLE_JUICE.get());
     }
 
-    public static String getJuiceType(ItemStack stack) {
-        Item item = stack.getItem();
-        if (RED_JUICES.contains(item)) {
-            return "red_" + getRegion(item);
-        } else if (WHITE_JUICES.contains(item)) {
-            return "white_" + getRegion(item);
-        }
-        return "";
+    private static void addRedJuice(Item item, String region) {
+        RED_JUICES.add(item);
+        ITEM_REGION_MAP.put(item, region);
     }
 
-    private static String getRegion(Item item) {
-        if (item == ObjectRegistry.RED_SAVANNA_GRAPEJUICE.get() || item == ObjectRegistry.WHITE_SAVANNA_GRAPEJUICE.get()) {
-            return "savanna";
-        } else if (item == ObjectRegistry.RED_TAIGA_GRAPEJUICE.get() || item == ObjectRegistry.WHITE_TAIGA_GRAPEJUICE.get()) {
-            return "taiga";
-        } else if (item == ObjectRegistry.RED_JUNGLE_GRAPEJUICE.get() || item == ObjectRegistry.WHITE_JUNGLE_GRAPEJUICE.get()) {
-            return "jungle";
-        }
-        return "general";
+    private static void addWhiteJuice(Item item, String region) {
+        WHITE_JUICES.add(item);
+        ITEM_REGION_MAP.put(item, region);
+    }
+
+    private static void addAppleJuice(Item item) {
+        APPLE_JUICES.add(item);
+        ITEM_REGION_MAP.put(item, "apple");
     }
 
     public static boolean isJuice(ItemStack stack) {
-        return RED_JUICES.contains(stack.getItem()) || WHITE_JUICES.contains(stack.getItem());
+        if (stack.isEmpty()) {
+            return false;
+        }
+        Item item = stack.getItem();
+        return RED_JUICES.contains(item) || WHITE_JUICES.contains(item) || APPLE_JUICES.contains(item);
+    }
+
+    public static String getJuiceType(ItemStack stack) {
+        if (!isJuice(stack)) {
+            return "";
+        }
+        Item item = stack.getItem();
+        return ITEM_REGION_MAP.getOrDefault(item, "");
     }
 }

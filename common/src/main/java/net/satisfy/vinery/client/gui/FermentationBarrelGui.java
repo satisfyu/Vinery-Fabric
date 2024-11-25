@@ -84,11 +84,15 @@ public class FermentationBarrelGui extends AbstractContainerScreen<FermentationB
                     "tooltip.vinery.fermentation_barrel.white_" + region + "_juice_with_percentage",
                     percentageStr
             );
+        } else if (juiceType.equals("apple")) { 
+            return Component.translatable(
+                    "tooltip.vinery.fermentation_barrel.apple_juice_with_percentage",
+                    percentageStr
+            );
         } else {
             return Component.translatable("tooltip.vinery.fermentation_barrel.empty");
         }
     }
-
 
     private Component getCraftingTimeTooltip() {
         int totalTicks = this.menu.data.get(1);
@@ -150,7 +154,16 @@ public class FermentationBarrelGui extends AbstractContainerScreen<FermentationB
         scaledFluidWidth = Math.max(0, Math.min(FLUID_WIDTH, scaledFluidWidth));
 
         int textureX = 176;
-        int textureY = (juiceType.startsWith("red") ? 29 : 33);
+        int textureY;
+        if (juiceType.startsWith("red")) {
+            textureY = 29;
+        } else if (juiceType.startsWith("white")) {
+            textureY = 33;
+        } else if (juiceType.equals("apple")) {
+            textureY = 37;
+        } else {
+            textureY = 0;
+        }
 
         guiGraphics.blit(BACKGROUND, x + FLUID_X, y + FLUID_Y, textureX, textureY, scaledFluidWidth, 4);
 

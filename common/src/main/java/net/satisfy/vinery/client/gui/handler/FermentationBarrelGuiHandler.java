@@ -130,17 +130,22 @@ public class FermentationBarrelGuiHandler extends AbstractContainerMenu {
 
     public String getJuiceType() {
         int juiceTypeValue = this.data.get(3);
-        if (juiceTypeValue >= 0) {
-            return juiceTypeValue == 0 ? "white_general" :
-                    juiceTypeValue == 1 ? "red_general" :
-                            juiceTypeValue == 2 ? "white_savanna" :
-                                    juiceTypeValue == 3 ? "red_savanna" :
-                                            juiceTypeValue == 4 ? "white_taiga" :
-                                                    juiceTypeValue == 5 ? "red_taiga" :
-                                                            juiceTypeValue == 6 ? "white_jungle" :
-                                                                    juiceTypeValue == 7 ? "red_jungle" : "";
-        }
-        return "";
+        return getJuiceTypeFromValue(juiceTypeValue);
+    }
+
+    private String getJuiceTypeFromValue(int value) {
+        return switch (value) {
+            case 0 -> "white_general";
+            case 1 -> "red_general";
+            case 2 -> "white_savanna";
+            case 3 -> "red_savanna";
+            case 4 -> "white_taiga";
+            case 5 -> "red_taiga";
+            case 6 -> "white_jungle";
+            case 7 -> "red_jungle";
+            case 8 -> "apple";
+            default -> "";
+        };
     }
 
     public int getFluidLevel() {

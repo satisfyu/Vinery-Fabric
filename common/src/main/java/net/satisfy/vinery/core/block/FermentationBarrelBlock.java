@@ -115,7 +115,7 @@ public class FermentationBarrelBlock extends HorizontalDirectionalBlock implemen
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
         return level.isClientSide ? null
-                : createTicker(type, EntityTypeRegistry.FERMENTATION_BARREL_ENTITY.get(), FermentationBarrelBlockEntity::tick);
+                : createTicker(type, EntityTypeRegistry.FERMENTATION_BARREL_ENTITY.get(), (world, pos, state1, blockEntity) -> FermentationBarrelBlockEntity.tick(world, pos, blockEntity));
     }
 
     @Nullable

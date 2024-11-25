@@ -103,14 +103,15 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Implem
 
     private int getJuiceTypeValue() {
         return switch (juiceType) {
-            case "red_general" -> 1;
             case "white_general" -> 0;
-            case "red_savanna" -> 3;
+            case "red_general" -> 1;
             case "white_savanna" -> 2;
-            case "red_taiga" -> 5;
+            case "red_savanna" -> 3;
             case "white_taiga" -> 4;
-            case "red_jungle" -> 7;
+            case "red_taiga" -> 5;
             case "white_jungle" -> 6;
+            case "red_jungle" -> 7;
+            case "apple" -> 8;
             default -> -1;
         };
     }
@@ -125,9 +126,11 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Implem
             case 5 -> "red_taiga";
             case 6 -> "white_jungle";
             case 7 -> "red_jungle";
+            case 8 -> "apple";
             default -> "";
         };
     }
+
 
     @Override
     public void load(CompoundTag nbt) {
@@ -148,14 +151,13 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Implem
         nbt.putString("JuiceType", this.juiceType);
     }
 
-    public static void tick(Level world, BlockPos pos, BlockState state, FermentationBarrelBlockEntity blockEntity) {
+    public static void tick(Level world, BlockPos pos, FermentationBarrelBlockEntity blockEntity) {
         if (world.isClientSide) return;
 
         if (blockEntity.fluidLevel == 0) {
             blockEntity.setJuiceType("");
         }
 
-        boolean dirty = false;
         RegistryAccess access = world.registryAccess();
 
         FermentationBarrelRecipe recipe = world.getRecipeManager()
@@ -168,7 +170,6 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Implem
             if (blockEntity.fermentationTime >= PlatformHelper.getTotalFermentationTime()) {
                 blockEntity.fermentationTime = 0;
                 blockEntity.craft(recipe, access);
-                dirty = true;
             }
         } else {
             blockEntity.fermentationTime = 0;
@@ -182,26 +183,26 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Implem
                 blockEntity.setJuiceType(newJuiceType);
                 int currentLevel = blockEntity.getFluidLevel();
                 int maxFluidLevel = PlatformHelper.getMaxFluidLevel();
-                int grapeJuiceCount = stack.getCount();
-                int grapesToConsume = Math.min(grapeJuiceCount, 4);
-                int fluidIncrease = grapesToConsume * PlatformHelper.getMaxFluidIncrease();
+                int juiceCount = stack.getCount();
+                int juicesToConsume = Math.min(juiceCount, 4); // Anpassung je nach Bedarf
+                int fluidIncrease = juicesToConsume * PlatformHelper.getMaxFluidIncrease();
 
                 int newFluidLevel = Math.min(currentLevel + fluidIncrease, maxFluidLevel);
                 int actualFluidIncrease = newFluidLevel - currentLevel;
 
-                int actualGrapesConsumed = actualFluidIncrease / PlatformHelper.getMaxFluidIncrease();
+                int actualJuicesConsumed = actualFluidIncrease / PlatformHelper.getMaxFluidIncrease();
 
-                if (actualGrapesConsumed > 0) {
+                if (actualJuicesConsumed > 0) {
                     blockEntity.setFluidLevel(newFluidLevel);
 
-                    stack.shrink(actualGrapesConsumed);
+                    stack.shrink(actualJuicesConsumed);
                     if (stack.isEmpty()) {
                         blockEntity.setItem(GRAPEJUICE_INPUT_SLOT, ItemStack.EMPTY);
                     } else {
                         blockEntity.setItem(GRAPEJUICE_INPUT_SLOT, stack);
                     }
 
-                    ItemStack wineBottleStack = new ItemStack(ObjectRegistry.WINE_BOTTLE.get(), actualGrapesConsumed);
+                    ItemStack wineBottleStack = new ItemStack(ObjectRegistry.WINE_BOTTLE.get(), actualJuicesConsumed);
 
                     ItemStack existingOutput = blockEntity.getItem(WINE_BOTTLE_SLOT);
                     if (existingOutput.isEmpty()) {
@@ -212,14 +213,8 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Implem
                     } else {
                         Containers.dropItemStack(world, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, wineBottleStack);
                     }
-
-                    dirty = true;
                 }
             }
-        }
-
-        if (dirty) {
-            blockEntity.setChanged();
         }
     }
 
