@@ -1,7 +1,11 @@
 {
   "replace": false,
   "values": [
-    "#vinery:cherry_logs",
-    "#vinery:apple_logs"
+    "vinery:dark_cherry_log",
+    "vinery:stripped_dark_cherry_log",
+    "vinery:dark_cherry_wood",
+    "vinery:stripped_dark_cherry_wood",
+    "vinery:apple_log",
+    "vinery:apple_wood"
   ]
 }

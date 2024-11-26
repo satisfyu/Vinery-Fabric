@@ -1,19 +1,18 @@
 {
   "replace": false,
   "values": [
-    "vinery:chenet_wine",
-    "vinery:lilitu_wine",
     "vinery:noir_wine",
-    "vinery:bolvar_wine",
-    "vinery:stal_wine",
-    "vinery:kelp_cider",
-    "vinery:bottle_mojang_noir",
-    "vinery:cherry_wine",
     "vinery:red_wine",
-    "vinery:creepers_crush",
+    "vinery:strad_wine",
+    "vinery:cherry_wine",
     "vinery:cristel_wine",
-    "vinery:jellie_wine",
+    "vinery:lilitu_wine",
     "vinery:jo_special_mixture",
-    "vinery:villagers_fright"
+    "vinery:bolvar_wine",
+    "vinery:chorus_wine",
+    "vinery:magnetic_wine",
+    "vinery:stal_wine",
+    "vinery:chenet_wine",
+    "vinery:bottle_mojang_noir"
   ]
 }

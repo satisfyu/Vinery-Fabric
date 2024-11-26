@@ -1,14 +1,14 @@
 {
-  "parent": "vinery:main/wild_crops",
+  "parent": "vinery:main/wild_harvest",
   "display": {
     "icon": {
-      "item": "vinery:white_grape_bag"
+      "item": "vinery:savanna_grapes_white"
     },
     "title": {
-      "translate": "advancement.vinery.crop_collector"
+      "translate": "advancement.vinery.vineyard_visionary"
     },
     "description": {
-      "translate": "advancement.vinery.crop_collector.desc"
+      "translate": "advancement.vinery.vineyard_visionary.desc"
     },
     "frame": "challenge",
     "show_toast": true,
@@ -16,100 +16,100 @@
     "hidden": false
   },
   "rewards": {
-    "experience": 75
+    "experience": 150
   },
   "criteria": {
-    "vinery:red_grape_seeds": {
+    "vinery:taiga_grapes_white": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "vinery:red_grape_seeds"
+              "vinery:taiga_grapes_white"
             ]
           }
         ]
       }
     },
-    "vinery:white_grape_seeds": {
+    "vinery:taiga_grapes_red": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "vinery:white_grape_seeds"
+              "vinery:taiga_grapes_red"
             ]
           }
         ]
       }
     },
-    "vinery:savanna_grape_seeds_red": {
+    "vinery:savanna_grapes_white": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "vinery:savanna_grape_seeds_red"
+              "vinery:savanna_grapes_white"
             ]
           }
         ]
       }
     },
-    "vinery:savanna_grape_seeds_white": {
+    "vinery:savanna_grapes_red": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "vinery:savanna_grape_seeds_white"
+              "vinery:taiga_grapes_red"
             ]
           }
         ]
       }
     },
-    "vinery:taiga_grape_seeds_white": {
+    "vinery:white_grape": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "vinery:taiga_grape_seeds_white"
+              "vinery:savanna_grapes_white"
             ]
           }
         ]
       }
     },
-    "vinery:taiga_grape_seeds_red": {
+    "vinery:red_grape": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "vinery:taiga_grape_seeds_red"
+              "vinery:taiga_grapes_red"
             ]
           }
         ]
       }
     },
-    "vinery:jungle_grape_seeds_red": {
+    "vinery:jungle_grapes_red": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "vinery:jungle_grape_seeds_red"
+              "vinery:jungle_grapes_red"
             ]
           }
         ]
       }
     },
-    "vinery:jungle_grape_seeds_white": {
+    "vinery:jungle_grapes_white": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "vinery:jungle_grape_seeds_white"
+              "vinery:jungle_grapes_white"
             ]
           }
         ]
@@ -118,28 +118,28 @@
   },
   "requirements": [
     [
-      "vinery:red_grape_seeds"
+      "vinery:taiga_grapes_white"
     ],
     [
-      "vinery:white_grape_seeds"
+      "vinery:taiga_grapes_red"
     ],
     [
-      "vinery:savanna_grape_seeds_red"
+      "vinery:savanna_grapes_white"
     ],
     [
-      "vinery:savanna_grape_seeds_white"
+      "vinery:savanna_grapes_red"
     ],
     [
-      "vinery:taiga_grape_seeds_white"
+      "vinery:white_grape"
     ],
     [
-      "vinery:taiga_grape_seeds_red"
+      "vinery:red_grape"
     ],
     [
-      "vinery:jungle_grape_seeds_red"
+      "vinery:jungle_grapes_red"
     ],
     [
-      "vinery:jungle_grape_seeds_white"
+      "vinery:jungle_grapes_white"
     ]
   ]
 }

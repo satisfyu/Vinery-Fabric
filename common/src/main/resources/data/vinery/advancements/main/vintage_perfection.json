@@ -1,29 +1,30 @@
 {
-  "parent": "vinery:main/root",
+  "parent": "vinery:main/the_noble_drop",
   "display": {
     "icon": {
-      "item": "minecraft:apple"
+      "item": "vinery:lilitu_wine"
     },
     "title": {
-      "translate": "advancement.vinery.apple"
+      "translate": "advancement.vinery.vintage_perfection"
     },
     "description": {
-      "translate": "advancement.vinery.apple.desc"
+      "translate": "advancement.vinery.vintage_perfection.desc"
     },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
-    "hidden": false
+    "hidden": true
   },
   "criteria": {
-    "apple": {
+    "have_aged_wine": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "minecraft:apple"
-            ]
+              "vinery:lilitu_wine"
+            ],
+            "nbt": "{Year:15}"
           }
         ]
       }
@@ -31,7 +32,7 @@
   },
   "requirements": [
     [
-      "apple"
+      "have_aged_wine"
     ]
   ]
 }

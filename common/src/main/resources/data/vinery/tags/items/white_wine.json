@@ -1,19 +1,18 @@
 {
   "replace": false,
   "values": [
-    "vinery:clark_wine",
     "vinery:mellohi_wine",
-    "vinery:strad_wine",
-    "vinery:eiswein",
-    "vinery:strad_wine",
-    "vinery:aegis_wine",
-    "vinery:solaris_wine",
-    "vinery:chorus_wine",
     "vinery:glowing_wine",
+    "vinery:solaris_wine",
     "vinery:creepers_crush",
-    "vinery:cristel_wine",
+    "vinery:kelp_cider",
+    "vinery:eiswein",
+    "vinery:aegis_wine",
+    "vinery:villagers_fright",
+    "vinery:clark_wine",
     "vinery:jellie_wine",
-    "vinery:jo_special_mixture",
-    "vinery:villagers_fright"
+    "vinery:apple_cider",
+    "vinery:apple_wine",
+    "vinery:mead"
   ]
 }

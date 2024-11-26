@@ -1,11 +1,11 @@
 {
-  "parent": "vinery:main/root",
+  "parent": "vinery:main/forbidden_fruit",
   "criteria": {
-    "grapevine_pot": {
+    "apple_press": {
       "conditions": {
         "location": [
           {
-            "block": "vinery:grapevine_pot",
+            "block": "vinery:apple_press",
             "condition": "minecraft:block_state_property"
           }
         ]
@@ -16,21 +16,21 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancement.vinery.place_pot.desc"
+      "translate": "advancement.vinery.the_first_press.desc"
     },
     "frame": "goal",
     "hidden": false,
     "icon": {
-      "item": "vinery:grapevine_pot"
+      "item": "vinery:apple_press"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.vinery.place_pot"
+      "translate": "advancement.vinery.the_first_press"
     }
   },
   "requirements": [
     [
-      "grapevine_pot"
+      "apple_press"
     ]
   ],
   "sends_telemetry_event": true

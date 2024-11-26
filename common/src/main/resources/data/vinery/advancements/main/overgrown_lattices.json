@@ -1,0 +1,51 @@
+{
+  "parent": "vinery:main/wild_harvest",
+  "criteria": {
+    "use_grape_seed": {
+      "conditions": {
+        "location": [
+          {
+            "condition": "minecraft:location_check",
+            "predicate": {
+              "block": {
+                "blocks": [
+                  "vinery:oak_lattice"
+                ]
+              }
+            }
+          },
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "tags": [
+                "vinery:jungle_grape_seeds"
+              ]
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:item_used_on_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.vinery.overgrown_lattices.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "vinery:oak_lattice"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.vinery.overgrown_lattices"
+    }
+  },
+  "requirements": [
+    [
+      "use_grape_seed"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,11 +1,11 @@
 {
-  "parent": "vinery:main/get_juice",
+  "parent": "vinery:main/root",
   "criteria": {
-    "fermentation_barrel": {
+    "grapevine_pot": {
       "conditions": {
         "location": [
           {
-            "block": "vinery:fermentation_barrel",
+            "block": "vinery:grapevine_pot",
             "condition": "minecraft:block_state_property"
           }
         ]
@@ -16,20 +16,21 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancement.vinery.fermentation.desc"
+      "translate": "advancement.vinery.juice_it_up.desc"
     },
-    "frame": "task",
+    "frame": "goal",
+    "hidden": false,
     "icon": {
-      "item": "vinery:fermentation_barrel"
+      "item": "vinery:grapevine_pot"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.vinery.fermentation"
+      "translate": "advancement.vinery.juice_it_up"
     }
   },
   "requirements": [
     [
-      "fermentation_barrel"
+      "grapevine_pot"
     ]
   ],
   "sends_telemetry_event": true

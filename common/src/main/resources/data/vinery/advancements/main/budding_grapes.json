@@ -1,0 +1,55 @@
+{
+  "parent": "vinery:main/overgrown_lattices",
+  "display": {
+    "icon": {
+      "item": "vinery:jungle_grapes_red"
+    },
+    "title": {
+      "translate": "advancement.vinery.budding_grapes"
+    },
+    "description": {
+      "translate": "advancement.vinery.budding_grapes.desc"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "rewards": {
+    "experience": 25
+  },
+  "criteria": {
+    "vinery:jungle_grapes_red": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "vinery:jungle_grapes_red"
+            ]
+          }
+        ]
+      }
+    },
+    "vinery:jungle_grapes_white": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "vinery:jungle_grapes_white"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "vinery:jungle_grapes_red"
+    ],
+    [
+      "vinery:jungle_grapes_white"
+    ]
+  ]
+}

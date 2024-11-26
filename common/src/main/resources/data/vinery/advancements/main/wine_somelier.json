@@ -1,14 +1,14 @@
 {
-  "parent": "vinery:main/get_wine",
+  "parent": "vinery:main/the_noble_drop",
   "display": {
     "icon": {
       "item": "vinery:jellie_wine"
     },
     "title": {
-      "translate": "advancement.vinery.wine_collector"
+      "translate": "advancement.vinery.wine_somelier"
     },
     "description": {
-      "translate": "advancement.vinery.wine_collector.desc"
+      "translate": "advancement.vinery.wine_somelier.desc"
     },
     "frame": "challenge",
     "show_toast": true,

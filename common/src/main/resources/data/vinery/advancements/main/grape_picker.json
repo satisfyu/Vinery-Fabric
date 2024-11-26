@@ -1,0 +1,115 @@
+{
+  "parent": "vinery:main/sowing_the_future",
+  "display": {
+    "icon": {
+      "item": "vinery:taiga_grapes_red"
+    },
+    "title": {
+      "translate": "advancement.vinery.grape_picker"
+    },
+    "description": {
+      "translate": "advancement.vinery.grape_picker.desc"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "rewards": {
+    "experience": 100
+  },
+  "criteria": {
+    "vinery:taiga_grapes_white": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "vinery:taiga_grapes_white"
+            ]
+          }
+        ]
+      }
+    },
+    "vinery:taiga_grapes_red": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "vinery:taiga_grapes_red"
+            ]
+          }
+        ]
+      }
+    },
+    "vinery:savanna_grapes_white": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "vinery:savanna_grapes_white"
+            ]
+          }
+        ]
+      }
+    },
+    "vinery:savanna_grapes_red": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "vinery:taiga_grapes_red"
+            ]
+          }
+        ]
+      }
+    },
+    "vinery:white_grape": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "vinery:savanna_grapes_white"
+            ]
+          }
+        ]
+      }
+    },
+    "vinery:red_grape": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "vinery:taiga_grapes_red"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "vinery:taiga_grapes_white"
+    ],
+    [
+      "vinery:taiga_grapes_red"
+    ],
+    [
+      "vinery:savanna_grapes_white"
+    ],
+    [
+      "vinery:savanna_grapes_red"
+    ],
+    [
+      "vinery:white_grape"
+    ],
+    [
+      "vinery:red_grape"
+    ]
+  ]
+}

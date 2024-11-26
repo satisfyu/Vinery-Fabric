@@ -1,0 +1,45 @@
+{
+  "parent": "vinery:main/root",
+  "criteria": {
+    "fruits_of_the_field": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biome": "minecraft:plains"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.vinery.fruits_of_the_field.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "vinery:apple_tree_sapling"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.vinery.fruits_of_the_field"
+    }
+  },
+  "requirements": [
+    [
+      "fruits_of_the_field"
+    ]
+  ],
+  "rewards": {
+    "experience": 10
+  },
+  "sends_telemetry_event": true
+}

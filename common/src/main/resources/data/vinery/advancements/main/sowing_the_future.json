@@ -1,0 +1,51 @@
+{
+  "parent": "vinery:main/wild_harvest",
+  "criteria": {
+    "use_grape_seed": {
+      "conditions": {
+        "location": [
+          {
+            "condition": "minecraft:location_check",
+            "predicate": {
+              "block": {
+                "blocks": [
+                  "vinery:grapevine_stem"
+                ]
+              }
+            }
+          },
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "tags": [
+                "vinery:grape_seeds"
+              ]
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:item_used_on_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.vinery.sowing_the_future.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "vinery:grapevine_stem"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.vinery.sowing_the_future"
+    }
+  },
+  "requirements": [
+    [
+      "use_grape_seed"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

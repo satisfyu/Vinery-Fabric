@@ -1,11 +1,11 @@
 {
-  "parent": "vinery:main/get_apple",
+  "parent": "vinery:main/juicy_success",
   "criteria": {
-    "apple_press": {
+    "fermentation_barrel": {
       "conditions": {
         "location": [
           {
-            "block": "vinery:apple_press",
+            "block": "vinery:fermentation_barrel",
             "condition": "minecraft:block_state_property"
           }
         ]
@@ -16,21 +16,20 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancement.vinery.apple_press.desc"
+      "translate": "advancement.vinery.the_magic_of_the_barrel.desc"
     },
-    "frame": "goal",
-    "hidden": false,
+    "frame": "task",
     "icon": {
-      "item": "vinery:apple_press"
+      "item": "vinery:fermentation_barrel"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.vinery.apple_press"
+      "translate": "advancement.vinery.the_magic_of_the_barrel"
     }
   },
   "requirements": [
     [
-      "apple_press"
+      "fermentation_barrel"
     ]
   ],
   "sends_telemetry_event": true
