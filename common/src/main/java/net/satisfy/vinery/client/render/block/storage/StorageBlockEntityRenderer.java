@@ -8,7 +8,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import net.satisfy.vinery.core.block.storage.StorageBlock;
+import net.satisfy.vinery.core.block.StorageBlock;
 import net.satisfy.vinery.core.block.entity.StorageBlockEntity;
 
 import java.util.HashMap;

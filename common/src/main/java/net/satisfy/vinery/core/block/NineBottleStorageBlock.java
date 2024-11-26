@@ -1,4 +1,4 @@
-package net.satisfy.vinery.core.block.storage;
+package net.satisfy.vinery.core.block;
 
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
@@ -7,10 +7,15 @@ import net.satisfy.vinery.core.registry.StorageTypeRegistry;
 
 import static net.satisfy.vinery.core.registry.ObjectRegistry.*;
 
-public class FourBottleStorageBlock extends StorageBlock {
+public class NineBottleStorageBlock extends StorageBlock {
 
-    public FourBottleStorageBlock(Properties settings) {
+
+    public NineBottleStorageBlock(Properties settings) {
         super(settings);
+    }
+    @Override
+    public int size(){
+        return 9;
     }
 
     @Override
@@ -28,14 +33,8 @@ public class FourBottleStorageBlock extends StorageBlock {
     }
 
     @Override
-    public int size(){
-        return 4;
-    }
-
-
-    @Override
     public ResourceLocation type() {
-        return StorageTypeRegistry.FOUR_BOTTLE;
+        return StorageTypeRegistry.NINE_BOTTLE;
     }
 
     @Override
@@ -43,27 +42,19 @@ public class FourBottleStorageBlock extends StorageBlock {
         return new Direction[]{Direction.DOWN, Direction.UP};
     }
 
-
     @Override
     public int getSection(Float x, Float y) {
 
-        if (x > 0.375 && x < 0.625) {
-            if(y >= 0.55){
-                return  0;
-            }
-            else if(y <= 0.45) {
-                return 3;
-            }
-        }
-        else if(y > 0.35 && y < 0.65){
-            if(x < 0.4){
-                return 1;
-            }
-            else if(x > 0.65){
-                return 2;
-            }
+        float l = (float) 1/3;
+
+        int nSection;
+        if (x < 0.375F) {
+            nSection = 0;
+        } else {
+            nSection = x < 0.6875F ? 1 : 2;
         }
 
-        return Integer.MIN_VALUE;
+        int i = y >= l*2 ? 0 : y >= l ? 1 : 2;
+        return nSection + i * 3;
     }
 }

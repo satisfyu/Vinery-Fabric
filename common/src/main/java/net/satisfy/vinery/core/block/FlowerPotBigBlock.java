@@ -17,7 +17,6 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.satisfy.vinery.core.block.storage.StorageBlock;
 import net.satisfy.vinery.core.registry.StorageTypeRegistry;
 import org.jetbrains.annotations.NotNull;
 

@@ -1,4 +1,4 @@
-package net.satisfy.vinery.core.block.storage;
+package net.satisfy.vinery.core.block;
 
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
@@ -16,7 +16,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -117,11 +116,6 @@ public class WineBottleBlock extends StorageBlock {
     }
 
     @Override
-    public boolean canSurvive(BlockState blockState, LevelReader levelReader, BlockPos blockPos) {
-        return GeneralUtil.isSolid(levelReader, blockPos);
-    }
-
-    @Override
     public @NotNull BlockState updateShape(BlockState blockState, Direction direction, BlockState blockState2, LevelAccessor levelAccessor, BlockPos blockPos, BlockPos blockPos2) {
         if (direction == Direction.DOWN && !blockState.canSurvive(levelAccessor, blockPos)) {
             levelAccessor.destroyBlock(blockPos, true);
@@ -170,11 +164,6 @@ public class WineBottleBlock extends StorageBlock {
             return wine.maxCount;
         }
         return Integer.MIN_VALUE;
-    }
-
-    @Override
-    public @NotNull RenderShape getRenderShape(BlockState blockState) {
-        return RenderShape.MODEL;
     }
 
     @Override

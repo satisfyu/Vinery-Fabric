@@ -28,7 +28,6 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.satisfy.vinery.core.block.entity.ApplePressBlockEntity;
 import net.satisfy.vinery.core.registry.EntityTypeRegistry;
-import net.satisfy.vinery.core.registry.ObjectRegistry;
 import net.satisfy.vinery.core.util.GeneralUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -61,47 +60,40 @@ public class ApplePressBlock extends BaseEntityBlock {
 			BlockPos otherPartPos = (half == DoubleBlockHalf.LOWER) ? pos.above() : pos.below();
 			BlockState otherPartState = world.getBlockState(otherPartPos);
 
-			boolean otherPartRemoved = otherPartState.getBlock() != this || otherPartState.getValue(HALF) == half;
-			boolean isCompleteRemoval = state.getBlock() != newState.getBlock() && newState.isAir();
-
 			if (otherPartState.getBlock() == this && otherPartState.getValue(HALF) != half) {
+				dropInventory(world, otherPartPos);
 				world.setBlock(otherPartPos, Blocks.AIR.defaultBlockState(), 35);
 				world.levelEvent(2001, otherPartPos, Block.getId(otherPartState));
 			}
 
-			if (isCompleteRemoval) {
-				if (half == DoubleBlockHalf.UPPER || (half == DoubleBlockHalf.LOWER && otherPartRemoved)) {
-					dropResources(state, world, pos);
-					dropInventory(world, pos);
-				}
+			if (state.getBlock() != newState.getBlock() && newState.isAir()) {
+				dropInventory(world, pos);
 			}
 		}
 		super.onRemove(state, world, pos, newState, isMoving);
 	}
 
 	private void dropInventory(Level world, BlockPos pos) {
-		ApplePressBlockEntity blockEntity = (ApplePressBlockEntity) world.getBlockEntity(pos);
-		if (blockEntity != null) {
-			for (int i = 0; i < blockEntity.getItems().size(); i++) {
-				ItemStack stack = blockEntity.getItems().get(i);
+		BlockEntity blockEntity = world.getBlockEntity(pos);
+		if (blockEntity instanceof ApplePressBlockEntity applePress) {
+			for (int i = 0; i < applePress.getItems().size(); i++) {
+				ItemStack stack = applePress.getItem(i);
 				if (!stack.isEmpty()) {
 					popResource(world, pos, stack);
 				}
 			}
 		}
 	}
-	
+
 	@Override
 	public void playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
-		if (!player.isCreative() && state.getValue(HALF) == DoubleBlockHalf.UPPER) {
-			ItemStack itemStack = new ItemStack(ObjectRegistry.APPLE_PRESS.get());
-			popResource(world, pos, itemStack);
-		} else if (!player.isCreative() && state.getValue(HALF) == DoubleBlockHalf.LOWER) {
-			BlockPos upperPos = pos.above();
-			BlockState upperState = world.getBlockState(upperPos);
-			if (upperState.getBlock() == this && upperState.getValue(HALF) == DoubleBlockHalf.UPPER) {
-				ItemStack itemStack = new ItemStack(ObjectRegistry.APPLE_PRESS.get());
-				popResource(world, upperPos, itemStack);
+		if (!player.isCreative()) {
+			dropInventory(world, pos);
+			DoubleBlockHalf half = state.getValue(HALF);
+			BlockPos otherPartPos = (half == DoubleBlockHalf.LOWER) ? pos.above() : pos.below();
+			BlockState otherPartState = world.getBlockState(otherPartPos);
+			if (otherPartState.getBlock() == this && otherPartState.getValue(HALF) != half) {
+				dropInventory(world, otherPartPos);
 			}
 		}
 		super.playerWillDestroy(world, pos, state, player);

@@ -1,4 +1,4 @@
-package net.satisfy.vinery.core.block.grape;
+package net.satisfy.vinery.core.util;
 
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.Item;

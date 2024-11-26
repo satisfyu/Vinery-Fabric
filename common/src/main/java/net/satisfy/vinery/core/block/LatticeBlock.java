@@ -1,4 +1,4 @@
-package net.satisfy.vinery.core.block.stem;
+package net.satisfy.vinery.core.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

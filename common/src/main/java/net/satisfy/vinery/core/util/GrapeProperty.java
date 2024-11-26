@@ -1,4 +1,4 @@
-package net.satisfy.vinery.core.block.grape;
+package net.satisfy.vinery.core.util;
 
 import net.minecraft.world.level.block.state.properties.Property;
 import net.satisfy.vinery.core.registry.GrapeTypeRegistry;

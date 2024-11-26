@@ -29,11 +29,10 @@ import net.minecraft.world.level.material.PushReaction;
 import net.satisfy.vinery.core.Vinery;
 import net.satisfy.vinery.core.block.*;
 import net.satisfy.vinery.core.block.CherryLeavesBlock;
-import net.satisfy.vinery.core.block.grape.GrapeBush;
-import net.satisfy.vinery.core.block.grape.GrapeVineBlock;
-import net.satisfy.vinery.core.block.stem.LatticeBlock;
-import net.satisfy.vinery.core.block.stem.PaleStemBlock;
-import net.satisfy.vinery.core.block.storage.*;
+import net.satisfy.vinery.core.block.GrapeBush;
+import net.satisfy.vinery.core.block.GrapeVineBlock;
+import net.satisfy.vinery.core.block.LatticeBlock;
+import net.satisfy.vinery.core.block.PaleStemBlock;
 import net.satisfy.vinery.core.item.*;
 import net.satisfy.vinery.core.util.GeneralUtil;
 import net.satisfy.vinery.core.util.VineryIdentifier;
@@ -265,10 +264,6 @@ public class ObjectRegistry {
 
 
     //TODO:
-    // * Fix WineBottleBox Voxelshape
-    // * Fix ChairModel, check Voxelshape
-    // * Fix ApplePress not dropping Inventory
-    // * Re-Arrange Creativemode Tab
     // * Fix REI / JEI
 
     public static void init() {

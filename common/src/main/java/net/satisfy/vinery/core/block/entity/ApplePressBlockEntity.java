@@ -198,7 +198,6 @@ public class ApplePressBlockEntity extends BlockEntity implements MenuProvider, 
         }
         ItemStack output = entity.getItem(3);
         if (output.isEmpty()) return true;
-
         assert entity.level != null;
         return output.getItem() == recipe.getResultItem(entity.level.registryAccess()).getItem();
     }
@@ -223,11 +222,9 @@ public class ApplePressBlockEntity extends BlockEntity implements MenuProvider, 
         return stack.getItem() == ObjectRegistry.WINE_BOTTLE.get();
     }
 
-
     @Override
     public boolean stillValid(Player player) {
-        assert this.level != null;
-        return this.level.getBlockEntity(this.worldPosition) == this && player.distanceToSqr((double) this.worldPosition.getX() + 0.5, (double) this.worldPosition.getY() + 0.5, (double) this.worldPosition.getZ() + 0.5) <= 64.0;
+        return this.level != null && this.level.getBlockEntity(this.worldPosition) == this && player.distanceToSqr((double) this.worldPosition.getX() + 0.5, (double) this.worldPosition.getY() + 0.5, (double) this.worldPosition.getZ() + 0.5) <= 64.0;
     }
 
     @Override

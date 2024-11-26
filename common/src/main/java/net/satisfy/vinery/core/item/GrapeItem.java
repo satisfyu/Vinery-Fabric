@@ -5,7 +5,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.satisfy.vinery.core.block.grape.GrapeType;
+import net.satisfy.vinery.core.util.GrapeType;
 import org.jetbrains.annotations.NotNull;
 
 public class GrapeItem extends Item {

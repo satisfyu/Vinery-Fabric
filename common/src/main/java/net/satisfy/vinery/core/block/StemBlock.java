@@ -1,4 +1,4 @@
-package net.satisfy.vinery.core.block.stem;
+package net.satisfy.vinery.core.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -21,8 +21,8 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import net.satisfy.vinery.core.block.grape.GrapeProperty;
-import net.satisfy.vinery.core.block.grape.GrapeType;
+import net.satisfy.vinery.core.util.GrapeProperty;
+import net.satisfy.vinery.core.util.GrapeType;
 import net.satisfy.vinery.core.registry.GrapeTypeRegistry;
 import net.satisfy.vinery.core.util.GeneralUtil;
 import org.jetbrains.annotations.NotNull;
