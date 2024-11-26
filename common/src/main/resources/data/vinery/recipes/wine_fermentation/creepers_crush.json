@@ -1,14 +1,20 @@
 {
   "type": "vinery:wine_fermentation",
+  "juice": {
+    "type": "white_savanna",
+    "amount": 10
+  },
   "ingredients": [
-    {
-      "tag": "vinery:grapejuice"
-    },
     {
       "item": "minecraft:gunpowder"
     }
   ],
+  "wine_bottle": {
+    "required": true
+  },
   "result": {
-    "item": "vinery:creepers_crush"
+    "item": "vinery:creepers_crush",
+    "count": 1
   }
 }
+

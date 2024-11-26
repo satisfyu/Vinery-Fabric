@@ -28,8 +28,13 @@ import java.util.List;
 import java.util.Objects;
 
 public class DrinkBlockItem extends BlockItem {
+    private final int baseDuration;
+    private final boolean scaleDurationWithAge;
+
     public DrinkBlockItem(Block block, Properties settings, int baseDuration, boolean scaleDurationWithAge) {
         super(block, settings);
+        this.baseDuration = baseDuration;
+        this.scaleDurationWithAge = scaleDurationWithAge;
     }
 
     @Override
@@ -42,7 +47,6 @@ public class DrinkBlockItem extends BlockItem {
         if (!Objects.requireNonNull(context.getPlayer()).isCrouching()) {
             return null;
         }
-
         BlockState blockState = this.getBlock().getStateForPlacement(context);
         return blockState != null && this.canPlace(context, blockState) ? blockState : null;
     }
@@ -58,28 +62,23 @@ public class DrinkBlockItem extends BlockItem {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag context) {
         List<Pair<MobEffectInstance, Float>> effects = getFoodProperties() != null ? getFoodProperties().getEffects() : Lists.newArrayList();
-
         if (effects.isEmpty()) {
             tooltip.add(Component.translatable("effect.none").withStyle(ChatFormatting.GRAY));
         } else {
             for(Pair<MobEffectInstance, Float> effectPair : effects) {
                 MobEffectInstance effectInstance = effectPair.getFirst();
                 MobEffect effect = effectInstance.getEffect();
-
                 String effectName = effect.getDisplayName().getString();
                 int amplifier = WineYears.getEffectLevel(stack, world);
                 String amplifierRoman = amplifier > 0 ? " " + toRoman(amplifier) : "";
-                int durationTicks = WineYears.getEffectDuration(stack, world);
+                int durationTicks = scaleDurationWithAge ? WineYears.getEffectDuration(stack, world) : baseDuration;
                 String formattedDuration = formatDuration(durationTicks);
-
                 String tooltipText = effectName + amplifierRoman + " (" + formattedDuration + ")";
                 tooltip.add(Component.literal(tooltipText).withStyle(effect.getCategory().getTooltipFormatting()));
             }
         }
-
         tooltip.add(Component.empty());
-
-        if (world != null) { 
+        if (world != null) {
             int age = WineYears.getWineAge(stack, world);
             tooltip.add(Component.translatable("tooltip.vinery.age", age).withStyle(ChatFormatting.WHITE));
         }
@@ -99,14 +98,14 @@ public class DrinkBlockItem extends BlockItem {
     @Override
     public void onCraftedBy(ItemStack stack, Level world, Player player) {
         super.onCraftedBy(stack, world, player);
-        WineYears.setWineYear(stack, world); 
+        WineYears.setWineYear(stack, world);
     }
 
     @Override
     public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
         super.inventoryTick(stack, world, entity, slot, selected);
         if (world != null && WineYears.hasWineYear(stack)) {
-            WineYears.setWineYear(stack, world); 
+            WineYears.setWineYear(stack, world);
         }
     }
 

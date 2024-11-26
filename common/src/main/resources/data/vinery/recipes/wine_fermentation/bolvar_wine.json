@@ -1,9 +1,10 @@
 {
   "type": "vinery:wine_fermentation",
+  "juice": {
+    "type": "red_taiga",
+    "amount": 6
+  },
   "ingredients": [
-    {
-      "item": "vinery:red_taiga_grapejuice"
-    },
     {
       "item": "minecraft:honey_bottle"
     },
@@ -11,7 +12,12 @@
       "item": "vinery:cherry"
     }
   ],
+  "wine_bottle": {
+    "required": false
+  },
   "result": {
-    "item": "vinery:bolvar_wine"
+    "item": "vinery:bolvar_wine",
+    "count": 1
   }
 }
+

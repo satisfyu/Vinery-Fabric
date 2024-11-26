@@ -1,14 +1,20 @@
 {
   "type": "vinery:wine_fermentation",
+  "juice": {
+    "type": "red_jungle",
+    "amount": 10
+  },
   "ingredients": [
-    {
-      "tag": "vinery:grapejuice_white"
-    },
     {
       "item": "minecraft:iron_ingot"
     }
   ],
+  "wine_bottle": {
+    "required": false
+  },
   "result": {
-    "item": "vinery:magnetic_wine"
+    "item": "vinery:magnetic_wine",
+    "count": 1
   }
 }
+

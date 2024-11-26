@@ -30,7 +30,6 @@ public class MobEffectRegistry {
     public static final RegistrySupplier<MobEffect> CREEPER_EFFECT;
     public static final RegistrySupplier<MobEffect> EXPERIENCE_EFFECT;
     public static final RegistrySupplier<MobEffect> LAVA_WALKER;
-    public static final RegistrySupplier<MobEffect> STAGGER_EFFECT;
     public static final RegistrySupplier<MobEffect> FROSTY_ARMOR_EFFECT;
     public static final RegistrySupplier<MobEffect> PARTY_EFFECT;
     public static final RegistrySupplier<MobEffect> CLIMBING_EFFECT;
@@ -65,7 +64,6 @@ public class MobEffectRegistry {
         JELLIE = registerEffect("jellie", JellieEffect::new);
         LAVA_WALKER = registerEffect("lava_walker", LavaWalkerEffect::new);
         MAGNET = registerEffect("magnet", MagnetEffect::new);
-        STAGGER_EFFECT = registerEffect("staggering", StaggerEffect::new);
         WATER_WALKER = registerEffect("water_walker", WaterWalkerEffect::new);
     }
 }

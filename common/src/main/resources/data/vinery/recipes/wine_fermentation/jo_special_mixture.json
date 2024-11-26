@@ -1,17 +1,20 @@
 {
   "type": "vinery:wine_fermentation",
+  "juice": {
+    "type": "red_savanna",
+    "amount": 10
+  },
   "ingredients": [
     {
-      "tag": "vinery:grapejuice_red"
-    },
-    {
-      "tag": "vinery:grapejuice_white"
-    },
-    {
-      "item": "minecraft:redstone"
+      "item": "minecraft:fermented_spider_eye"
     }
   ],
+  "wine_bottle": {
+    "required": true
+  },
   "result": {
-    "item": "vinery:jo_special_mixture"
+    "item": "vinery:jo_special_mixture",
+    "count": 1
   }
 }
+
