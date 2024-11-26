@@ -30,6 +30,7 @@ public class FermentationBarrelRecipe implements Recipe<FermentationBarrelBlockE
         this.juiceType = juiceType;
         this.juiceAmount = juiceAmount;
         this.output = output;
+
         this.wineBottleRequired = wineBottleRequired;
     }
 

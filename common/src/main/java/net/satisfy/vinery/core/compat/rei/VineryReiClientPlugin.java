@@ -27,9 +27,8 @@ public class VineryReiClientPlugin {
         registry.addWorkstations(ApplePressDisplay.APPLE_PRESS_DISPLAY, EntryStacks.of(ObjectRegistry.APPLE_PRESS.get()));
     }
 
-    //TODO redo
     public static void registerDisplays(DisplayRegistry registry) {
-        //registry.registerFiller(FermentationBarrelRecipe.class, FermentationBarrelDisplay::new);
+        registry.registerFiller(FermentationBarrelRecipe.class, FermentationBarrelDisplay::new);
         registry.registerFiller(ApplePressRecipe.class, ApplePressDisplay::new);
     }
 

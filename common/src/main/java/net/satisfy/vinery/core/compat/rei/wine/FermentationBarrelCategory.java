@@ -10,7 +10,9 @@ import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
 import net.satisfy.vinery.core.registry.ObjectRegistry;
+import net.satisfy.vinery.core.util.JuiceUtil;
 
 import java.util.List;
 
@@ -39,19 +41,40 @@ public class FermentationBarrelCategory implements DisplayCategory<FermentationB
         widgets.add(Widgets.createArrow(new Point(startPoint.x + 54, startPoint.y - 1)).animationDurationTicks(50));
         widgets.add(Widgets.createResultSlotBackground(new Point(startPoint.x + 90, startPoint.y)));
         widgets.add(Widgets.createSlot(new Point(startPoint.x + 90, startPoint.y)).entries(display.getOutputEntries().get(0)).disableBackground().markOutput());
-        for(int i = 0; i < 4; i++){
+        for (int i = 0; i < 4; i++) {
             int x = i * 18;
             int y = -4;
-            if(i > 1){
+            if (i > 1) {
                 x = (i - 2) * 18;
-                y+=18;
+                y += 18;
             }
-            x-=8;
-            if(i >= display.getInputEntries().size() - 1) widgets.add(Widgets.createSlotBackground(new Point(startPoint.x + x, startPoint.y + y)));
-            else widgets.add(Widgets.createSlot(new Point(startPoint.x + x, startPoint.y + y)).entries(display.getInputEntries().get(i + 1)).markInput());
-
+            x -= 8;
+            if (i >= display.getInputEntries().size() - 1)
+                widgets.add(Widgets.createSlotBackground(new Point(startPoint.x + x, startPoint.y + y)));
+            else
+                widgets.add(Widgets.createSlot(new Point(startPoint.x + x, startPoint.y + y)).entries(display.getInputEntries().get(i + 1)).markInput());
         }
-        widgets.add(Widgets.createSlot(new Point(startPoint.x + 36, startPoint.y + 18)).entries(display.getInputEntries().get(0)).markInput());
+        widgets.add(Widgets.createSlot(new Point(startPoint.x + 36, startPoint.y + 18))
+                .entry(EntryStacks.of(getJuiceItemForType(display.getJuiceType())))
+                .disableBackground()
+                .markInput());
+        widgets.add(Widgets.createLabel(new Point(startPoint.x + 36, startPoint.y + 40), Component.literal("Amount: " + display.getJuiceAmount())));
         return widgets;
+    }
+
+    private ItemStack getJuiceItemForType(String juiceType) {
+        return JuiceUtil.RED_JUICES.stream()
+                .filter(item -> juiceType.equals("red_" + JuiceUtil.ITEM_REGION_MAP.get(item)))
+                .findFirst()
+                .map(ItemStack::new)
+                .or(() -> JuiceUtil.WHITE_JUICES.stream()
+                        .filter(item -> juiceType.equals("white_" + JuiceUtil.ITEM_REGION_MAP.get(item)))
+                        .findFirst()
+                        .map(ItemStack::new))
+                .or(() -> JuiceUtil.APPLE_JUICES.stream()
+                        .filter(item -> juiceType.equals("apple"))
+                        .findFirst()
+                        .map(ItemStack::new))
+                .orElse(ItemStack.EMPTY);
     }
 }
