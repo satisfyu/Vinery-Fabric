@@ -14,11 +14,9 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.satisfy.vinery.core.Vinery;
 import net.satisfy.vinery.client.gui.ApplePressGui;
-import net.satisfy.vinery.core.compat.jei.VineryJEIPlugin;
-import net.satisfy.vinery.core.recipe.ApplePressRecipe;
 import net.satisfy.vinery.core.registry.ObjectRegistry;
 import org.jetbrains.annotations.NotNull;
-
+/*
 public class ApplePressCategory implements IRecipeCategory<ApplePressRecipe> {
     public static final RecipeType<ApplePressRecipe> APPLE_PRESS = RecipeType.create(Vinery.MOD_ID, "apple_mashing", ApplePressRecipe.class);
     public static final int WIDTH = 124;
@@ -69,3 +67,4 @@ public class ApplePressCategory implements IRecipeCategory<ApplePressRecipe> {
         return this.icon;
     }
 }
+*/

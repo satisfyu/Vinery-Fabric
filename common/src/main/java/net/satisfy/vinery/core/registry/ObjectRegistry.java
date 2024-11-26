@@ -264,7 +264,12 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Item> BOTTLE_MOJANG_NOIR_ITEM = registerWineItem("bottle_mojang_noir", BOTTLE_MOJANG_NOIR, () -> createWineSettings(() -> MobEffectRegistry.EXPERIENCE_EFFECT.get(), 1600, 0), true);
 
 
-
+    //TODO:
+    // * Fix WineBottleBox Voxelshape
+    // * Fix ChairModel, check Voxelshape
+    // * Fix ApplePress not dropping Inventory
+    // * Re-Arrange Creativemode Tab
+    // * Fix REI / JEI
 
     public static void init() {
         ITEMS.register();

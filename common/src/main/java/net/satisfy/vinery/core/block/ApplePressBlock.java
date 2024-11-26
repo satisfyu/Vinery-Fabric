@@ -72,12 +72,25 @@ public class ApplePressBlock extends BaseEntityBlock {
 			if (isCompleteRemoval) {
 				if (half == DoubleBlockHalf.UPPER || (half == DoubleBlockHalf.LOWER && otherPartRemoved)) {
 					dropResources(state, world, pos);
+					dropInventory(world, pos);
 				}
 			}
 		}
 		super.onRemove(state, world, pos, newState, isMoving);
 	}
 
+	private void dropInventory(Level world, BlockPos pos) {
+		ApplePressBlockEntity blockEntity = (ApplePressBlockEntity) world.getBlockEntity(pos);
+		if (blockEntity != null) {
+			for (int i = 0; i < blockEntity.getItems().size(); i++) {
+				ItemStack stack = blockEntity.getItems().get(i);
+				if (!stack.isEmpty()) {
+					popResource(world, pos, stack);
+				}
+			}
+		}
+	}
+	
 	@Override
 	public void playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
 		if (!player.isCreative() && state.getValue(HALF) == DoubleBlockHalf.UPPER) {

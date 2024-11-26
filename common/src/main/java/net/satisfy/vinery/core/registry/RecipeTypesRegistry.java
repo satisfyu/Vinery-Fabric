@@ -8,7 +8,8 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.satisfy.vinery.core.Vinery;
-import net.satisfy.vinery.core.recipe.ApplePressRecipe;
+import net.satisfy.vinery.core.recipe.ApplePressFermentingRecipe;
+import net.satisfy.vinery.core.recipe.ApplePressMashingRecipe;
 import net.satisfy.vinery.core.recipe.FermentationBarrelRecipe;
 import net.satisfy.vinery.core.util.VineryIdentifier;
 
@@ -22,8 +23,11 @@ public class RecipeTypesRegistry {
     public static final RegistrySupplier<RecipeType<FermentationBarrelRecipe>> FERMENTATION_BARREL_RECIPE_TYPE = create("wine_fermentation");
     public static final RegistrySupplier<RecipeSerializer<FermentationBarrelRecipe>> FERMENTATION_BARREL_RECIPE_SERIALIZER = create("wine_fermentation", FermentationBarrelRecipe.Serializer::new);
 
-    public static final RegistrySupplier<RecipeType<ApplePressRecipe>> APPLE_PRESS_RECIPE_TYPE = create("apple_mashing");
-    public static final RegistrySupplier<RecipeSerializer<ApplePressRecipe>> APPLE_PRESS_RECIPE_SERIALIZER = create("apple_mashing", ApplePressRecipe.Serializer::new);
+    public static final RegistrySupplier<RecipeType<ApplePressMashingRecipe>> APPLE_PRESS_MASHING_RECIPE_TYPE = create("apple_mashing");
+    public static final RegistrySupplier<RecipeSerializer<ApplePressMashingRecipe>> APPLE_PRESS_MASHING_RECIPE_SERIALIZER = create("apple_mashing", ApplePressMashingRecipe.Serializer::new);
+
+    public static final RegistrySupplier<RecipeType<ApplePressFermentingRecipe>> APPLE_PRESS_FERMENTING_RECIPE_TYPE = create("apple_fermenting");
+    public static final RegistrySupplier<RecipeSerializer<ApplePressFermentingRecipe>> APPLE_PRESS_FERMENTING_RECIPE_SERIALIZER = create("apple_fermenting", ApplePressFermentingRecipe.Serializer::new);
 
     private static <T extends Recipe<?>> RegistrySupplier<RecipeSerializer<T>> create(String name, Supplier<RecipeSerializer<T>> serializer) {
         return RECIPE_SERIALIZERS.register(new VineryIdentifier(name), serializer);

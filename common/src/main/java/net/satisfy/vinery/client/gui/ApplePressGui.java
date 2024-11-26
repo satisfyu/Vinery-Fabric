@@ -11,13 +11,24 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.satisfy.vinery.client.gui.handler.ApplePressGuiHandler;
 import net.satisfy.vinery.core.util.VineryIdentifier;
+
 @Environment(EnvType.CLIENT)
 public class ApplePressGui extends AbstractContainerScreen<ApplePressGuiHandler> {
-    public static final ResourceLocation TEXTURE =
-            new VineryIdentifier("textures/gui/apple_press_gui.png");
+    public static final ResourceLocation TEXTURE = new VineryIdentifier("textures/gui/apple_press_gui.png");
 
-    public static final int ARROW_X = 78;
-    public static final int ARROW_Y = 35;
+    public static final int MASHING_BAR_X = 40;
+    public static final int MASHING_BAR_Y = 17;
+    public static final int MASHING_BAR_WIDTH = 24;
+    public static final int MASHING_BAR_HEIGHT = 38;
+    public static final int MASHING_BAR_U = 176;
+    public static final int MASHING_BAR_V = 0;
+
+    public static final int FERMENTING_BAR_X = 101;
+    public static final int FERMENTING_BAR_Y = 18;
+    public static final int FERMENTING_BAR_WIDTH = 10;
+    public static final int FERMENTING_BAR_HEIGHT = 27;
+    public static final int FERMENTING_BAR_U = 176;
+    public static final int FERMENTING_BAR_V = 47;
 
     public ApplePressGui(ApplePressGuiHandler handler, Inventory inventory, Component title) {
         super(handler, inventory, title);
@@ -26,7 +37,6 @@ public class ApplePressGui extends AbstractContainerScreen<ApplePressGuiHandler>
     @Override
     protected void init() {
         super.init();
-        titleLabelX = (imageWidth - font.width(title)) / 2;
     }
 
     @Override
@@ -37,14 +47,23 @@ public class ApplePressGui extends AbstractContainerScreen<ApplePressGuiHandler>
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
         guiGraphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
-
-        renderProgressArrow(guiGraphics, x, y);
+        renderProgressArrows(guiGraphics, x, y);
     }
 
-
-    private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
-        if(menu.isCrafting()) {
-            guiGraphics.blit(TEXTURE, x + ARROW_X, y + ARROW_Y, 176, 0, menu.getScaledProgress(), 20);
+    private void renderProgressArrows(GuiGraphics guiGraphics, int x, int y) {
+        if (menu.isCrafting(0)) {
+            int height = menu.getScaledProgress(0);
+            int xPosition = x + MASHING_BAR_X;
+            int yPosition = y + MASHING_BAR_Y + height;
+            int textureV = MASHING_BAR_V + height;
+            int renderHeight = MASHING_BAR_HEIGHT - height;
+            guiGraphics.blit(TEXTURE, xPosition, yPosition, MASHING_BAR_U, textureV, MASHING_BAR_WIDTH, renderHeight);
+        }
+        if (menu.isCrafting(1)) {
+            int height = menu.getScaledProgress(1);
+            int xPosition = x + FERMENTING_BAR_X;
+            int yPosition = y + FERMENTING_BAR_Y + FERMENTING_BAR_HEIGHT - height;
+            guiGraphics.blit(TEXTURE, xPosition, yPosition, FERMENTING_BAR_U, FERMENTING_BAR_V + FERMENTING_BAR_HEIGHT - height, FERMENTING_BAR_WIDTH, height);
         }
     }
 

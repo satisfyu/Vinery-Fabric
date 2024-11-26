@@ -11,7 +11,6 @@ import net.satisfy.vinery.core.compat.rei.press.ApplePressCategory;
 import net.satisfy.vinery.core.compat.rei.press.ApplePressDisplay;
 import net.satisfy.vinery.core.compat.rei.wine.FermentationBarrelCategory;
 import net.satisfy.vinery.core.compat.rei.wine.FermentationBarrelDisplay;
-import net.satisfy.vinery.core.recipe.ApplePressRecipe;
 import net.satisfy.vinery.core.recipe.FermentationBarrelRecipe;
 import net.satisfy.vinery.core.registry.ObjectRegistry;
 
@@ -29,7 +28,7 @@ public class VineryReiClientPlugin {
 
     public static void registerDisplays(DisplayRegistry registry) {
         registry.registerFiller(FermentationBarrelRecipe.class, FermentationBarrelDisplay::new);
-        registry.registerFiller(ApplePressRecipe.class, ApplePressDisplay::new);
+       // registry.registerFiller(ApplePressRecipe.class, ApplePressDisplay::new);
     }
 
     public static List<Ingredient> ingredients(Recipe<Container> recipe, ItemStack stack){

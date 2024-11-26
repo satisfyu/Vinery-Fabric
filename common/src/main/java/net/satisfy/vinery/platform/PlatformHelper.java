@@ -23,7 +23,12 @@ public class PlatformHelper {
     }
 
     @ExpectPlatform
-    public static int getApplePressMaxProgress() {
+    public static int getApplePressMashingTime() {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static int getApplePressFermentationTime() {
         throw new AssertionError();
     }
 

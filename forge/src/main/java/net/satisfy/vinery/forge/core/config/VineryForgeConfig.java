@@ -16,7 +16,8 @@ public class VineryForgeConfig {
     public static final ForgeConfigSpec.IntValue TOTAL_FERMENTATION_TIME;
     public static final ForgeConfigSpec.IntValue MAX_FLUID_LEVEL;
     public static final ForgeConfigSpec.IntValue MAX_FLUID_INCREASE;
-    public static final ForgeConfigSpec.IntValue APPLE_PRESS_CRAFTING_TIME;
+    public static final ForgeConfigSpec.IntValue APPLE_PRESS_MASHING_TIME;
+    public static final ForgeConfigSpec.IntValue APPLE_PRESS_FERMENTING_TIME;
     public static final ForgeConfigSpec.IntValue GRAPEVINE_POT_MAX_STORAGE;
     public static final ForgeConfigSpec.DoubleValue CHERRY_GROWTH_CHANCE;
     public static final ForgeConfigSpec.DoubleValue APPLE_GROWTH_CHANCE;
@@ -59,9 +60,13 @@ public class VineryForgeConfig {
                 .comment("Maximum Grape storage capacity for Grapevine pots")
                 .defineInRange("maxStorageCapacity", 6, 6, 100);
 
-        APPLE_PRESS_CRAFTING_TIME = COMMON_BUILDER
-                .comment("Apple Press crafting time in ticks")
-                .defineInRange("applePressMaxProgress", 600, 1, 1000);
+        APPLE_PRESS_MASHING_TIME = COMMON_BUILDER
+                .comment("Apple Press mashing time in ticks")
+                .defineInRange("applePressMaxMashingProgress", 600, 1, 1000);
+
+        APPLE_PRESS_FERMENTING_TIME = COMMON_BUILDER
+                .comment("Apple Press fermenting time in ticks")
+                .defineInRange("applePressMaxFermentingProgress", 800, 1, 1000);
 
         CHERRY_GROWTH_CHANCE = COMMON_BUILDER
                 .comment("Chance for cherries to grow")

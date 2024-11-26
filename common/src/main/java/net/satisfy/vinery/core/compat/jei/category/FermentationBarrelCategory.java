@@ -17,7 +17,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.satisfy.vinery.core.Vinery;
 import net.satisfy.vinery.client.gui.FermentationBarrelGui;
-import net.satisfy.vinery.core.compat.jei.VineryJEIPlugin;
 import net.satisfy.vinery.core.recipe.FermentationBarrelRecipe;
 import net.satisfy.vinery.core.registry.ObjectRegistry;
 import org.jetbrains.annotations.NotNull;
@@ -47,10 +46,10 @@ public class FermentationBarrelCategory implements IRecipeCategory<FermentationB
         int s = ingredients.size();
 
         builder.addSlot(RecipeIngredientRole.INPUT, 79 - WIDTH_OF, 51 - HEIGHT_OF).addItemStack(ObjectRegistry.WINE_BOTTLE.get().getDefaultInstance());
-        if(s > 0) VineryJEIPlugin.addSlot(builder, 33 - WIDTH_OF, 26 - HEIGHT_OF, ingredients.get(0));
-        if(s > 1) VineryJEIPlugin.addSlot(builder, 51 - WIDTH_OF, 26 - HEIGHT_OF, ingredients.get(1));
-        if(s > 2) VineryJEIPlugin.addSlot(builder, 33 - WIDTH_OF, 44 - HEIGHT_OF, ingredients.get(2));
-        if(s > 3) VineryJEIPlugin.addSlot(builder, 51 - WIDTH_OF, 44 - HEIGHT_OF, ingredients.get(3));
+        //  if(s > 0) VineryJEIPlugin.addSlot(builder, 33 - WIDTH_OF, 26 - HEIGHT_OF, ingredients.get(0));
+        // if(s > 1) VineryJEIPlugin.addSlot(builder, 51 - WIDTH_OF, 26 - HEIGHT_OF, ingredients.get(1));
+        //     if(s > 2) VineryJEIPlugin.addSlot(builder, 33 - WIDTH_OF, 44 - HEIGHT_OF, ingredients.get(2));
+        //   if(s > 3) VineryJEIPlugin.addSlot(builder, 51 - WIDTH_OF, 44 - HEIGHT_OF, ingredients.get(3));
 
         assert Minecraft.getInstance().level != null;
         builder.addSlot(RecipeIngredientRole.OUTPUT, 128 - WIDTH_OF,  35 - HEIGHT_OF).addItemStack(recipe.getResultItem(Minecraft.getInstance().level.registryAccess()));
