@@ -9,7 +9,9 @@ import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.IRecipeTransferRegistration;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.satisfy.vinery.client.gui.handler.ApplePressGuiHandler;
@@ -66,6 +68,32 @@ public class VineryJEIPlugin implements IModPlugin {
 
     public static void addSlot(IRecipeLayoutBuilder builder, int x, int y, Ingredient ingredient){
         builder.addSlot(RecipeIngredientRole.INPUT, x, y).addIngredients(ingredient);
+    }
+
+    private static void addItemStackInputSlot(IRecipeLayoutBuilder builder, int x, int y, ItemStack itemStack) {
+        if (Minecraft.getInstance().level == null) return;
+        builder.addSlot(RecipeIngredientRole.INPUT, x, y).addItemStack(itemStack);
+    }
+
+    private static void addItemStackOutputSlot(IRecipeLayoutBuilder builder, int x, int y, ItemStack itemStack) {
+        builder.addSlot(RecipeIngredientRole.OUTPUT, x, y).addItemStack(itemStack);
+    }
+
+    public static void buildSlotsFromRecipe(IRecipeLayoutBuilder builder, FermentationBarrelRecipe recipe) {
+
+        final int TOP_ROW_Y = 4;
+        final int BOTTOM_ROW_Y = 45;
+
+        final NonNullList<Ingredient> recipeIngredients = recipe.getIngredients();
+        final int ingredientCount = recipeIngredients.size();
+        if (ingredientCount >= 1) VineryJEIPlugin.addSlot(builder, 41, BOTTOM_ROW_Y, recipeIngredients.get(0));
+        if (ingredientCount >= 2) VineryJEIPlugin.addSlot(builder, 59, BOTTOM_ROW_Y, recipeIngredients.get(1));
+        if (ingredientCount >= 3) VineryJEIPlugin.addSlot(builder, 77, BOTTOM_ROW_Y, recipeIngredients.get(2));
+
+        VineryJEIPlugin.addItemStackInputSlot(builder, 97, BOTTOM_ROW_Y, ObjectRegistry.WINE_BOTTLE.get().getDefaultInstance());
+
+        assert Minecraft.getInstance().level != null;
+        VineryJEIPlugin.addItemStackOutputSlot(builder, 77, TOP_ROW_Y, recipe.getResultItem(Minecraft.getInstance().level.registryAccess()));
     }
 }
 

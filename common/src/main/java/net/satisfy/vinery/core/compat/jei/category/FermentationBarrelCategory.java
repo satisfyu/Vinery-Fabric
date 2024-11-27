@@ -17,8 +17,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.satisfy.vinery.core.Vinery;
 import net.satisfy.vinery.client.gui.FermentationBarrelGui;
+import net.satisfy.vinery.core.compat.jei.VineryJEIPlugin;
 import net.satisfy.vinery.core.recipe.FermentationBarrelRecipe;
 import net.satisfy.vinery.core.registry.ObjectRegistry;
+import net.satisfy.vinery.platform.PlatformHelper;
 import org.jetbrains.annotations.NotNull;
 
 public class FermentationBarrelCategory implements IRecipeCategory<FermentationBarrelRecipe> {
@@ -42,17 +44,7 @@ public class FermentationBarrelCategory implements IRecipeCategory<FermentationB
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, FermentationBarrelRecipe recipe, IFocusGroup focuses) {
-        NonNullList<Ingredient> ingredients = recipe.getIngredients();
-        int s = ingredients.size();
-
-        builder.addSlot(RecipeIngredientRole.INPUT, 79 - WIDTH_OF, 51 - HEIGHT_OF).addItemStack(ObjectRegistry.WINE_BOTTLE.get().getDefaultInstance());
-        //  if(s > 0) VineryJEIPlugin.addSlot(builder, 33 - WIDTH_OF, 26 - HEIGHT_OF, ingredients.get(0));
-        // if(s > 1) VineryJEIPlugin.addSlot(builder, 51 - WIDTH_OF, 26 - HEIGHT_OF, ingredients.get(1));
-        //     if(s > 2) VineryJEIPlugin.addSlot(builder, 33 - WIDTH_OF, 44 - HEIGHT_OF, ingredients.get(2));
-        //   if(s > 3) VineryJEIPlugin.addSlot(builder, 51 - WIDTH_OF, 44 - HEIGHT_OF, ingredients.get(3));
-
-        assert Minecraft.getInstance().level != null;
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 128 - WIDTH_OF,  35 - HEIGHT_OF).addItemStack(recipe.getResultItem(Minecraft.getInstance().level.registryAccess()));
+        VineryJEIPlugin.buildSlotsFromRecipe(builder, recipe);
     }
 
     @Override
@@ -73,5 +65,60 @@ public class FermentationBarrelCategory implements IRecipeCategory<FermentationB
     @Override
     public @NotNull IDrawable getIcon() {
         return this.icon;
+    }
+
+    private boolean isMouseOverFluidArea(int mouseX, int mouseY) {
+        int fluidAreaLeft = 56 - 1;
+        int fluidAreaTop = 31 - 5;
+        int fluidAreaRight = 56 + 1;
+        int fluidAreaBottom = 31 + 5;
+
+        return mouseX >= fluidAreaLeft && mouseX <= fluidAreaRight &&
+                mouseY >= fluidAreaTop && mouseY <= fluidAreaBottom;
+    }
+
+    private Component getFluidTooltip(String juiceType, int fluidLevel) {
+
+        int maxFluidLevel = PlatformHelper.getMaxFluidLevel();
+
+        double percentage = (double) fluidLevel / maxFluidLevel * 100;
+        String percentageStr = String.format("%.2f", percentage);
+
+        if (juiceType.startsWith("red")) {
+            String region = juiceType.substring(4);
+            return Component.translatable("tooltip.vinery.fermentation_barrel.red_" + region + "_juice_with_percentage", percentageStr);
+        }
+        else if (juiceType.startsWith("white")) {
+            String region = juiceType.substring(6);
+            return Component.translatable("tooltip.vinery.fermentation_barrel.white_" + region + "_juice_with_percentage", percentageStr);
+        }
+        else if (juiceType.equals("apple")) {
+            return Component.translatable("tooltip.vinery.fermentation_barrel.apple_juice_with_percentage", percentageStr);
+        }
+        else {
+            return Component.translatable("tooltip.vinery.fermentation_barrel.empty");
+        }
+    }
+
+    @Override
+    public void draw(FermentationBarrelRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+
+        IRecipeCategory.super.draw(recipe, recipeSlotsView, guiGraphics, mouseX, mouseY);
+
+        // debugging
+        // final int xOrigin = 0;
+        // final int yOrigin = 25;
+        // guiGraphics.drawString(Minecraft.getInstance().font, Component.literal("X: " + mouseX), xOrigin, yOrigin, 0xFFFFFFFF);
+        // guiGraphics.drawString(Minecraft.getInstance().font, Component.literal("Y: " + mouseY), xOrigin, yOrigin + 10, 0xFFFFFFFF);
+        // guiGraphics.drawString(Minecraft.getInstance().font, Component.literal("juice amount: " + recipe.getJuiceAmount()), xOrigin, yOrigin + 20, 0xFFFFFFFF);
+
+        if (recipe.getJuiceAmount() > 0) {
+            FermentationBarrelGui.drawJuiceBar(guiGraphics, recipe.getJuiceType(), recipe.getJuiceAmount(), 56, 31);
+
+            if (isMouseOverFluidArea((int) mouseX, (int) mouseY)) {
+                Component tooltip = getFluidTooltip(recipe.getJuiceType(), recipe.getJuiceAmount());
+                guiGraphics.renderTooltip(Minecraft.getInstance().font, tooltip, (int) mouseX, (int) mouseY);
+            }
+        }
     }
 }

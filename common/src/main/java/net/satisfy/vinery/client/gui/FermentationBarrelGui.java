@@ -138,6 +138,31 @@ public class FermentationBarrelGui extends AbstractContainerScreen<FermentationB
                 mouseY >= craftingTimeAreaTop && mouseY <= craftingTimeAreaBottom;
     }
 
+    public static void drawJuiceBar(GuiGraphics guiGraphics, String juiceType, int juiceAmount, int originX, int originY) {
+
+        final int MAX_FLUID = PlatformHelper.getMaxFluidLevel();
+        int scaledWidth = (int) ((double) juiceAmount / MAX_FLUID * FLUID_WIDTH);
+        scaledWidth = Math.max(0, Math.min(FLUID_WIDTH, scaledWidth));
+
+        final int TEXTURE_X_START = 176;
+
+        int TEXTURE__START;
+        if (juiceType.startsWith("red")) {
+            TEXTURE__START = 29;
+        }
+        else if (juiceType.startsWith("white")) {
+            TEXTURE__START = 33;
+        }
+        else if (juiceType.equals("apple")) {
+            TEXTURE__START = 37;
+        }
+        else {
+            TEXTURE__START = 0;
+        }
+
+        guiGraphics.blit(BACKGROUND, originX, originY , TEXTURE_X_START, TEXTURE__START, scaledWidth, 4);
+    }
+
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -146,26 +171,7 @@ public class FermentationBarrelGui extends AbstractContainerScreen<FermentationB
         int y = this.topPos;
         guiGraphics.blit(BACKGROUND, x, y, 0, 0, this.imageWidth, this.imageHeight);
 
-        String juiceType = this.menu.getJuiceType();
-        int fluidLevel = this.menu.getFluidLevel();
-        int maxFluidLevel = PlatformHelper.getMaxFluidLevel();
-
-        int scaledFluidWidth = (int) ((double) fluidLevel / maxFluidLevel * FLUID_WIDTH);
-        scaledFluidWidth = Math.max(0, Math.min(FLUID_WIDTH, scaledFluidWidth));
-
-        int textureX = 176;
-        int textureY;
-        if (juiceType.startsWith("red")) {
-            textureY = 29;
-        } else if (juiceType.startsWith("white")) {
-            textureY = 33;
-        } else if (juiceType.equals("apple")) {
-            textureY = 37;
-        } else {
-            textureY = 0;
-        }
-
-        guiGraphics.blit(BACKGROUND, x + FLUID_X, y + FLUID_Y, textureX, textureY, scaledFluidWidth, 4);
+        FermentationBarrelGui.drawJuiceBar(guiGraphics, this.menu.getJuiceType(), this.menu.getFluidLevel(), x + FLUID_X, y + FLUID_Y);
 
         this.renderCraftingProgress(guiGraphics, x, y);
     }
