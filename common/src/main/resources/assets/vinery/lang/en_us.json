@@ -325,5 +325,7 @@
   "tooltip.vinery.banner.thankyou_1": "A reward for crafting all Wine Variants",
   "tooltip.vinery.banner.thankyou_2": "When placed:",
   "tooltip.vinery.banner.thankyou_3": "Thank you for playing Vinery!",
-  "tooltip.vinery.banner.thankyou_4": "Grants Regeneration II within an 8-block radius"
+  "tooltip.vinery.banner.thankyou_4": "Grants Regeneration II within an 8-block radius",
+
+  "rei.vinery.fermentation_barrel_category": "Fermentation Barrel"
 }
