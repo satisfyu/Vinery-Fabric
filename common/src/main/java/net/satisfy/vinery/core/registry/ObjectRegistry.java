@@ -238,10 +238,8 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Item> APPLE_CIDER_ITEM = registerWineItem("apple_cider", APPLE_CIDER, () -> createWineSettings(() -> MobEffects.DAMAGE_BOOST, 1600, 0), true);
     public static final RegistrySupplier<Item> APPLE_WINE_ITEM = registerWineItem("apple_wine", APPLE_WINE, () -> createWineSettings(() -> MobEffects.DAMAGE_RESISTANCE, 1600, 0), true);
     public static final RegistrySupplier<Item> MEAD_ITEM = registerWineItem("mead", MEAD, () -> createWineSettings(() -> MobEffects.DIG_SPEED, 1600, 0), true);
-    public static final RegistrySupplier<Item> MELLOHI_WINE_ITEM = registerFixedDurationWineItem("mellohi_wine", MELLOHI_WINE, 0, MobEffects.HEAL, 0);
     public static final RegistrySupplier<Item> GLOWING_WINE_ITEM = registerWineItem("glowing_wine", GLOWING_WINE, () -> createWineSettings(() -> MobEffects.GLOWING, 1600, 0), true);
     public static final RegistrySupplier<Item> SOLARIS_WINE_ITEM = registerWineItem("solaris_wine", SOLARIS_WINE, () -> createWineSettings(() -> MobEffects.HEALTH_BOOST, 1600, 0), true);
-    public static final RegistrySupplier<Item> CREEPERS_CRUSH_ITEM = registerFixedDurationWineItem("creepers_crush", CREEPERS_CRUSH, 100, MobEffectRegistry.CREEPER_EFFECT.get(), 0);
     public static final RegistrySupplier<Item> KELP_CIDER_ITEM = registerWineItem("kelp_cider", KELP_CIDER, () -> createWineSettings(() -> MobEffectRegistry.WATER_WALKER.get(), 1600, 0), true);
     public static final RegistrySupplier<Item> EISWEIN_ITEM = registerWineItem("eiswein", EISWEIN, () -> createWineSettings(() -> MobEffectRegistry.FROSTY_ARMOR_EFFECT.get(), 1600, 0), true);
     public static final RegistrySupplier<Item> AEGIS_WINE_ITEM = registerWineItem("aegis_wine", AEGIS_WINE, () -> createWineSettings(() -> MobEffectRegistry.ARMOR_EFFECT.get(), 1600, 0), true);
@@ -256,12 +254,13 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Item> LILITU_WINE_ITEM = registerWineItem("lilitu_wine", LILITU_WINE, () -> createWineSettings(() -> MobEffectRegistry.PARTY_EFFECT.get(), 1600, 0), true);
     public static final RegistrySupplier<Item> JO_SPECIAL_MIXTURE_ITEM = registerWineItem("jo_special_mixture", JO_SPECIAL_MIXTURE, () -> createWineSettings(() -> MobEffectRegistry.CLIMBING_EFFECT.get(), 1600, 0), true);
     public static final RegistrySupplier<Item> BOLVAR_WINE_ITEM = registerWineItem("bolvar_wine", BOLVAR_WINE, () -> createWineSettings(() -> MobEffectRegistry.LAVA_WALKER.get(), 1600, 0), true);
-    public static final RegistrySupplier<Item> CHORUS_WINE_ITEM = registerFixedDurationWineItem("chorus_wine", CHORUS_WINE, 60, MobEffectRegistry.TELEPORT.get(), 0);
     public static final RegistrySupplier<Item> MAGNETIC_WINE_ITEM = registerWineItem("magnetic_wine", MAGNETIC_WINE, () -> createWineSettings(() -> MobEffectRegistry.MAGNET.get(), 1600, 0), true);
     public static final RegistrySupplier<Item> STAL_WINE_ITEM = registerWineItem("stal_wine", STAL_WINE, () -> createWineSettings(() -> MobEffectRegistry.HEALTH_EFFECT.get(), 1600, 0), true);
     public static final RegistrySupplier<Item> CHENET_WINE_ITEM = registerWineItem("chenet_wine", CHENET_WINE, () -> createWineSettings(() -> MobEffectRegistry.CLIMBING_EFFECT.get(), 1600, 0), true);
     public static final RegistrySupplier<Item> BOTTLE_MOJANG_NOIR_ITEM = registerWineItem("bottle_mojang_noir", BOTTLE_MOJANG_NOIR, () -> createWineSettings(() -> MobEffectRegistry.EXPERIENCE_EFFECT.get(), 1600, 0), true);
-
+    public static final RegistrySupplier<Item> CHORUS_WINE_ITEM = registerFixedDurationWineItem("chorus_wine", CHORUS_WINE, 10, () -> MobEffectRegistry.TELEPORT.get(), 0);
+    public static final RegistrySupplier<Item> CREEPERS_CRUSH_ITEM = registerFixedDurationWineItem("creepers_crush", CREEPERS_CRUSH, 100, () -> MobEffectRegistry.CREEPER_EFFECT.get(), 0);
+    public static final RegistrySupplier<Item> MELLOHI_WINE_ITEM = registerFixedDurationWineItem("mellohi_wine", MELLOHI_WINE, 0, () -> MobEffects.HEAL, 0);
 
     //TODO:
     // * Fix REI / JEI
@@ -303,18 +302,26 @@ public class ObjectRegistry {
         ));
     }
 
-    private static RegistrySupplier<Item> registerFixedDurationWineItem(String name, Supplier<Block> wineBlock, int fixedDurationTicks, MobEffect effect, int amplifier) {
-        FoodProperties food = new FoodProperties.Builder()
-                .effect(new MobEffectInstance(effect, fixedDurationTicks, amplifier), 1.0f)
-                .saturationMod(0.3f)
-                .alwaysEat()
-                .build();
-        return registerItem(name, () -> new DrinkBlockItem(
-                wineBlock.get(),
-                new Item.Properties().food(food),
-                fixedDurationTicks,
-                false
-        ));
+    private static RegistrySupplier<Item> registerFixedDurationWineItem(
+            String name,
+            Supplier<Block> wineBlock,
+            int fixedDurationTicks,
+            Supplier<MobEffect> effectSupplier,
+            int amplifier
+    ) {
+        return registerItem(name, () -> {
+            FoodProperties food = new FoodProperties.Builder()
+                    .effect(new MobEffectInstance(effectSupplier.get(), fixedDurationTicks, amplifier), 1.0f)
+                    .saturationMod(0.3f)
+                    .alwaysEat()
+                    .build();
+            return new DrinkBlockItem(
+                    wineBlock.get(),
+                    new Item.Properties().food(food),
+                    fixedDurationTicks,
+                    false
+            );
+        });
     }
 
     private static BlockBehaviour.Properties getGrapevineSettings() {

@@ -1,15 +1,12 @@
 {
   "replace": false,
   "values": [
-    "minecraft:forest",
     "#minecraft:is_forest",
     "#minecraft:is_river",
     "#minecraft:is_mountain",
     "minecraft:plains",
     "minecraft:swamp",
-    "minecraft:birch_forest",
     "minecraft:meadow",
-    "minecraft:sunflower_plains",
-    "minecraft:river"
+    "minecraft:sunflower_plains"
   ]
 }

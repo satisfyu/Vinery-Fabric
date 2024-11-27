@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "vinery:cherry_wine",
+    "vinery:red_wine",
+    "vinery:stal_wine",
+    "vinery:bolvar_wine",
+    "vinery:solaris_wine",
+    "vinery:kelp_cider",
+    "vinery:clark_wine",
+    "vinery:bottle_mojang_noir",
+    "vinery:villagers_fright",
+    "vinery:noir_wine"
+  ]
+}

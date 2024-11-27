@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.satisfy.vinery.core.registry.StorageTypeRegistry;
+import net.satisfy.vinery.core.registry.TagRegistry;
 import org.jetbrains.annotations.NotNull;
 
 import static net.satisfy.vinery.core.registry.ObjectRegistry.*;
@@ -56,34 +57,8 @@ public class BigBottleStorageBlock extends StorageBlock {
 
     @Override
     public boolean canInsertStack(ItemStack stack) {
-        return stack.getItem() == MAGNETIC_WINE_ITEM.get() ||
-                stack.getItem() == JO_SPECIAL_MIXTURE_ITEM.get() ||
-                stack.getItem() == CRISTEL_WINE_ITEM.get() ||
-                stack.getItem() == GLOWING_WINE_ITEM.get() ||
-                stack.getItem() == JELLIE_WINE_ITEM.get() ||
-                stack.getItem() == EISWEIN_ITEM.get() ||
-                stack.getItem() == CHENET_WINE_ITEM.get() ||
-                stack.getItem() == AEGIS_WINE_ITEM.get() ||
-                stack.getItem() == MELLOHI_WINE_ITEM.get() ||
-                stack.getItem() == STRAD_WINE_ITEM.get() ||
-                stack.getItem() == APPLE_CIDER_ITEM.get() ||
-                stack.getItem() == APPLE_WINE_ITEM.get() ||
-                stack.getItem() == LILITU_WINE_ITEM.get() ||
-                stack.getItem() == CHORUS_WINE_ITEM.get() ||
-                stack.getItem() == CREEPERS_CRUSH_ITEM.get() ||
-                stack.getItem() == MEAD_ITEM.get() ||
-                stack.getItem() == CHERRY_WINE_ITEM.get() ||
-                stack.getItem() == RED_WINE_ITEM.get() ||
-                stack.getItem() == STAL_WINE_ITEM.get() ||
-                stack.getItem() == BOLVAR_WINE_ITEM.get() ||
-                stack.getItem() == SOLARIS_WINE_ITEM.get() ||
-                stack.getItem() == KELP_CIDER_ITEM.get() ||
-                stack.getItem() == CLARK_WINE_ITEM.get() ||
-                stack.getItem() == BOTTLE_MOJANG_NOIR_ITEM.get() ||
-                stack.getItem() == VILLAGERS_FRIGHT_ITEM.get() ||
-                stack.getItem() == NOIR_WINE_ITEM.get();
+        return stack.is(TagRegistry.SMALL_BOTTLE) || stack.is(TagRegistry.LARGE_BOTTLE);
     }
-
 
     @Override
     public int size(){

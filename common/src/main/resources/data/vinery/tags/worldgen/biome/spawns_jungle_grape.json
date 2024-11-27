@@ -1,9 +1,6 @@
 {
   "replace": false,
   "values": [
-    "minecraft:jungle",
-    "minecraft:sparse_jungle",
-    "minecraft:bamboo_jungle",
     "minecraft:wooded_badlands",
     "#minecraft:is_jungle"
   ]
