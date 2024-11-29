@@ -1,3 +1,4 @@
+// StoragePotBlock.java
 package net.satisfy.vinery.core.block;
 
 import net.minecraft.core.BlockPos;
@@ -14,14 +15,16 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Supplier;
 
+@SuppressWarnings("deprecation")
 public class StoragePotBlock extends CabinetBlock {
-    public StoragePotBlock(Properties settings, Supplier<SoundEvent> openSound, Supplier<SoundEvent> closeSound) {
+    public StoragePotBlock(Properties settings, SoundEvent openSound, SoundEvent closeSound) {
         super(settings, openSound, closeSound);
     }
 
-    private static final Supplier<VoxelShape> voxelShapeSupplier = () -> {
+    private static final VoxelShape VOXEL_SHAPE = createVoxelShape();
+
+    private static VoxelShape createVoxelShape() {
         VoxelShape shape = Shapes.empty();
         shape = Shapes.joinUnoptimized(shape, Shapes.box(0.9375, 0, 0, 1, 0.5, 1), BooleanOp.OR);
         shape = Shapes.joinUnoptimized(shape, Shapes.box(0, 0, 0, 0.0625, 0.5, 1), BooleanOp.OR);
@@ -35,16 +38,17 @@ public class StoragePotBlock extends CabinetBlock {
         shape = Shapes.joinUnoptimized(shape, Shapes.box(0, 0.5625, 0.375, 0.0625, 0.625, 0.625), BooleanOp.OR);
         shape = Shapes.joinUnoptimized(shape, Shapes.box(0.9375, 0.5625, 0.375, 1, 0.625, 0.625), BooleanOp.OR);
         return shape;
-    };
+    }
 
-    public static final Map<Direction, VoxelShape> SHAPE = net.minecraft.Util.make(new HashMap<>(), map -> {
-        for (Direction direction : Direction.Plane.HORIZONTAL.stream().toList()) {
-            map.put(direction, GeneralUtil.rotateShape(Direction.NORTH, direction, voxelShapeSupplier.get()));
+    public static final Map<Direction, VoxelShape> SHAPE = new HashMap<>();
+
+    static {
+        for (Direction direction : Direction.Plane.HORIZONTAL) {
+            SHAPE.put(direction, GeneralUtil.rotateShape(Direction.NORTH, direction, VOXEL_SHAPE));
         }
-    });
+    }
 
     @Override
-    @SuppressWarnings("deprecation")
     public @NotNull VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return SHAPE.get(state.getValue(FACING));
     }

@@ -9,25 +9,25 @@
     ]
   },
   "drawer_open": {
-    "subtitle": "sound.vinery.drawer_open",
+    "subtitle": "subtitles.vinery.drawer_open",
     "sounds": [
       "vinery:drawer_open"
     ]
   },
   "drawer_close": {
-    "subtitle": "sound.vinery.drawer_close",
+    "subtitle": "subtitles.vinery.drawer_close",
     "sounds": [
       "vinery:drawer_close"
     ]
   },
   "cabinet_open": {
-    "subtitle": "sound.vinery.cabinet_open",
+    "subtitle": "subtitles.vinery.cabinet_open",
     "sounds": [
       "vinery:cabinet_open"
     ]
   },
   "cabinet_close": {
-    "subtitle": "sound.vinery.cabinet_close",
+    "subtitle": "subtitles.vinery.cabinet_close",
     "sounds": [
       "vinery:cabinet_close"
     ]

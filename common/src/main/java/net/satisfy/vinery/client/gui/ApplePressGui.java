@@ -26,7 +26,7 @@ public class ApplePressGui extends AbstractContainerScreen<ApplePressGuiHandler>
     public static final int FERMENTING_BAR_X = 101;
     public static final int FERMENTING_BAR_Y = 18;
     public static final int FERMENTING_BAR_WIDTH = 10;
-    public static final int FERMENTING_BAR_HEIGHT = 27;
+    public static final int FERMENTING_BAR_HEIGHT = 28;
     public static final int FERMENTING_BAR_U = 176;
     public static final int FERMENTING_BAR_V = 47;
 

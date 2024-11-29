@@ -5,6 +5,7 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffect;
@@ -81,6 +82,11 @@ public class DrinkBlockItem extends BlockItem {
         if (world != null) {
             int age = WineYears.getWineAge(stack, world);
             tooltip.add(Component.translatable("tooltip.vinery.age", age).withStyle(ChatFormatting.WHITE));
+            tooltip.add(Component.empty());
+            int yearsToNextUpgrade = WineYears.YEARS_PER_EFFECT_LEVEL - (age % WineYears.YEARS_PER_EFFECT_LEVEL);
+            int daysToNextUpgrade = yearsToNextUpgrade * WineYears.DAYS_PER_YEAR;
+
+            tooltip.add(Component.translatable("tooltip.vinery.next_upgrade", daysToNextUpgrade).withStyle(style -> style.withColor(TextColor.fromRgb(0x93c47d))));
         }
     }
 

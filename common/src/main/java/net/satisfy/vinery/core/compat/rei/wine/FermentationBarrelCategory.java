@@ -25,7 +25,7 @@ public class FermentationBarrelCategory implements DisplayCategory<FermentationB
 
     @Override
     public Component getTitle() {
-        return Component.translatable("rei.vinery.fermentation_barrel_category");
+        return ObjectRegistry.FERMENTATION_BARREL.get().getName();
     }
 
     @Override

@@ -1,0 +1,10 @@
+{
+  "type": "vinery:apple_mashing",
+  "input": {
+    "item": "minecraft:honeycomb_block"
+  },
+  "output": {
+    "item": "minecraft:honeycomb",
+    "count": 9
+  }
+}

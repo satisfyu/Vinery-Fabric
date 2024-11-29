@@ -4,11 +4,19 @@ import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
+import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.ModContainer;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.satisfy.vinery.core.Vinery;
+import net.satisfy.vinery.core.registry.CompostableRegistry;
 import net.satisfy.vinery.fabric.config.VineryFabricConfig;
 import net.satisfy.vinery.fabric.core.registry.VineryFabricVillagers;
 import net.satisfy.vinery.fabric.core.world.VineryBiomeModification;
-import net.satisfy.vinery.core.registry.CompostableRegistry;
+
+import java.util.Optional;
 
 public class VineryFabric implements ModInitializer {
 
@@ -24,5 +32,12 @@ public class VineryFabric implements ModInitializer {
         Vinery.commonSetup();
 
         ServerLifecycleEvents.SERVER_STARTED.register(VineryFabricVillagers::init);
+
+        Optional<ModContainer> modContainer = FabricLoader.getInstance().getModContainer(Vinery.MOD_ID);
+        modContainer.ifPresent(container -> ResourceManagerHelper.registerBuiltinResourcePack(
+                new ResourceLocation(Vinery.MOD_ID, "bushy_leaves"),
+                container,
+                ResourcePackActivationType.NORMAL
+        ));
     }
 }
