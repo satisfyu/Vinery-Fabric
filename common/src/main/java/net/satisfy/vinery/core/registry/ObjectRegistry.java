@@ -34,7 +34,7 @@ import net.satisfy.vinery.core.block.GrapeBush;
 import net.satisfy.vinery.core.block.GrapeVineBlock;
 import net.satisfy.vinery.core.block.LatticeBlock;
 import net.satisfy.vinery.core.block.PaleStemBlock;
-import net.satisfy.vinery.core.entity.ModBoatEntity;
+import net.satisfy.vinery.core.entity.DarkCherryBoatEntity;
 import net.satisfy.vinery.core.item.*;
 import net.satisfy.vinery.core.util.GeneralUtil;
 import net.satisfy.vinery.core.util.VineryIdentifier;
@@ -130,9 +130,9 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Block> DARK_CHERRY_TRAPDOOR = registerWithItem("dark_cherry_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_TRAPDOOR), BlockSetType.CHERRY));
 
     public static final RegistrySupplier<Item> DARK_CHERRY_BOAT = ITEMS.register("dark_cherry_boat",
-            () -> new ModBoatItem(false, ModBoatEntity.Type.DARK_CHERRY, new Item.Properties()));
+            () -> new DarkCherryBoatItem(false, DarkCherryBoatEntity.Type.DARK_CHERRY, new Item.Properties()));
     public static final RegistrySupplier<Item> DARK_CHERRY_CHEST_BOAT = ITEMS.register("dark_cherry_chest_boat",
-            () -> new ModBoatItem(true, ModBoatEntity.Type.DARK_CHERRY, new Item.Properties()));
+            () -> new DarkCherryBoatItem(true, DarkCherryBoatEntity.Type.DARK_CHERRY, new Item.Properties()));
 
 
     public static final RegistrySupplier<Block> WINDOW_BLOCK = registerWithItem("window_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.GLASS)));
