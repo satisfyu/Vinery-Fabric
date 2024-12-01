@@ -19,6 +19,8 @@ public class VineryForgeConfig {
     public static final ForgeConfigSpec.IntValue APPLE_PRESS_MASHING_TIME;
     public static final ForgeConfigSpec.IntValue APPLE_PRESS_FERMENTING_TIME;
     public static final ForgeConfigSpec.IntValue GRAPEVINE_POT_MAX_STORAGE;
+    public static final ForgeConfigSpec.IntValue GRAPEVINE_POT_REQUIRED_JUMPS;
+    public static final ForgeConfigSpec.BooleanValue SHOULD_SHOW_SPLASH_PARTICLES;
     public static final ForgeConfigSpec.DoubleValue CHERRY_GROWTH_CHANCE;
     public static final ForgeConfigSpec.DoubleValue APPLE_GROWTH_CHANCE;
     public static final ForgeConfigSpec.DoubleValue GRAPE_GROWTH_CHANCE;
@@ -59,6 +61,14 @@ public class VineryForgeConfig {
         GRAPEVINE_POT_MAX_STORAGE = COMMON_BUILDER
                 .comment("Maximum Grape storage capacity for Grapevine pots")
                 .defineInRange("maxStorageCapacity", 6, 6, 100);
+
+        GRAPEVINE_POT_REQUIRED_JUMPS = COMMON_BUILDER
+                .comment("Number of jumps required to harvest from the Grapevine Pot.")
+                .defineInRange("grapevinePotRequiredJumps", 5, 1, 100);
+
+        SHOULD_SHOW_SPLASH_PARTICLES = COMMON_BUILDER
+                .comment("Set to true to enable splash particles.")
+                .define("shouldShowSplashParticles", true);
 
         APPLE_PRESS_MASHING_TIME = COMMON_BUILDER
                 .comment("Apple Press mashing time in ticks")
