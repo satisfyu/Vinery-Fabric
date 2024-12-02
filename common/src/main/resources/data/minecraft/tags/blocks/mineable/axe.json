@@ -50,6 +50,10 @@
     "vinery:bamboo_wine_rack_small",
     "vinery:bamboo_wine_rack_mid",
     "vinery:bamboo_wine_rack_big",
-    "#vinery:lattice"
+    "#vinery:lattice",
+    "vinery:dark_cherry_hanging_sign",
+    "vinery:dark_cherry_sign",
+    "vinery:dark_cherry_wall_sign",
+    "vinery:dark_cherry_wall_hanging_sign"
   ]
 }

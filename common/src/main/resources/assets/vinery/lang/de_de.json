@@ -336,5 +336,7 @@
   "effect.vinery.party_effect.description": "Löst Feuerwerkskörper aus, die Schaden anrichten, wenn sie Entitäten treffen.",
   "effect.vinery.resistance_effect.description": "Erhöht Rüstungshärte und Widerstand.",
   "effect.vinery.teleport.description": "Teleportiert den Spieler nach vorne.",
-  "effect.vinery.water_walker.description": "Ermöglicht das Gehen auf Wasser."
+  "effect.vinery.water_walker.description": "Ermöglicht das Gehen auf Wasser.",
+  "block.vinery.dark_cherry_wall_hanging_sign": "Dunkles Kirschholzhängeschild",
+  "tooltip.vinery.next_upgrade": "Verbleibende Tage zur Qualitätssteigerung: %s"
 }

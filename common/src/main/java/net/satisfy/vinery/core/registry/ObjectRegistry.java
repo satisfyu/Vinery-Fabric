@@ -51,20 +51,12 @@ public class ObjectRegistry {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(Vinery.MOD_ID, Registries.BLOCK);
     public static final Registrar<Block> BLOCK_REGISTRAR = BLOCKS.getRegistrar();
 
-    public static final RegistrySupplier<Block> DARK_CHERRY_SIGN = registerWithoutItem("dark_cherry_sign",
-            () -> new ModStandingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SIGN), VineryWoodType.DARK_CHERRY));
-    public static final RegistrySupplier<Block> DARK_CHERRY_WALL_SIGN = registerWithoutItem("dark_cherry_wall_sign",
-            () -> new ModWallSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WALL_SIGN), VineryWoodType.DARK_CHERRY));
-    public static final RegistrySupplier<Block> DARK_CHERRY_HANGING_SIGN = registerWithoutItem("dark_cherry_hanging_sign",
-            () -> new ModHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_HANGING_SIGN), VineryWoodType.DARK_CHERRY));
-    public static final RegistrySupplier<Block> DARK_CHERRY_WALL_HANGING_SIGN = registerWithoutItem("dark_cherry_wall_hanging_sign",
-            () -> new ModWallHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WALL_HANGING_SIGN), VineryWoodType.DARK_CHERRY));
-
-    public static final RegistrySupplier<Item> DARK_CHERRY_SIGN_ITEM = ITEMS.register("dark_cherry_sign",
-            () -> new SignItem(new Item.Properties().stacksTo(16), ObjectRegistry.DARK_CHERRY_SIGN.get(), ObjectRegistry.DARK_CHERRY_WALL_SIGN.get()));
-    public static final RegistrySupplier<Item> DARK_CHERRY_HANGING_SIGN_ITEM = ITEMS.register("dark_cherry_hanging_sign",
-            () -> new HangingSignItem(ObjectRegistry.DARK_CHERRY_HANGING_SIGN.get(), ObjectRegistry.DARK_CHERRY_WALL_HANGING_SIGN.get(),
-                    new Item.Properties().stacksTo(16)));
+    public static final RegistrySupplier<Block> DARK_CHERRY_SIGN = registerWithoutItem("dark_cherry_sign", () -> new ModStandingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SIGN), VineryWoodType.DARK_CHERRY));
+    public static final RegistrySupplier<Block> DARK_CHERRY_WALL_SIGN = registerWithoutItem("dark_cherry_wall_sign", () -> new ModWallSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WALL_SIGN), VineryWoodType.DARK_CHERRY));
+    public static final RegistrySupplier<Block> DARK_CHERRY_HANGING_SIGN = registerWithoutItem("dark_cherry_hanging_sign", () -> new ModHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_HANGING_SIGN), VineryWoodType.DARK_CHERRY));
+    public static final RegistrySupplier<Block> DARK_CHERRY_WALL_HANGING_SIGN = registerWithoutItem("dark_cherry_wall_hanging_sign", () -> new ModWallHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WALL_HANGING_SIGN), VineryWoodType.DARK_CHERRY));
+    public static final RegistrySupplier<Item> DARK_CHERRY_SIGN_ITEM = ITEMS.register("dark_cherry_sign", () -> new SignItem(new Item.Properties().stacksTo(16), ObjectRegistry.DARK_CHERRY_SIGN.get(), ObjectRegistry.DARK_CHERRY_WALL_SIGN.get()));
+    public static final RegistrySupplier<Item> DARK_CHERRY_HANGING_SIGN_ITEM = ITEMS.register("dark_cherry_hanging_sign", () -> new HangingSignItem(ObjectRegistry.DARK_CHERRY_HANGING_SIGN.get(), ObjectRegistry.DARK_CHERRY_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
 
     public static final RegistrySupplier<Block> RED_GRAPE_BUSH = registerWithoutItem("red_grape_bush", () -> new GrapeBush(BlockBehaviour.Properties.copy(Blocks.SWEET_BERRY_BUSH), GrapeTypeRegistry.RED));
     public static final RegistrySupplier<Item> RED_GRAPE_SEEDS = registerItem("red_grape_seeds", () -> new GrapeBushSeedItem(RED_GRAPE_BUSH.get(), getSettings(), GrapeTypeRegistry.RED));
@@ -142,13 +134,8 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Block> DARK_CHERRY_PRESSURE_PLATE = registerWithItem("dark_cherry_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PRESSURE_PLATE), BlockSetType.CHERRY));
     public static final RegistrySupplier<Block> DARK_CHERRY_DOOR = registerWithItem("dark_cherry_door", () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR), BlockSetType.CHERRY));
     public static final RegistrySupplier<Block> DARK_CHERRY_TRAPDOOR = registerWithItem("dark_cherry_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_TRAPDOOR), BlockSetType.CHERRY));
-
-    public static final RegistrySupplier<Item> DARK_CHERRY_BOAT = ITEMS.register("dark_cherry_boat",
-            () -> new DarkCherryBoatItem(false, DarkCherryBoatEntity.Type.DARK_CHERRY, new Item.Properties()));
-    public static final RegistrySupplier<Item> DARK_CHERRY_CHEST_BOAT = ITEMS.register("dark_cherry_chest_boat",
-            () -> new DarkCherryBoatItem(true, DarkCherryBoatEntity.Type.DARK_CHERRY, new Item.Properties()));
-
-
+    public static final RegistrySupplier<Item> DARK_CHERRY_BOAT = ITEMS.register("dark_cherry_boat", () -> new DarkCherryBoatItem(false, DarkCherryBoatEntity.Type.DARK_CHERRY, new Item.Properties()));
+    public static final RegistrySupplier<Item> DARK_CHERRY_CHEST_BOAT = ITEMS.register("dark_cherry_chest_boat", () -> new DarkCherryBoatItem(true, DarkCherryBoatEntity.Type.DARK_CHERRY, new Item.Properties()));
     public static final RegistrySupplier<Block> WINDOW_BLOCK = registerWithItem("window_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.GLASS)));
     public static final RegistrySupplier<Block> WINDOW = registerWithItem("window", () -> new WindowBlock(BlockBehaviour.Properties.copy(Blocks.GLASS_PANE)));
     public static final RegistrySupplier<Block> LOAM = registerWithItem("loam", () -> new Block(BlockBehaviour.Properties.of().strength(2.0F, 3.0F).sound(SoundType.MUD)));
@@ -284,9 +271,6 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Item> CHORUS_WINE_ITEM = registerFixedDurationWineItem("chorus_wine", CHORUS_WINE, 10, () -> MobEffectRegistry.TELEPORT.get(), 0);
     public static final RegistrySupplier<Item> CREEPERS_CRUSH_ITEM = registerFixedDurationWineItem("creepers_crush", CREEPERS_CRUSH, 100, () -> MobEffectRegistry.CREEPER_EFFECT.get(), 0);
     public static final RegistrySupplier<Item> MELLOHI_WINE_ITEM = registerFixedDurationWineItem("mellohi_wine", MELLOHI_WINE, 0, () -> MobEffects.HEAL, 0);
-
-    //TODO:
-    // * Fix REI / JEI
 
     public static void init() {
         ITEMS.register();

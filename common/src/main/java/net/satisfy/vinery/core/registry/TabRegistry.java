@@ -16,8 +16,6 @@ public class TabRegistry {
             .icon(() -> new ItemStack(ObjectRegistry.FERMENTATION_BARREL.get()))
             .title(Component.translatable("creativetab.vinery.tab"))
             .displayItems((parameters, out) -> {
-                out.accept(new ItemStack(ObjectRegistry.DARK_CHERRY_SIGN_ITEM.get()));
-                out.accept(new ItemStack(ObjectRegistry.DARK_CHERRY_HANGING_SIGN_ITEM.get()));
                 out.accept(new ItemStack(ObjectRegistry.CHERRY.get()));
                 out.accept(new ItemStack(ObjectRegistry.ROTTEN_CHERRY.get()));
                 out.accept(new ItemStack(ObjectRegistry.RED_GRAPE_SEEDS.get()));
@@ -115,8 +113,8 @@ public class TabRegistry {
                 out.accept(new ItemStack(ObjectRegistry.DARK_CHERRY_DOOR.get()));
                 out.accept(new ItemStack(ObjectRegistry.DARK_CHERRY_BOAT.get()));
                 out.accept(new ItemStack(ObjectRegistry.DARK_CHERRY_CHEST_BOAT.get()));
-                //out.accept(new ItemStack(BoatAndSignRegistry.DARK_CHERRY_SIGN_ITEM.get()));
-                //out.accept(new ItemStack(BoatAndSignRegistry.DARK_CHERRY_HANGING_SIGN_ITEM.get()));
+                out.accept(new ItemStack(ObjectRegistry.DARK_CHERRY_SIGN_ITEM.get()));
+                out.accept(new ItemStack(ObjectRegistry.DARK_CHERRY_HANGING_SIGN_ITEM.get()));
                 out.accept(new ItemStack(ObjectRegistry.DARK_CHERRY_BARREL.get()));
                 out.accept(new ItemStack(ObjectRegistry.DARK_CHERRY_TRAPDOOR.get()));
                 out.accept(new ItemStack(ObjectRegistry.WINDOW_BLOCK.get()));
@@ -176,7 +174,6 @@ public class TabRegistry {
                 out.accept(new ItemStack(ObjectRegistry.BAMBOO_LATTICE.get()));
                 out.accept(new ItemStack(ObjectRegistry.CHERRY_LATTICE.get()));
                 out.accept(new ItemStack(ObjectRegistry.DARK_CHERRY_LATTICE.get()));
-
             })
             .build());
 
