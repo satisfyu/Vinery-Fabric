@@ -10,7 +10,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.satisfy.vinery.client.gui.handler.FermentationBarrelGuiHandler;
-import net.satisfy.vinery.core.util.JuiceUtil;
 import net.satisfy.vinery.core.util.VineryIdentifier;
 import net.satisfy.vinery.platform.PlatformHelper;
 
@@ -84,7 +83,7 @@ public class FermentationBarrelGui extends AbstractContainerScreen<FermentationB
                     "tooltip.vinery.fermentation_barrel.white_" + region + "_juice_with_percentage",
                     percentageStr
             );
-        } else if (juiceType.equals("apple")) { 
+        } else if (juiceType.equals("apple")) {
             return Component.translatable(
                     "tooltip.vinery.fermentation_barrel.apple_juice_with_percentage",
                     percentageStr

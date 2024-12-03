@@ -1,62 +1,98 @@
 package net.satisfy.vinery.core.util;
 
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.satisfy.vinery.core.registry.ObjectRegistry;
+import net.satisfy.vinery.core.registry.TagRegistry;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 public class JuiceUtil {
-    public static final Set<Item> RED_JUICES = new HashSet<>();
-    public static final Set<Item> WHITE_JUICES = new HashSet<>();
-    public static final Set<Item> APPLE_JUICES = new HashSet<>();
-    public static final Map<Item, String> ITEM_REGION_MAP = new HashMap<>();
+    public static final Map<TagKey<Item>, String> RED_JUICE_TAGS = new HashMap<>();
+    public static final Map<TagKey<Item>, String> WHITE_JUICE_TAGS = new HashMap<>();
+    public static final Map<Item, String> APPLE_JUICES = new HashMap<>();
 
     static {
-        addRedJuice(ObjectRegistry.RED_GRAPEJUICE.get(), "general");
-        addRedJuice(ObjectRegistry.RED_SAVANNA_GRAPEJUICE.get(), "savanna");
-        addRedJuice(ObjectRegistry.RED_TAIGA_GRAPEJUICE.get(), "taiga");
-        addRedJuice(ObjectRegistry.RED_JUNGLE_GRAPEJUICE.get(), "jungle");
+        addRedJuice(TagRegistry.RED_GRAPEJUICE, "general");
+        addRedJuice(TagRegistry.RED_SAVANNA_GRAPEJUICE, "savanna");
+        addRedJuice(TagRegistry.RED_TAIGA_GRAPEJUICE, "taiga");
+        addRedJuice(TagRegistry.RED_JUNGLE_GRAPEJUICE, "jungle");
+        addRedJuice(TagRegistry.CRIMSON_GRAPEJUICE, "crimson");
 
-        addWhiteJuice(ObjectRegistry.WHITE_GRAPEJUICE.get(), "general");
-        addWhiteJuice(ObjectRegistry.WHITE_SAVANNA_GRAPEJUICE.get(), "savanna");
-        addWhiteJuice(ObjectRegistry.WHITE_TAIGA_GRAPEJUICE.get(), "taiga");
-        addWhiteJuice(ObjectRegistry.WHITE_JUNGLE_GRAPEJUICE.get(), "jungle");
+        addWhiteJuice(TagRegistry.WHITE_GRAPEJUICE, "general");
+        addWhiteJuice(TagRegistry.WHITE_SAVANNA_GRAPEJUICE, "savanna");
+        addWhiteJuice(TagRegistry.WHITE_TAIGA_GRAPEJUICE, "taiga");
+        addWhiteJuice(TagRegistry.WHITE_JUNGLE_GRAPEJUICE, "jungle");
+        addWhiteJuice(TagRegistry.WARPED_GRAPEJUICE, "warped");
 
         addAppleJuice(ObjectRegistry.APPLE_JUICE.get());
     }
 
-    private static void addRedJuice(Item item, String region) {
-        RED_JUICES.add(item);
-        ITEM_REGION_MAP.put(item, region);
+    private static void addRedJuice(TagKey<Item> tag, String region) {
+        RED_JUICE_TAGS.put(tag, region);
     }
 
-    private static void addWhiteJuice(Item item, String region) {
-        WHITE_JUICES.add(item);
-        ITEM_REGION_MAP.put(item, region);
+    private static void addWhiteJuice(TagKey<Item> tag, String region) {
+        WHITE_JUICE_TAGS.put(tag, region);
     }
 
     private static void addAppleJuice(Item item) {
-        APPLE_JUICES.add(item);
-        ITEM_REGION_MAP.put(item, "apple");
+        APPLE_JUICES.put(item, "apple");
     }
 
     public static boolean isJuice(ItemStack stack) {
         if (stack.isEmpty()) {
             return false;
         }
-        Item item = stack.getItem();
-        return RED_JUICES.contains(item) || WHITE_JUICES.contains(item) || APPLE_JUICES.contains(item);
+        return isRedJuice(stack) || isWhiteJuice(stack) || isAppleJuice(stack);
+    }
+
+    private static boolean isRedJuice(ItemStack stack) {
+        for (TagKey<Item> tag : RED_JUICE_TAGS.keySet()) {
+            if (stack.is(tag)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean isWhiteJuice(ItemStack stack) {
+        for (TagKey<Item> tag : WHITE_JUICE_TAGS.keySet()) {
+            if (stack.is(tag)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean isAppleJuice(ItemStack stack) {
+        return APPLE_JUICES.containsKey(stack.getItem());
     }
 
     public static String getJuiceType(ItemStack stack) {
         if (!isJuice(stack)) {
             return "";
         }
-        Item item = stack.getItem();
-        return ITEM_REGION_MAP.getOrDefault(item, "");
+
+        for (Map.Entry<TagKey<Item>, String> entry : RED_JUICE_TAGS.entrySet()) {
+            if (stack.is(entry.getKey())) {
+                return "red_" + entry.getValue();
+            }
+        }
+
+        for (Map.Entry<TagKey<Item>, String> entry : WHITE_JUICE_TAGS.entrySet()) {
+            if (stack.is(entry.getKey())) {
+                return "white_" + entry.getValue();
+            }
+        }
+
+        String region = APPLE_JUICES.get(stack.getItem());
+        if (region != null) {
+            return region;
+        }
+
+        return "";
     }
 }

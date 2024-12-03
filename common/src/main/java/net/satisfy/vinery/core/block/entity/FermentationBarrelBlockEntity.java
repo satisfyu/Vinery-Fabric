@@ -112,6 +112,8 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Implem
             case "white_jungle" -> 6;
             case "red_jungle" -> 7;
             case "apple" -> 8;
+            case "red_crimson" -> 9;
+            case "white_warped" -> 10;
             default -> -1;
         };
     }
@@ -127,10 +129,11 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Implem
             case 6 -> "white_jungle";
             case 7 -> "red_jungle";
             case 8 -> "apple";
+            case 9 -> "red_crimson";
+            case 10 -> "white_warped";
             default -> "";
         };
     }
-
 
     @Override
     public void load(CompoundTag nbt) {
@@ -184,7 +187,7 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Implem
                 int currentLevel = blockEntity.getFluidLevel();
                 int maxFluidLevel = PlatformHelper.getMaxFluidLevel();
                 int juiceCount = stack.getCount();
-                int juicesToConsume = Math.min(juiceCount, 4); // Anpassung je nach Bedarf
+                int juicesToConsume = Math.min(juiceCount, 4);
                 int fluidIncrease = juicesToConsume * PlatformHelper.getMaxFluidIncrease();
 
                 int newFluidLevel = Math.min(currentLevel + fluidIncrease, maxFluidLevel);

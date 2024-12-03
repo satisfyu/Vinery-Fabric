@@ -4,7 +4,10 @@ import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.*;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.SimpleContainerData;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.satisfy.vinery.client.gui.handler.slot.ExtendedSlot;
@@ -106,19 +109,16 @@ public class FermentationBarrelGuiHandler extends AbstractContainerMenu {
                         return ItemStack.EMPTY;
                     }
                 }
+                if (stackInSlot.isEmpty()) {
+                    slot.set(ItemStack.EMPTY);
+                } else {
+                    slot.setChanged();
+                }
+                if (stackInSlot.getCount() == itemStack.getCount()) {
+                    return ItemStack.EMPTY;
+                }
+                slot.onTake(player, stackInSlot);
             }
-
-            if (stackInSlot.isEmpty()) {
-                slot.set(ItemStack.EMPTY);
-            } else {
-                slot.setChanged();
-            }
-
-            if (stackInSlot.getCount() == itemStack.getCount()) {
-                return ItemStack.EMPTY;
-            }
-
-            slot.onTake(player, stackInSlot);
         }
         return itemStack;
     }
@@ -144,6 +144,8 @@ public class FermentationBarrelGuiHandler extends AbstractContainerMenu {
             case 6 -> "white_jungle";
             case 7 -> "red_jungle";
             case 8 -> "apple";
+            case 9 -> "red_crimson";
+            case 10 -> "white_warped";
             default -> "";
         };
     }

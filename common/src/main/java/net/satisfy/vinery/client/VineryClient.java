@@ -10,11 +10,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
-import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.GrassColor;
-import net.minecraft.world.level.block.entity.SignBlockEntity;
 import net.satisfy.vinery.client.gui.ApplePressGui;
 import net.satisfy.vinery.client.gui.BasketGui;
 import net.satisfy.vinery.client.gui.FermentationBarrelGui;
@@ -28,7 +25,6 @@ import net.satisfy.vinery.client.render.entity.ChairRenderer;
 import net.satisfy.vinery.client.render.entity.DarkCherryBoatRenderer;
 import net.satisfy.vinery.client.render.entity.MuleRenderer;
 import net.satisfy.vinery.client.render.entity.WanderingWinemakerRenderer;
-import net.satisfy.vinery.core.block.entity.ModSignBlockEntity;
 import net.satisfy.vinery.core.registry.EntityTypeRegistry;
 import net.satisfy.vinery.core.registry.ScreenhandlerTypeRegistry;
 import net.satisfy.vinery.core.registry.StorageTypeRegistry;
@@ -105,9 +101,8 @@ public class VineryClient {
         BlockEntityRendererRegistry.register(EntityTypeRegistry.BASKET_ENTITY.get(), BasketRenderer::new);
         BlockEntityRendererRegistry.register(EntityTypeRegistry.VINERY_STANDARD.get(), CompletionistBannerRenderer::new);
         BlockEntityRendererRegistry.register(EntityTypeRegistry.STORAGE_ENTITY.get(), context -> new StorageBlockEntityRenderer());
-
-        BlockEntityRendererRegistry.register(EntityTypeRegistry.MOD_SIGN.get(), context -> new ModSignRenderer(context));
-        BlockEntityRendererRegistry.register(EntityTypeRegistry.MOD_HANGING_SIGN.get(), context -> new ModHangingSignRenderer(context));
+        BlockEntityRendererRegistry.register(EntityTypeRegistry.MOD_SIGN.get(), ModSignRenderer::new);
+        BlockEntityRendererRegistry.register(EntityTypeRegistry.MOD_HANGING_SIGN.get(), ModHangingSignRenderer::new);
     }
 
     public static void registerEntityModelLayer() {
