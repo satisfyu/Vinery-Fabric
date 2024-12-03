@@ -10,8 +10,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.RegisterEvent;
-import net.satisfy.vinery.core.Vinery;
 import net.satisfy.vinery.client.VineryClient;
+import net.satisfy.vinery.core.Vinery;
 import net.satisfy.vinery.core.entity.DarkCherryBoatEntity;
 
 @Mod.EventBusSubscriber(modid = Vinery.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)

@@ -28,8 +28,8 @@ import net.satisfy.vinery.core.util.GrapeProperty;
 import net.satisfy.vinery.platform.PlatformHelper;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 @SuppressWarnings("deprecation")
 public class GrapevinePotBlock extends Block {

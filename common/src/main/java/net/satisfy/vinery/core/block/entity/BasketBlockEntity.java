@@ -21,8 +21,8 @@ import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.entity.LidBlockEntity;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.satisfy.vinery.core.block.BasketBlock;
 import net.satisfy.vinery.client.gui.handler.BasketGuiHandler;
+import net.satisfy.vinery.core.block.BasketBlock;
 import net.satisfy.vinery.core.registry.EntityTypeRegistry;
 import org.jetbrains.annotations.NotNull;
 

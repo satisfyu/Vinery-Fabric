@@ -5,9 +5,7 @@ import dev.architectury.hooks.item.tool.ShovelItemHooks;
 import dev.architectury.registry.fuel.FuelRegistry;
 import net.minecraft.world.level.block.Blocks;
 import net.satisfy.vinery.core.event.EventHandler;
-import net.satisfy.vinery.platform.PlatformHelper;
 import net.satisfy.vinery.core.registry.*;
-import net.satisfy.vinery.core.util.VineryIdentifier;
 import net.satisfy.vinery.core.world.VineryFeatures;
 
 public class Vinery {

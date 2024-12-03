@@ -7,10 +7,10 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
-import net.satisfy.vinery.core.Vinery;
 import net.satisfy.vinery.client.gui.handler.ApplePressGuiHandler;
 import net.satisfy.vinery.client.gui.handler.BasketGuiHandler;
 import net.satisfy.vinery.client.gui.handler.FermentationBarrelGuiHandler;
+import net.satisfy.vinery.core.Vinery;
 import net.satisfy.vinery.core.util.VineryIdentifier;
 
 import java.util.function.Supplier;

@@ -22,9 +22,9 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
-import net.satisfy.vinery.core.util.GrapeType;
 import net.satisfy.vinery.core.registry.GrapeTypeRegistry;
 import net.satisfy.vinery.core.registry.ObjectRegistry;
+import net.satisfy.vinery.core.util.GrapeType;
 import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("deprecation")

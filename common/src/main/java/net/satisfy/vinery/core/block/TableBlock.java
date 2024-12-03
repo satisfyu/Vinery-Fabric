@@ -1,6 +1,5 @@
 package net.satisfy.vinery.core.block;
 
-import java.util.Objects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -20,6 +19,8 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.satisfy.vinery.core.util.GeneralUtil;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 @SuppressWarnings("deprecation")
 public class TableBlock extends LineConnectingBlock implements SimpleWaterloggedBlock {

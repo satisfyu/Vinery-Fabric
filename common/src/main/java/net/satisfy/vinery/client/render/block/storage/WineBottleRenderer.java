@@ -8,9 +8,9 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
+import net.satisfy.vinery.client.util.ClientUtil;
 import net.satisfy.vinery.core.block.WineBottleBlock;
 import net.satisfy.vinery.core.block.entity.StorageBlockEntity;
-import net.satisfy.vinery.client.util.ClientUtil;
 import net.satisfy.vinery.core.item.DrinkBlockItem;
 import net.satisfy.vinery.core.registry.ObjectRegistry;
 

@@ -1,6 +1,5 @@
 package net.satisfy.vinery.core.block;
 
-import java.util.function.Supplier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
@@ -19,6 +18,8 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.satisfy.vinery.core.registry.StorageTypeRegistry;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.function.Supplier;
 
 public class FlowerPotBigBlock extends StorageBlock {
     private static final Supplier<VoxelShape> voxelShapeSupplier = () -> {

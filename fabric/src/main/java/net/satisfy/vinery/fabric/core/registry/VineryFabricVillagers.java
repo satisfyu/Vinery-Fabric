@@ -14,10 +14,10 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.item.Item;
-import net.satisfy.vinery.fabric.config.VineryFabricConfig;
 import net.satisfy.vinery.core.registry.ObjectRegistry;
 import net.satisfy.vinery.core.util.VillagerUtil;
 import net.satisfy.vinery.core.util.VineryIdentifier;
+import net.satisfy.vinery.fabric.config.VineryFabricConfig;
 
 public class VineryFabricVillagers {
 

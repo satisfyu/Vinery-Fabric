@@ -1,9 +1,10 @@
 package net.satisfy.vinery.forge.core.registry;
 
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.world.level.block.Block;
+
 import java.util.HashMap;
 import java.util.Map;
-import net.minecraft.world.level.block.Block;
 
 public class BurningBlockRegistry {
     private static final Map<Block, Pair<Integer, Integer>> INSTANCE = new HashMap();

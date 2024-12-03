@@ -1,17 +1,17 @@
 package net.satisfy.vinery.forge.core.event;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.Item;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.satisfy.vinery.core.Vinery;
+import net.satisfy.vinery.core.util.VillagerUtil;
 import net.satisfy.vinery.forge.core.config.VineryForgeConfig;
 import net.satisfy.vinery.forge.core.registry.VineryForgeVillagers;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.satisfy.vinery.core.util.VillagerUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -10,11 +10,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.satisfy.vinery.client.VineryClient;
 import net.satisfy.vinery.core.Vinery;
 import net.satisfy.vinery.core.entity.DarkCherryBoatEntity;
+import net.satisfy.vinery.core.registry.ObjectRegistry;
 import net.satisfy.vinery.fabric.client.renderer.StrawHatRenderer;
 import net.satisfy.vinery.fabric.client.renderer.WinemakerBootsRenderer;
 import net.satisfy.vinery.fabric.client.renderer.WinemakerChestplateRenderer;
 import net.satisfy.vinery.fabric.client.renderer.WinemakerLeggingsRenderer;
-import net.satisfy.vinery.core.registry.ObjectRegistry;
 
 public class VineryClientFabric implements ClientModInitializer {
     @Override

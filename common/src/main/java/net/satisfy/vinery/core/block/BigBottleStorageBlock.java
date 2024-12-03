@@ -21,8 +21,6 @@ import net.satisfy.vinery.core.registry.StorageTypeRegistry;
 import net.satisfy.vinery.core.registry.TagRegistry;
 import org.jetbrains.annotations.NotNull;
 
-import static net.satisfy.vinery.core.registry.ObjectRegistry.*;
-
 public class BigBottleStorageBlock extends StorageBlock {
 
     public BigBottleStorageBlock(Properties settings) {

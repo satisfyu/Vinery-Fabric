@@ -11,7 +11,10 @@ import net.satisfy.vinery.core.Vinery;
 import net.satisfy.vinery.core.effect.NormalEffect;
 import net.satisfy.vinery.core.effect.instant.CreeperEffect;
 import net.satisfy.vinery.core.effect.instant.TeleportEffect;
-import net.satisfy.vinery.core.effect.normal.*;
+import net.satisfy.vinery.core.effect.normal.ArmorEffect;
+import net.satisfy.vinery.core.effect.normal.ImprovedHealthEffect;
+import net.satisfy.vinery.core.effect.normal.LuckEffect;
+import net.satisfy.vinery.core.effect.normal.ResistanceEffect;
 import net.satisfy.vinery.core.effect.ticking.*;
 import net.satisfy.vinery.core.util.VineryIdentifier;
 

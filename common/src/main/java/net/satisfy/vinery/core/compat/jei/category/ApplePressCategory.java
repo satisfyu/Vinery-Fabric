@@ -1,21 +1,5 @@
 package net.satisfy.vinery.core.compat.jei.category;
 
-import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
-import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.gui.drawable.IDrawableAnimated;
-import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
-import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.recipe.IFocusGroup;
-import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
-import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.network.chat.Component;
-import net.satisfy.vinery.core.Vinery;
-import net.satisfy.vinery.client.gui.ApplePressGui;
-import net.satisfy.vinery.core.registry.ObjectRegistry;
-import org.jetbrains.annotations.NotNull;
 /*
 public class ApplePressCategory implements IRecipeCategory<ApplePressRecipe> {
     public static final RecipeType<ApplePressRecipe> APPLE_PRESS = RecipeType.create(Vinery.MOD_ID, "apple_mashing", ApplePressRecipe.class);
