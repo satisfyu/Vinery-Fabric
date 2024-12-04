@@ -102,13 +102,6 @@ public class FermentationBarrelCategory implements IRecipeCategory<FermentationB
 
         IRecipeCategory.super.draw(recipe, recipeSlotsView, guiGraphics, mouseX, mouseY);
 
-        // debugging
-        // final int xOrigin = 0;
-        // final int yOrigin = 25;
-        // guiGraphics.drawString(Minecraft.getInstance().font, Component.literal("X: " + mouseX), xOrigin, yOrigin, 0xFFFFFFFF);
-        // guiGraphics.drawString(Minecraft.getInstance().font, Component.literal("Y: " + mouseY), xOrigin, yOrigin + 10, 0xFFFFFFFF);
-        // guiGraphics.drawString(Minecraft.getInstance().font, Component.literal("juice amount: " + recipe.getJuiceAmount()), xOrigin, yOrigin + 20, 0xFFFFFFFF);
-
         if (recipe.getJuiceAmount() > 0) {
             FermentationBarrelGui.drawJuiceBar(guiGraphics, recipe.getJuiceType(), recipe.getJuiceAmount(), 56, 31);
 

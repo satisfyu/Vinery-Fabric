@@ -30,7 +30,7 @@ public class VineryFabricVillagers {
                 WINEMAKER_POI_IDENTIFIER,
                 1,
                 12,
-                ObjectRegistry.APPLE_PRESS.get()
+                ObjectRegistry.FERMENTATION_BARREL.get()
         );
 
         WINEMAKER = Registry.register(
@@ -44,7 +44,6 @@ public class VineryFabricVillagers {
     }
 
     public static void registerPOIAndProfession() {
-        // Stelle sicher, dass die statische Initialisierung ausgeführt wurde
     }
 
     public static void init(MinecraftServer server) {

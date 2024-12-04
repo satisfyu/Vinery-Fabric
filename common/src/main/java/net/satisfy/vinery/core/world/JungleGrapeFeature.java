@@ -59,19 +59,16 @@ public class JungleGrapeFeature extends Feature<BlockStateConfiguration> {
                         mutable.set(vineMutablePos).move(direction);
                         ChunkPos newChunkPos = new ChunkPos(mutable);
 
-                        // Prevent floating vines at chunk borders
                         if(newChunkPos.x != currentChunkPos.x || newChunkPos.z != currentChunkPos.z) continue;
 
                         currentBlockstate = context.config().state.setValue(GrapeVineBlock.getPropertyForFace(direction), true);
                         aboveBlockstate = context.level().getBlockState(vineMutablePos.above());
 
                         if (currentBlockstate.canSurvive(context.level(), vineMutablePos) && context.level().getBlockState(vineMutablePos.relative(direction)).getBlock() != Blocks.MOSS_CARPET) {
-                            //places topmost vine that can face upward
                             context.level().setBlock(vineMutablePos, currentBlockstate.setValue(VineBlock.UP, aboveBlockstate.canOcclude()).setValue(GrapeVineBlock.AGE, context.random().nextInt(3)), 2);
                             break;
                         }
                         else if (aboveBlockstate.is(context.config().state.getBlock())) {
-                            //places rest of the vine as long as vine is above
                             context.level().setBlock(vineMutablePos, aboveBlockstate.setValue(VineBlock.UP, false).setValue(GrapeVineBlock.AGE, context.random().nextInt(3)), 2);
                             break;
                         }

@@ -1,4 +1,3 @@
-// StoragePotBlock.java
 package net.satisfy.vinery.core.block;
 
 import net.minecraft.core.BlockPos;

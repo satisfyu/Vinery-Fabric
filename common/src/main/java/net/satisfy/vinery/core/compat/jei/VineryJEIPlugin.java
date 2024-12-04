@@ -16,6 +16,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.satisfy.vinery.core.compat.jei.category.FermentationBarrelCategory;
 import net.satisfy.vinery.core.compat.jei.transfer.FermentationTransferInfo;
+import net.satisfy.vinery.core.compat.rei.press.ApplePressCategory;
 import net.satisfy.vinery.core.recipe.FermentationBarrelRecipe;
 import net.satisfy.vinery.core.registry.ObjectRegistry;
 import net.satisfy.vinery.core.registry.RecipeTypesRegistry;
@@ -32,7 +33,6 @@ public class VineryJEIPlugin implements IModPlugin {
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(new FermentationBarrelCategory(registration.getJeiHelpers().getGuiHelper()));
-      //  registration.addRecipeCategories(new ApplePressCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
 

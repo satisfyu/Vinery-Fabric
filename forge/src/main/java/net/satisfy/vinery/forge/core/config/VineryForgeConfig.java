@@ -51,19 +51,19 @@ public class VineryForgeConfig {
                 .defineInRange("totalFermentationTime", 6000, 1, Integer.MAX_VALUE);
 
         MAX_FLUID_LEVEL = COMMON_BUILDER
-                .comment("Maximum fluid level in the fermentation barrel")
+                .comment("Maximum fluid level in the Fermentation Barrel")
                 .defineInRange("maxFluidLevel", 100, 10, 1000);
 
         MAX_FLUID_INCREASE = COMMON_BUILDER
                 .comment("How much Fluid a Grapejuice Bottle fills")
-                .defineInRange("maxFluidLevel", 25, 1, 1000);
+                .defineInRange("maxFluidPerJuice", 25, 1, 1000);
 
         GRAPEVINE_POT_MAX_STORAGE = COMMON_BUILDER
                 .comment("Maximum Grape storage capacity for Grapevine pots")
                 .defineInRange("maxStorageCapacity", 6, 6, 100);
 
         GRAPEVINE_POT_REQUIRED_JUMPS = COMMON_BUILDER
-                .comment("Number of jumps required to harvest from the Grapevine Pot.")
+                .comment("Number of jumps required to harvest from the Grapevine Pot")
                 .defineInRange("grapevinePotRequiredJumps", 5, 1, 100);
 
         SHOULD_SHOW_SPLASH_PARTICLES = COMMON_BUILDER

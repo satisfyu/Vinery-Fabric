@@ -121,11 +121,11 @@ public class FermentationBarrelRecipe implements Recipe<FermentationBarrelBlockE
 
         @Override
         public @NotNull FermentationBarrelRecipe fromJson(ResourceLocation id, JsonObject json) {
-            NonNullList<Ingredient> ingredients = NonNullList.withSize(3, Ingredient.EMPTY);
+            NonNullList<Ingredient> ingredients = NonNullList.create();
             if (json.has("ingredients")) {
                 var jsonArray = GsonHelper.getAsJsonArray(json, "ingredients");
                 for (int i = 0; i < jsonArray.size() && i < 3; i++) {
-                    ingredients.set(i, Ingredient.fromJson(jsonArray.get(i)));
+                    ingredients.add(Ingredient.fromJson(jsonArray.get(i)));
                 }
             }
             if (ingredients.isEmpty()) {
@@ -153,9 +153,9 @@ public class FermentationBarrelRecipe implements Recipe<FermentationBarrelBlockE
         @Override
         public @NotNull FermentationBarrelRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
             int ingredientCount = buf.readVarInt();
-            NonNullList<Ingredient> ingredients = NonNullList.withSize(3, Ingredient.EMPTY);
+            NonNullList<Ingredient> ingredients = NonNullList.create();
             for (int i = 0; i < ingredientCount && i < 3; i++) {
-                ingredients.set(i, Ingredient.fromNetwork(buf));
+                ingredients.add(Ingredient.fromNetwork(buf));
             }
             String juiceType = buf.readUtf();
             int juiceAmount = buf.readVarInt();
