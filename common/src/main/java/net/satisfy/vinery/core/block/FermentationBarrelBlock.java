@@ -40,12 +40,10 @@ import java.util.function.Supplier;
 public class FermentationBarrelBlock extends HorizontalDirectionalBlock implements EntityBlock {
     private static final Supplier<VoxelShape> voxelShapeSupplier = () -> {
         VoxelShape shape = Shapes.empty();
-        shape = Shapes.joinUnoptimized(shape, Shapes.box(0.0625, 0.125, 0, 0.9375, 1, 1), BooleanOp.OR);
-        shape = Shapes.joinUnoptimized(shape, Shapes.box(0.0625, 0.0625, 0.25, 0.9375, 0.125, 0.75), BooleanOp.OR);
-        shape = Shapes.joinUnoptimized(shape, Shapes.box(0.0625, 0, 0.75, 0.9375, 0.125, 0.9375), BooleanOp.OR);
-        shape = Shapes.joinUnoptimized(shape, Shapes.box(0.0625, 0, 0.0625, 0.9375, 0.125, 0.25), BooleanOp.OR);
-        shape = Shapes.joinUnoptimized(shape, Shapes.box(0.5, 0.1875, -0.125, 0.5625, 0.6875, -0.0625), BooleanOp.OR);
-        shape = Shapes.joinUnoptimized(shape, Shapes.box(0.4375, 0.3125, -0.25, 0.625, 0.5, 0), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.0625, 0.125, 0, 0.9375, 1, 1), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.0625, 0.0625, 0.25, 0.9375, 0.125, 0.75), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.0625, 0, 0.75, 0.9375, 0.125, 0.9375), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.0625, 0, 0.0625, 0.9375, 0.125, 0.25), BooleanOp.OR);
         return shape;
     };
 

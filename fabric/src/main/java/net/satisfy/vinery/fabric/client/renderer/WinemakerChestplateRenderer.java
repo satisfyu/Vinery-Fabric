@@ -10,13 +10,13 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.satisfy.vinery.core.item.WinemakerChestItem;
-import net.satisfy.vinery.core.registry.ArmorRegistry;
+import net.satisfy.vinery.core.registry.ArmorRegistryClient;
 
 public class WinemakerChestplateRenderer implements ArmorRenderer {
     @Override
     public void render(PoseStack matrices, MultiBufferSource vertexConsumers, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, HumanoidModel<LivingEntity> contextModel) {
         if (stack.getItem() instanceof WinemakerChestItem chestplate) {
-            Model model = ArmorRegistry.getChestplateModel(chestplate, contextModel.body, contextModel.leftArm, contextModel.rightArm, contextModel.leftLeg, contextModel.rightLeg);
+            Model model = ArmorRegistryClient.getChestplateModel(chestplate, contextModel.body, contextModel.leftArm, contextModel.rightArm, contextModel.leftLeg, contextModel.rightLeg);
 
             model.renderToBuffer(matrices, vertexConsumers.getBuffer(model.renderType(chestplate.getChestplateTexture())), light, OverlayTexture.NO_OVERLAY, 1F, 1F, 1F, 1F);
         }

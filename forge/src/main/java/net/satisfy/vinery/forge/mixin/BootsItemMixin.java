@@ -11,7 +11,7 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.satisfy.vinery.core.item.WinemakerBootsItem;
-import net.satisfy.vinery.core.registry.ArmorRegistry;
+import net.satisfy.vinery.core.registry.ArmorRegistryClient;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
@@ -33,7 +33,7 @@ public abstract class BootsItemMixin extends ArmorItem {
                 new IClientItemExtensions() {
                     @Override
                     public @NotNull Model getGenericArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
-                        return ArmorRegistry.getBootsModel(itemStack.getItem(), original.rightLeg, original.leftLeg);
+                        return ArmorRegistryClient.getBootsModel(itemStack.getItem(), original.rightLeg, original.leftLeg);
                     }
                 }
         );

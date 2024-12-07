@@ -10,13 +10,13 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.satisfy.vinery.core.item.WinemakerLegsItem;
-import net.satisfy.vinery.core.registry.ArmorRegistry;
+import net.satisfy.vinery.core.registry.ArmorRegistryClient;
 
 public class WinemakerLeggingsRenderer implements ArmorRenderer {
     @Override
     public void render(PoseStack matrices, MultiBufferSource vertexConsumers, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, HumanoidModel<LivingEntity> contextModel) {
         if (stack.getItem() instanceof WinemakerLegsItem leggings) {
-            Model model = ArmorRegistry.getLeggingsModel(leggings, contextModel.rightLeg, contextModel.leftLeg);
+            Model model = ArmorRegistryClient.getLeggingsModel(leggings, contextModel.rightLeg, contextModel.leftLeg);
 
             model.renderToBuffer(matrices, vertexConsumers.getBuffer(model.renderType(leggings.getLeggingsTexture())), light, OverlayTexture.NO_OVERLAY, 1F, 1F, 1F, 1F);
         }

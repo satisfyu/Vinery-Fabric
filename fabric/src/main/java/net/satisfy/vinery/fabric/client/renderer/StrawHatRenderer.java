@@ -10,14 +10,14 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.satisfy.vinery.core.item.WinemakerHelmetItem;
-import net.satisfy.vinery.core.registry.ArmorRegistry;
+import net.satisfy.vinery.core.registry.ArmorRegistryClient;
 
 public class StrawHatRenderer implements ArmorRenderer {
     @Override
     public void render(PoseStack matrices, MultiBufferSource vertexConsumers, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, HumanoidModel<LivingEntity> contextModel) {
         WinemakerHelmetItem hat = (WinemakerHelmetItem) stack.getItem();
 
-        Model model = ArmorRegistry.getHatModel(hat, contextModel.getHead());
+        Model model = ArmorRegistryClient.getHatModel(hat, contextModel.getHead());
 
         model.renderToBuffer(matrices, vertexConsumers.getBuffer(model.renderType(hat.getHatTexture())), light, OverlayTexture.NO_OVERLAY, 1F, 1F, 1F, 1F);
     }
