@@ -2,8 +2,8 @@
   "replace": false,
   "values": [
     "vinery:white_grape",
-    "vinery:savanna_white_grape",
-    "vinery:taiga_white_grape",
-    "vinery:jungle_white_grape"
+    "vinery:savanna_grapes_white",
+    "vinery:taiga_grapes_white",
+    "vinery:jungle_grapes_white"
   ]
 }
