@@ -26,6 +26,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.satisfy.vinery.core.block.entity.StorageBlockEntity;
 import net.satisfy.vinery.core.item.DrinkBlockItem;
 import net.satisfy.vinery.core.registry.StorageTypeRegistry;
+import net.satisfy.vinery.core.registry.TagRegistry;
 import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("deprecation")
@@ -128,9 +129,10 @@ public class WineBottleBlock extends StorageBlock {
     public ResourceLocation type() {
         return StorageTypeRegistry.WINE_BOTTLE;
     }
+
     @Override
-    public boolean canInsertStack(ItemStack itemStack) {
-        return itemStack.getItem() instanceof DrinkBlockItem;
+    public boolean canInsertStack(ItemStack stack) {
+        return stack.is(TagRegistry.SMALL_BOTTLE);
     }
 
     public boolean willFitStack(ItemStack itemStack, NonNullList<ItemStack> inventory) {
