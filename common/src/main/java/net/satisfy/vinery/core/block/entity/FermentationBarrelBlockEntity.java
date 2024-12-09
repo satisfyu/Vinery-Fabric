@@ -1,6 +1,7 @@
 package net.satisfy.vinery.core.block.entity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
@@ -403,5 +404,45 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Implem
     @Override
     public void clearContent() {
         this.inventory.clear();
+    }
+
+    private boolean isIngredient(ItemStack stack) {
+        if (level == null) return false;
+        return level.getRecipeManager()
+                .getAllRecipesFor(RecipeTypesRegistry.FERMENTATION_BARREL_RECIPE_TYPE.get())
+                .stream()
+                .anyMatch(recipe -> recipe.getIngredients().stream().anyMatch(ingredient -> ingredient.test(stack)));
+    }
+
+    @Override
+    public int @NotNull [] getSlotsForFace(Direction side) {
+        if (side == Direction.UP) {
+            return new int[]{GRAPEJUICE_INPUT_SLOT, WINE_BOTTLE_SLOT};
+        } else if (side == Direction.DOWN) {
+            return new int[]{OUTPUT_SLOT_GENERAL};
+        } else if (side.getAxis().isHorizontal()) {
+            return new int[]{OUTPUT_SLOT_GENERAL, WINE_BOTTLE_SLOT, 1, 2, 3};
+        }
+        return new int[]{};
+    }
+
+    @Override
+    public boolean canPlaceItemThroughFace(int index, ItemStack stack, @Nullable Direction direction) {
+        if (direction == Direction.UP) {
+            return (index == GRAPEJUICE_INPUT_SLOT && JuiceUtil.isJuice(stack)) ||
+                    (index == WINE_BOTTLE_SLOT && stack.is(ObjectRegistry.WINE_BOTTLE.get()));
+        } else {
+            assert direction != null;
+            if (direction.getAxis().isHorizontal()) {
+                return ((index >= 1 && index <= 3) && isIngredient(stack)) ||
+                        (index == WINE_BOTTLE_SLOT && stack.is(ObjectRegistry.WINE_BOTTLE.get()));
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean canTakeItemThroughFace(int index, ItemStack stack, Direction direction) {
+        return (direction == Direction.DOWN || direction.getAxis().isHorizontal()) && index == OUTPUT_SLOT_GENERAL;
     }
 }

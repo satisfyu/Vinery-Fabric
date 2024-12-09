@@ -212,6 +212,8 @@
   "effect.vinery.teleport.description": "Teleports the Player forward.",
   "effect.vinery.water_walker": "Water Walker",
   "effect.vinery.water_walker.description": "Allows Walking on Water.",
+  "effect.vinery.health_effect": "Health Effect",
+  "effect.vinery.health_effect.description": "Increases Maximum Health for the Duration of this Effect.",
   "entity.minecraft.villager.vinery.winemaker": "Winemaker",
   "entity.minecraft.villager.winemaker": "Winemaker",
   "entity.vinery.dark_cherry_boat": "Dark Cherry Boat",

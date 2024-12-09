@@ -91,8 +91,19 @@ public class DrinkBlockItem extends BlockItem {
     }
 
     @Override
+    @SuppressWarnings("unused")
     public @NotNull ItemStack finishUsingItem(ItemStack itemStack, Level level, LivingEntity livingEntity) {
-        super.finishUsingItem(itemStack, level, livingEntity);
+        if (!level.isClientSide) {
+            int age = WineYears.getWineAge(itemStack, level);
+            int duration = scaleDurationWithAge ? WineYears.getEffectDuration(itemStack, level) : baseDuration;
+            int amplifier = WineYears.getEffectLevel(itemStack, level);
+
+            List<Pair<MobEffectInstance, Float>> effects = Objects.requireNonNull(getFoodProperties()).getEffects();
+            for (Pair<MobEffectInstance, Float> effectPair : effects) {
+                MobEffect effect = effectPair.getFirst().getEffect();
+                livingEntity.addEffect(new MobEffectInstance(effect, duration, amplifier));
+            }
+        }
         return GeneralUtil.convertStackAfterFinishUsing(livingEntity, itemStack, ObjectRegistry.WINE_BOTTLE.get(), this);
     }
 
@@ -117,16 +128,16 @@ public class DrinkBlockItem extends BlockItem {
 
     private String toRoman(int number) {
         return switch (number) {
-            case 1 -> "I";
-            case 2 -> "II";
-            case 3 -> "III";
-            case 4 -> "IV";
-            case 5 -> "V";
-            case 6 -> "VI";
-            case 7 -> "VII";
-            case 8 -> "VIII";
-            case 9 -> "IX";
-            case 10 -> "X";
+            case 0 -> "I";
+            case 1 -> "II";
+            case 2 -> "III";
+            case 3 -> "IV";
+            case 4 -> "V";
+            case 5 -> "VI";
+            case 6 -> "VII";
+            case 7 -> "VIII";
+            case 8 -> "IX";
+            case 9 -> "X";
             default -> String.valueOf(number);
         };
     }

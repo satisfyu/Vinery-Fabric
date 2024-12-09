@@ -31,8 +31,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class ApplePressBlockEntity extends BlockEntity implements MenuProvider, ImplementedInventory, BlockEntityTicker<ApplePressBlockEntity> {
     private final NonNullList<ItemStack> inventory = NonNullList.withSize(4, ItemStack.EMPTY);
-    private static final int[] SLOTS_FOR_REST = new int[]{0};
-    private static final int[] SLOTS_FOR_DOWN = new int[]{3};
     protected final ContainerData propertyDelegate;
     private int progress1 = 0;
     private int maxProgress1 = PlatformHelper.getApplePressMashingTime();
@@ -77,10 +75,12 @@ public class ApplePressBlockEntity extends BlockEntity implements MenuProvider, 
 
     @Override
     public int @NotNull [] getSlotsForFace(Direction side) {
-        if (side.equals(Direction.DOWN)) {
-            return SLOTS_FOR_DOWN;
+        if (side == Direction.DOWN) {
+            return new int[]{3};
+        } else if (side.getAxis().isHorizontal()) {
+            return new int[]{0, 1, 2};
         }
-        return SLOTS_FOR_REST;
+        return new int[]{};
     }
 
     @Override
@@ -234,5 +234,41 @@ public class ApplePressBlockEntity extends BlockEntity implements MenuProvider, 
             case 2 -> stack.getItem() == ObjectRegistry.WINE_BOTTLE.get();
             default -> false;
         };
+    }
+
+    @Override
+    public boolean canPlaceItemThroughFace(int index, ItemStack stack, @Nullable Direction direction) {
+        assert direction != null;
+        if (direction.getAxis().isHorizontal()) {
+            return switch (index) {
+                case 0 -> isValidForApplePressMashing(stack); 
+                case 1 -> isValidForFermentationBarrel(stack); 
+                case 2 -> isWineBottle(stack); 
+                default -> false;
+            };
+        }
+        return false;
+    }
+
+
+    @Override
+    public boolean canTakeItemThroughFace(int index, ItemStack stack, Direction direction) {
+        return index == 3 && (direction == Direction.DOWN || direction.getAxis().isHorizontal());
+    }
+
+    private boolean isValidForApplePressMashing(ItemStack stack) {
+        if (level == null) return false;
+        return level.getRecipeManager()
+                .getAllRecipesFor(RecipeTypesRegistry.APPLE_PRESS_MASHING_RECIPE_TYPE.get())
+                .stream()
+                .anyMatch(recipe -> recipe.getIngredients().stream().anyMatch(ingredient -> ingredient.test(stack)));
+    }
+
+    private boolean isValidForFermentationBarrel(ItemStack stack) {
+        if (level == null) return false;
+        return level.getRecipeManager()
+                .getAllRecipesFor(RecipeTypesRegistry.FERMENTATION_BARREL_RECIPE_TYPE.get())
+                .stream()
+                .anyMatch(recipe -> recipe.getIngredients().stream().anyMatch(ingredient -> ingredient.test(stack)));
     }
 }
