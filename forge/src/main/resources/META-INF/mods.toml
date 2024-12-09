@@ -1,5 +1,6 @@
 modLoader = "javafml"
 loaderVersion = "[47,)"
+source = "https://github.com/satisfyu/Vinery"
 issueTrackerURL = "https://github.com/satisfyu/Let-s-Do-Hub"
 license = "Custom"
 
@@ -8,7 +9,7 @@ modId = "vinery"
 version = "${version}"
 displayName = "[Let's Do] Vinery"
 authors = "Jason13Official, Satisfy"
-credits = "Cristelknight, BaumeisterJO, cph101dev, MissLilitu, CR-055"
+credits = "Cristelknight, cph101dev, MissLilitu, CR-055, BaumeisterJO"
 description = '''
 In Vino Veritas - it's time for wine! Build your own vineyard, produce wine, and establish your own winery.
 '''
@@ -37,3 +38,7 @@ side = "BOTH"
 
 [[incompatibleMods]]
 modId = "copperative"
+
+[[incompatibleMods]]
+modId = "nethervinery"
+versionRange = "<1.2.14"

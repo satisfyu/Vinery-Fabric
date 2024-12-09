@@ -429,16 +429,33 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Implem
     @Override
     public boolean canPlaceItemThroughFace(int index, ItemStack stack, @Nullable Direction direction) {
         if (direction == Direction.UP) {
-            return (index == GRAPEJUICE_INPUT_SLOT && JuiceUtil.isJuice(stack)) ||
-                    (index == WINE_BOTTLE_SLOT && stack.is(ObjectRegistry.WINE_BOTTLE.get()));
+            if (index == GRAPEJUICE_INPUT_SLOT && JuiceUtil.isJuice(stack)) {
+                return hasSpace(index, stack); 
+            } else if (index == WINE_BOTTLE_SLOT && stack.is(ObjectRegistry.WINE_BOTTLE.get())) {
+                return hasSpace(index, stack); 
+            }
         } else {
             assert direction != null;
             if (direction.getAxis().isHorizontal()) {
-                return ((index >= 1 && index <= 3) && isIngredient(stack)) ||
-                        (index == WINE_BOTTLE_SLOT && stack.is(ObjectRegistry.WINE_BOTTLE.get()));
+                if ((index >= 1 && index <= 3) && isIngredient(stack)) {
+                    return hasSpace(index, stack); 
+                } else if (index == WINE_BOTTLE_SLOT && stack.is(ObjectRegistry.WINE_BOTTLE.get())) {
+                    return hasSpace(index, stack); 
+                }
             }
         }
         return false;
+    }
+    
+    private boolean hasSpace(int index, ItemStack stack) {
+        ItemStack slotStack = getItem(index); 
+        if (slotStack.isEmpty()) {
+            return true; 
+        }
+        if (ItemStack.isSameItemSameTags(slotStack, stack)) {
+            return slotStack.getCount() + stack.getCount() <= slotStack.getMaxStackSize(); 
+        }
+        return false; 
     }
 
     @Override

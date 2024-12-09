@@ -5,7 +5,7 @@
   "name": "[Let's Do] Vinery",
   "description": "In Vino Veritas - it's time for wine! Build your own vineyard, produce wine, and establish your own winery.",
   "authors": [
-    "Jason13Official, Satisfy, cph101dev"
+    "Jason13Official, Satisfy"
   ],
   "contributors": [
     "MissLilitu, Cristelknight, cph101dev, BaumeisterJO, CR-055"
@@ -47,6 +47,7 @@
     "architectury": ">=9.0.8"
   },
   "conflicts": {
-    "copperative": "*"
+    "copperative": "*",
+    "nethervinery": "<1.2.14"
   }
 }

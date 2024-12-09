@@ -20,20 +20,20 @@ import net.satisfy.vinery.core.registry.ObjectRegistry;
 import net.satisfy.vinery.platform.PlatformHelper;
 import org.jetbrains.annotations.NotNull;
 
+@SuppressWarnings("unused")
 public class FermentationBarrelCategory implements IRecipeCategory<FermentationBarrelRecipe> {
     public static final RecipeType<FermentationBarrelRecipe> FERMENTATION_BARREL = RecipeType.create(Vinery.MOD_ID, "wine_fermentation", FermentationBarrelRecipe.class);
     public static final int WIDTH = 124;
-    public static final int HEIGHT = 60;
+    public static final int HEIGHT = 64;
     public static final int WIDTH_OF = 26;
     public static final int HEIGHT_OF = 13;
     private final IDrawable background;
     private final IDrawable icon;
-    private final IDrawableAnimated arrow;
     private final Component localizedName;
 
     public FermentationBarrelCategory(IGuiHelper helper) {
         this.background = helper.createDrawable(FermentationBarrelGui.BACKGROUND, WIDTH_OF, HEIGHT_OF, WIDTH, HEIGHT);
-        this.arrow = helper.drawableBuilder(FermentationBarrelGui.BACKGROUND, 177, 17, 23, 10)
+        IDrawableAnimated arrow = helper.drawableBuilder(FermentationBarrelGui.BACKGROUND, 177, 17, 23, 10)
                 .buildAnimated(50, IDrawableAnimated.StartDirection.LEFT, false);
         this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, ObjectRegistry.FERMENTATION_BARREL.get().asItem().getDefaultInstance());
         this.localizedName = Component.translatable("rei.vinery.fermentation_barrel_category");
