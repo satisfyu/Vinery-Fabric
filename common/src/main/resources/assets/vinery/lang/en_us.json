@@ -340,6 +340,7 @@
   "tooltip.vinery.banner.thankyou_3": "Thank you for playing Vinery!",
   "tooltip.vinery.banner.thankyou_4": "Grants Regeneration II within an 8-block radius",
   "tooltip.vinery.next_upgrade": "Days Left to Improve Quality: %s",
-
+  "tooltip.vinery.fermentation_barrel.red_crimson_juice_with_percentage": "Crimson Red Grapejuice: %s%%",
+  "tooltip.vinery.fermentation_barrel.white_warped_juice_with_percentage": "Warped White Grapejuice: %s%%",
   "rei.vinery.fermentation_barrel_category": "Fermentation Barrel"
 }

@@ -41,29 +41,44 @@ public abstract class WanderingTraderManagerMixin implements CustomSpawner {
 			if (playerEntity != null) {
 				BlockPos blockPos = playerEntity.blockPosition();
 				PoiManager pointOfInterestStorage = world.getPoiManager();
-				Optional<BlockPos> optional = pointOfInterestStorage.find(type -> type.is(PoiTypes.MEETING), pos -> true, blockPos, 48, PoiManager.Occupancy.ANY);
+				Optional<BlockPos> optional = pointOfInterestStorage.find(
+						type -> type.is(PoiTypes.MEETING),
+						pos -> true,
+						blockPos,
+						48,
+						PoiManager.Occupancy.ANY
+				);
 				BlockPos blockPos2 = optional.orElse(blockPos);
 				BlockPos blockPos3 = this.findSpawnPositionNear(world, blockPos2, 48);
 				if (blockPos3 != null && this.hasEnoughSpace(world, blockPos3)) {
-					if (!world.getBiome(blockPos3).is(Biomes.THE_VOID)) {
-						WanderingTrader wanderingTraderEntity = EntityTypeRegistry.WANDERING_WINEMAKER.get().spawn(world, blockPos3, MobSpawnType.EVENT);
-						if (wanderingTraderEntity != null) {
-							if (PlatformHelper.shouldSpawnWithMules()) {
-								for (int j = 0; j < 2; ++j) {
-									BlockPos blockPos4 = this.findSpawnPositionNear(world, wanderingTraderEntity.blockPosition(), 4);
-									if (blockPos4 != null) {
-										TraderMuleEntity traderMuleEntity = EntityTypeRegistry.MULE.get().spawn(world, blockPos4, MobSpawnType.EVENT);
-										if (traderMuleEntity != null) {
-											traderMuleEntity.setLeashedTo(wanderingTraderEntity, true);
+					var biome = world.getBiome(blockPos3);
+					if (biome != null && !biome.is(Biomes.THE_VOID)) {
+						var wanderingWinemakerType = EntityTypeRegistry.WANDERING_WINEMAKER.get();
+						if (wanderingWinemakerType != null) {
+							WanderingTrader wanderingTraderEntity = wanderingWinemakerType.spawn(world, blockPos3, MobSpawnType.EVENT);
+							if (wanderingTraderEntity != null) {
+								if (PlatformHelper.shouldSpawnWithMules()) {
+									for (int j = 0; j < 2; ++j) {
+										BlockPos blockPos4 = this.findSpawnPositionNear(world, wanderingTraderEntity.blockPosition(), 4);
+										if (blockPos4 != null) {
+											var muleType = EntityTypeRegistry.MULE.get();
+											if (muleType != null) {
+												TraderMuleEntity traderMuleEntity = muleType.spawn(world, blockPos4, MobSpawnType.EVENT);
+												if (traderMuleEntity != null) {
+													traderMuleEntity.setLeashedTo(wanderingTraderEntity, true);
+												}
+											}
 										}
 									}
 								}
+								if (this.serverLevelData != null) {
+									this.serverLevelData.setWanderingTraderId(wanderingTraderEntity.getUUID());
+									wanderingTraderEntity.setDespawnDelay(PlatformHelper.getTraderSpawnDelay());
+									wanderingTraderEntity.setWanderTarget(blockPos2);
+									wanderingTraderEntity.restrictTo(blockPos2, 16);
+									cir.setReturnValue(true);
+								}
 							}
-							this.serverLevelData.setWanderingTraderId(wanderingTraderEntity.getUUID());
-							wanderingTraderEntity.setDespawnDelay(PlatformHelper.getTraderSpawnDelay());
-							wanderingTraderEntity.setWanderTarget(blockPos2);
-							wanderingTraderEntity.restrictTo(blockPos2, 16);
-							cir.setReturnValue(true);
 						}
 					}
 				}

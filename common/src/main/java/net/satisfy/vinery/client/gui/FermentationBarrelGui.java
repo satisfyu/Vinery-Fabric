@@ -15,7 +15,7 @@ import net.satisfy.vinery.platform.PlatformHelper;
 
 @Environment(EnvType.CLIENT)
 public class FermentationBarrelGui extends AbstractContainerScreen<FermentationBarrelGuiHandler> {
-    public static final ResourceLocation BACKGROUND = new VineryIdentifier("textures/gui/aging_barrel_gui.png");
+    public static final ResourceLocation BACKGROUND = new VineryIdentifier("textures/gui/fermentation_barrel_gui.png");
 
     private static final int FLUID_WIDTH = 20;
     private static final int FLUID_X = 82;
