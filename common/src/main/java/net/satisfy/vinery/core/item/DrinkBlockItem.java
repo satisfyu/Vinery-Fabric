@@ -104,6 +104,7 @@ public class DrinkBlockItem extends BlockItem {
                 livingEntity.addEffect(new MobEffectInstance(effect, duration, amplifier));
             }
         }
+        itemStack.shrink(1);
         return GeneralUtil.convertStackAfterFinishUsing(livingEntity, itemStack, ObjectRegistry.WINE_BOTTLE.get(), this);
     }
 
