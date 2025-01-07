@@ -48,12 +48,14 @@ public class FermentationBarrelRecipe implements Recipe<FermentationBarrelBlockE
 
     @Override
     public boolean matches(FermentationBarrelBlockEntity blockEntity, Level world) {
-        if (blockEntity.getFluidLevel() < this.juiceAmount) {
-            return false;
-        }
+        if (this.juiceAmount > 0) {
+            if (blockEntity.getFluidLevel() < this.juiceAmount) {
+                return false;
+            }
 
-        if (!this.juiceType.equals(blockEntity.getJuiceType())) {
-            return false;
+            if (!this.juiceType.equals(blockEntity.getJuiceType())) {
+                return false;
+            }
         }
 
         if (this.wineBottleRequired) {
