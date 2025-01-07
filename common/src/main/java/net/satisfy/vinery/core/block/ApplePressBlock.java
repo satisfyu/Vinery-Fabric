@@ -57,21 +57,39 @@ public class ApplePressBlock extends BaseEntityBlock {
 	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
 		if (!world.isClientSide) {
 			DoubleBlockHalf half = state.getValue(HALF);
-			BlockPos otherPartPos = (half == DoubleBlockHalf.LOWER) ? pos.above() : pos.below();
-			BlockState otherPartState = world.getBlockState(otherPartPos);
 
-			if (otherPartState.getBlock() == this && otherPartState.getValue(HALF) != half) {
-				dropInventory(world, otherPartPos);
-				world.setBlock(otherPartPos, Blocks.AIR.defaultBlockState(), 35);
-				world.levelEvent(2001, otherPartPos, Block.getId(otherPartState));
-			}
-
-			if (state.getBlock() != newState.getBlock() && newState.isAir()) {
+			if (half == DoubleBlockHalf.LOWER && state.getBlock() != newState.getBlock() && newState.isAir()) {
 				dropInventory(world, pos);
+
+				BlockPos otherPartPos = pos.above();
+				BlockState otherPartState = world.getBlockState(otherPartPos);
+
+				if (otherPartState.getBlock() == this && otherPartState.getValue(HALF) == DoubleBlockHalf.UPPER) {
+					world.setBlock(otherPartPos, Blocks.AIR.defaultBlockState(), 35);
+					world.levelEvent(2001, otherPartPos, Block.getId(otherPartState));
+				}
 			}
 		}
 		super.onRemove(state, world, pos, newState, isMoving);
 	}
+
+	@Override
+	public void playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
+		DoubleBlockHalf half = state.getValue(HALF);
+
+		if (!player.isCreative() && half == DoubleBlockHalf.LOWER) {
+			dropInventory(world, pos);
+
+			BlockPos otherPartPos = pos.above();
+			BlockState otherPartState = world.getBlockState(otherPartPos);
+
+			if (otherPartState.getBlock() == this && otherPartState.getValue(HALF) == DoubleBlockHalf.UPPER) {
+				world.setBlock(otherPartPos, Blocks.AIR.defaultBlockState(), 35);
+			}
+		}
+		super.playerWillDestroy(world, pos, state, player);
+	}
+
 
 	private void dropInventory(Level world, BlockPos pos) {
 		BlockEntity blockEntity = world.getBlockEntity(pos);
@@ -83,20 +101,6 @@ public class ApplePressBlock extends BaseEntityBlock {
 				}
 			}
 		}
-	}
-
-	@Override
-	public void playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
-		if (!player.isCreative()) {
-			dropInventory(world, pos);
-			DoubleBlockHalf half = state.getValue(HALF);
-			BlockPos otherPartPos = (half == DoubleBlockHalf.LOWER) ? pos.above() : pos.below();
-			BlockState otherPartState = world.getBlockState(otherPartPos);
-			if (otherPartState.getBlock() == this && otherPartState.getValue(HALF) != half) {
-				dropInventory(world, otherPartPos);
-			}
-		}
-		super.playerWillDestroy(world, pos, state, player);
 	}
 
 	@Override
@@ -113,7 +117,6 @@ public class ApplePressBlock extends BaseEntityBlock {
 		}
 		return InteractionResult.SUCCESS;
 	}
-
 
 	@Nullable
 	@Override
