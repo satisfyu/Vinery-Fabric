@@ -1,4 +1,4 @@
-package net.satisfy.vinery.mixin;
+package net.satisfy.vinery.core.mixin;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;

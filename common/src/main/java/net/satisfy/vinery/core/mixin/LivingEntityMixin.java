@@ -1,4 +1,4 @@
-package net.satisfy.vinery.mixin;
+package net.satisfy.vinery.core.mixin;
 
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.effect.MobEffect;

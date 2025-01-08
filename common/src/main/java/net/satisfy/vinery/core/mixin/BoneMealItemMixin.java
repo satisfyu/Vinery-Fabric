@@ -1,4 +1,4 @@
-package net.satisfy.vinery.mixin;
+package net.satisfy.vinery.core.mixin;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;

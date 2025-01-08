@@ -1,4 +1,4 @@
-package net.satisfy.vinery.mixin;
+package net.satisfy.vinery.core.mixin;
 
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.multiplayer.ClientLevel;
