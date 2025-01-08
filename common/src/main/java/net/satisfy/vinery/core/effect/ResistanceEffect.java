@@ -1,13 +1,13 @@
-package net.satisfy.vinery.core.effect.normal;
+package net.satisfy.vinery.core.effect;
 
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.satisfy.vinery.core.effect.NormalEffect;
 
 import java.util.UUID;
 
-public class ResistanceEffect extends NormalEffect {
+public class ResistanceEffect extends MobEffect {
     private static final String KNOCKBACK_RESISTANCE_UUID = "8E5D432F-91E5-4C0A-B556-3D4376F25F11";
     private static final String ARMOR_TOUGHNESS_UUID = "B5A8D51B-47EC-47FD-9886-7EBDFE81EBA7";
 

@@ -1,16 +1,16 @@
-package net.satisfy.vinery.core.effect.ticking;
+package net.satisfy.vinery.core.effect;
 
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
-import net.satisfy.vinery.core.effect.TickingEffect;
 
 import java.util.List;
 
-public class MagnetEffect extends TickingEffect {
+public class MagnetEffect extends MobEffect {
     public MagnetEffect() {
         super(MobEffectCategory.BENEFICIAL, 0xB80070);
     }
@@ -39,5 +39,10 @@ public class MagnetEffect extends TickingEffect {
             }
         }
         super.applyEffectTick(entity, amplifier);
+    }
+
+    @Override
+    public boolean isDurationEffectTick(int duration, int amplifier) {
+        return true;
     }
 }

@@ -1,13 +1,13 @@
-package net.satisfy.vinery.core.effect.normal;
+package net.satisfy.vinery.core.effect;
 
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.satisfy.vinery.core.effect.NormalEffect;
 
 import java.util.UUID;
 
-public class ImprovedHealthEffect extends NormalEffect {
+public class ImprovedHealthEffect extends MobEffect {
     private static final String MAX_HEALTH_UUID = "9A8F2C6B-AE75-42E1-A837-3A15A04C6C57";
 
     public ImprovedHealthEffect() {

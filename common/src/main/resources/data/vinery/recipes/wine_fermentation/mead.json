@@ -13,11 +13,11 @@
     }
   ],
   "wine_bottle": {
-    "required": false
+    "required": true
   },
   "result": {
     "item": "vinery:mead",
-    "count": 15
+    "count": 1
   }
 }
 

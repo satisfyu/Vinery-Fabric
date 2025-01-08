@@ -1,4 +1,4 @@
-package net.satisfy.vinery.core.effect.instant;
+package net.satisfy.vinery.core.effect;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.InstantenousMobEffect;
@@ -7,6 +7,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 public class CreeperEffect extends InstantenousMobEffect {
@@ -30,8 +31,9 @@ public class CreeperEffect extends InstantenousMobEffect {
             double x = serverPlayer.getX();
             double y = serverPlayer.getY();
             double z = serverPlayer.getZ();
-            float power = (amplifier + 1) * 4;
-            world.explode(null, x, y, z, power, Level.ExplosionInteraction.TNT);
+            world.explode(null, x, y, z, (float) (amplifier), Level.ExplosionInteraction.TNT);
+            serverPlayer.setDeltaMovement(Vec3.ZERO);
+            serverPlayer.setHealth(0.0F);
         }
     }
 }

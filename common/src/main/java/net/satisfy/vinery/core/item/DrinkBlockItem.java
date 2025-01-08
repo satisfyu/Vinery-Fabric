@@ -66,7 +66,7 @@ public class DrinkBlockItem extends BlockItem {
         if (effects.isEmpty()) {
             tooltip.add(Component.translatable("effect.none").withStyle(ChatFormatting.GRAY));
         } else {
-            for(Pair<MobEffectInstance, Float> effectPair : effects) {
+            for (Pair<MobEffectInstance, Float> effectPair : effects) {
                 MobEffectInstance effectInstance = effectPair.getFirst();
                 MobEffect effect = effectInstance.getEffect();
                 String effectName = effect.getDisplayName().getString();
@@ -84,8 +84,10 @@ public class DrinkBlockItem extends BlockItem {
             tooltip.add(Component.translatable("tooltip.vinery.age", age).withStyle(ChatFormatting.WHITE));
             tooltip.add(Component.empty());
             int yearsToNextUpgrade = WineYears.YEARS_PER_EFFECT_LEVEL - (age % WineYears.YEARS_PER_EFFECT_LEVEL);
+            if (yearsToNextUpgrade == WineYears.YEARS_PER_EFFECT_LEVEL) {
+                yearsToNextUpgrade = 0;
+            }
             int daysToNextUpgrade = yearsToNextUpgrade * WineYears.DAYS_PER_YEAR;
-
             tooltip.add(Component.translatable("tooltip.vinery.next_upgrade", daysToNextUpgrade).withStyle(style -> style.withColor(TextColor.fromRgb(0x93c47d))));
         }
     }

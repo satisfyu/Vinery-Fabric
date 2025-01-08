@@ -1,13 +1,11 @@
 package net.satisfy.vinery.core.block;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -25,11 +23,7 @@ import net.satisfy.vinery.core.registry.GrapeTypeRegistry;
 import net.satisfy.vinery.core.registry.ObjectRegistry;
 import net.satisfy.vinery.core.registry.SoundEventRegistry;
 import net.satisfy.vinery.core.util.GrapeProperty;
-import net.satisfy.vinery.platform.PlatformHelper;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 
 @SuppressWarnings("deprecation")
 public class GrapevinePotBlock extends Block {
@@ -46,21 +40,14 @@ public class GrapevinePotBlock extends Block {
     );
     private static final VoxelShape SMASHING_SHAPE = Shapes.or(FILLING_SHAPE, Block.box(0.0, 0.0, 0.0, 16.0, 4.0, 16.0));
 
-    private static final ConcurrentHashMap<UUID, Integer> jumpCounts = new ConcurrentHashMap<>();
-
     private static final int MAX_STAGE = 6;
     private static final GrapeProperty GRAPEVINE_TYPE = GrapeProperty.create("type");
-    private static final int DECREMENT_PER_WINE_BOTTLE = 3;
     private static final IntegerProperty STAGE = IntegerProperty.create("stage", 0, MAX_STAGE);
-    private static final IntegerProperty STORAGE = IntegerProperty.create("storage", 0, PlatformHelper.getGrapevinePotMaxStorage());
+    private static final IntegerProperty STORAGE = IntegerProperty.create("storage", 0, 6);
 
     public GrapevinePotBlock(Properties settings) {
         super(settings);
         this.registerDefaultState(this.defaultBlockState().setValue(STAGE, 0).setValue(STORAGE, 0).setValue(GRAPEVINE_TYPE, GrapeTypeRegistry.NONE));
-    }
-
-    private int getMaxStorage() {
-        return PlatformHelper.getGrapevinePotMaxStorage();
     }
 
     @Override
@@ -74,79 +61,26 @@ public class GrapevinePotBlock extends Block {
 
     @Override
     public void fallOn(Level world, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
-        if (entity instanceof Player player) {
-            UUID playerId = player.getUUID();
-            int currentJumps = jumpCounts.getOrDefault(playerId, 0) + 1;
+        if (!(entity instanceof Player)) return;
 
-            int requiredJumps = PlatformHelper.getGrapevinePotRequiredJumps();
-
-            if (currentJumps >= requiredJumps) {
-                jumpCounts.remove(playerId);
-                handleSmash(world, state, pos);
-            } else {
-                jumpCounts.put(playerId, currentJumps);
-            }
-        } else if (entity instanceof LivingEntity) {
-            handleSmash(world, state, pos);
+        final int activeStage = state.getValue(STAGE);
+        if (activeStage >= 3 && activeStage < MAX_STAGE) {
+            world.setBlock(pos, state.setValue(STAGE, activeStage + 1), Block.UPDATE_ALL);
+            world.playSound(null, pos, SoundEventRegistry.BLOCK_GRAPEVINE_POT_SQUEEZE.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
         }
 
         super.fallOn(world, state, pos, entity, fallDistance);
     }
 
-    private void handleSmash(Level world, BlockState state, BlockPos pos) {
-        final int activeStage = state.getValue(STAGE);
-        if (activeStage >= 3) {
-            if (activeStage < MAX_STAGE) {
-                world.setBlock(pos, state.setValue(STAGE, activeStage + 1), Block.UPDATE_ALL);
-            }
-            world.playSound(null, pos, SoundEventRegistry.BLOCK_GRAPEVINE_POT_SQUEEZE.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
-            if (PlatformHelper.shouldShowSplashParticles()) {
-                spawnFallingParticles(world, pos);
-            }
-        }
-    }
-
-    private void spawnFallingParticles(Level world, BlockPos pos) {
-        int particleCount = 20;
-
-        for (int i = 0; i < particleCount; i++) {
-            double offsetX = Math.random();
-            double offsetY = Math.random();
-            double offsetZ = Math.random();
-
-            double x = pos.getX() + offsetX;
-            double y = pos.getY() + offsetY;
-            double z = pos.getZ() + offsetZ;
-
-            world.addParticle(ParticleTypes.SPLASH, x, y, z, 0, 0.1, 0);
-        }
-    }
-
     private boolean canTakeWine(BlockState state, ItemStack stackInHand) {
         final int storage = state.getValue(STORAGE);
         final int stage = state.getValue(STAGE);
-        if (canTakeWine(storage) && stage == MAX_STAGE) {
-            return stackInHand.is(ObjectRegistry.WINE_BOTTLE.get().asItem());
-        } else {
-            return false;
-        }
-    }
-
-    private boolean canTakeWine(int storage) {
-        return switch (storage) {
-            case 3, 6, 9 -> true;
-            default -> false;
-        };
+        return storage == 6 && stage == MAX_STAGE && stackInHand.is(ObjectRegistry.WINE_BOTTLE.get().asItem());
     }
 
     @Override
     public @NotNull InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         final ItemStack stack = player.getItemInHand(hand);
-        if (state.getValue(STAGE) > 3 || state.getValue(STORAGE) >= getMaxStorage()) {
-            if (stack.getItem() instanceof GrapeItem) {
-                return InteractionResult.PASS;
-            }
-        }
         if (stack.getItem() instanceof GrapeItem grape) {
             if (!player.isCreative()) stack.shrink(1);
             final int stage = state.getValue(STAGE);
@@ -155,50 +89,24 @@ public class GrapevinePotBlock extends Block {
             if (stage == 0) {
                 world.setBlock(pos, this.defaultBlockState().setValue(STAGE, 1).setValue(STORAGE, 1).setValue(GRAPEVINE_TYPE, grape.getType()), Block.UPDATE_ALL);
                 playSound = true;
-            }
-            if (!isFilled(state)) {
-                final BlockState newState = world.getBlockState(pos);
-                world.setBlock(pos, newState.setValue(STORAGE, storage + 1), Block.UPDATE_ALL);
+            } else if (storage < 6) {
+                world.setBlock(pos, state.setValue(STORAGE, storage + 1), Block.UPDATE_ALL);
                 playSound = true;
-            }
-            final BlockState newState = world.getBlockState(pos);
-            final int newStage = newState.getValue(STAGE);
-            final int newStorage = newState.getValue(STORAGE);
-            switch (newStorage) {
-                case 3, 6, 9 -> {
-                    if (newStage < 3) {
-                        world.setBlock(pos, newState.setValue(STAGE, newStage + 1), Block.UPDATE_ALL);
-                    }
-                }
             }
             if (playSound) {
                 world.playSound(player, pos, SoundEvents.CORAL_BLOCK_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
             }
             return InteractionResult.SUCCESS;
-        } else if (stack.is(ObjectRegistry.WINE_BOTTLE.get().asItem())) {
-            if (canTakeWine(state, stack)) {
-                final ItemStack output = state.getValue(GRAPEVINE_TYPE).getBottle().getDefaultInstance();
-                int storage = state.getValue(STORAGE);
-                int newStorage = (storage - DECREMENT_PER_WINE_BOTTLE);
-                if (newStorage == 0) {
-                    world.setBlock(pos, world.getBlockState(pos).setValue(STORAGE,0).setValue(STAGE, 0), Block.UPDATE_ALL);
-                } else {
-                    world.setBlock(pos, world.getBlockState(pos).setValue(STORAGE, newStorage), Block.UPDATE_ALL);
-                }
-                if (!player.isCreative()) stack.shrink(1);
-                if (!player.getInventory().add(output)) {
-                    player.drop(output, false, false);
-                }
-                return InteractionResult.SUCCESS;
+        } else if (stack.is(ObjectRegistry.WINE_BOTTLE.get().asItem()) && canTakeWine(state, stack)) {
+            final ItemStack output = state.getValue(GRAPEVINE_TYPE).getBottle().getDefaultInstance();
+            world.setBlock(pos, state.setValue(STORAGE, 0).setValue(STAGE, 0), Block.UPDATE_ALL);
+            if (!player.isCreative()) stack.shrink(1);
+            if (!player.getInventory().add(output)) {
+                player.drop(output, false, false);
             }
-
-
+            return InteractionResult.SUCCESS;
         }
         return InteractionResult.PASS;
-    }
-
-    private boolean isFilled(BlockState state) {
-        return state.getValue(STORAGE) >= getMaxStorage();
     }
 
     @Override

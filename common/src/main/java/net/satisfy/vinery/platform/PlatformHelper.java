@@ -36,21 +36,6 @@ public class PlatformHelper {
     }
 
     @ExpectPlatform
-    public static int getGrapevinePotMaxStorage() {
-        throw new AssertionError();
-    }
-
-    @ExpectPlatform
-    public static int getGrapevinePotRequiredJumps() {
-        throw new AssertionError();
-    }
-
-    @ExpectPlatform
-    public static boolean shouldShowSplashParticles() {
-        throw new AssertionError();
-    }
-
-    @ExpectPlatform
     public static double getCherryGrowthChance() {
         throw new AssertionError();
     }

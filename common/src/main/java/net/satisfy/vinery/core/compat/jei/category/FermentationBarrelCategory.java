@@ -24,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
 public class FermentationBarrelCategory implements IRecipeCategory<FermentationBarrelRecipe> {
     public static final RecipeType<FermentationBarrelRecipe> FERMENTATION_BARREL = RecipeType.create(Vinery.MOD_ID, "wine_fermentation", FermentationBarrelRecipe.class);
     public static final int WIDTH = 124;
-    public static final int HEIGHT = 64;
+    public static final int HEIGHT = 70;
     public static final int WIDTH_OF = 26;
     public static final int HEIGHT_OF = 13;
     private final IDrawable background;

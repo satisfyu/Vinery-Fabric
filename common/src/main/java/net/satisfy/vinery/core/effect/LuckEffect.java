@@ -1,13 +1,13 @@
-package net.satisfy.vinery.core.effect.normal;
+package net.satisfy.vinery.core.effect;
 
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.satisfy.vinery.core.effect.NormalEffect;
 
 import java.util.UUID;
 
-public class LuckEffect extends NormalEffect {
+public class LuckEffect extends MobEffect {
     private static final String LUCK_UUID = "7C8A6C79-4A74-4591-8F91-71F21E0A7EAD";
 
     public LuckEffect() {

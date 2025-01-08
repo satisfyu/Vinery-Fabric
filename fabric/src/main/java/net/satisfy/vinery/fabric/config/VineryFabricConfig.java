@@ -37,14 +37,6 @@ public class VineryFabricConfig implements ConfigData {
         @ConfigEntry.BoundedDiscrete(min = 1, max = 10000)
         public int applePressFermentationTime = 800;
 
-        @ConfigEntry.BoundedDiscrete(min = 6, max = 100)
-        public int grapevinePotMaxStorage = 6;
-
-        @ConfigEntry.BoundedDiscrete(min = 1, max = 20)
-        public int grapevinePotRequiredJumps = 5;
-
-        public boolean grapevinePotShowSplashParticles = true;
-
         @ConfigEntry.BoundedDiscrete(min = 0, max = 1)
         public double cherryGrowthChance = 0.4;
 

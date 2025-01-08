@@ -44,21 +44,6 @@ public class PlatformHelperImpl extends PlatformHelper {
         return config.blocks.applePressFermentationTime;
     }
 
-    public static int getGrapevinePotMaxStorage() {
-        VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
-        return config.blocks.grapevinePotMaxStorage;
-    }
-
-    public static int getGrapevinePotRequiredJumps() {
-        VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
-        return config.blocks.grapevinePotRequiredJumps;
-    }
-
-    public static boolean shouldShowSplashParticles() {
-        VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
-        return config.blocks.grapevinePotShowSplashParticles;
-    }
-
     public static double getCherryGrowthChance() {
         VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
         return config.blocks.cherryGrowthChance;

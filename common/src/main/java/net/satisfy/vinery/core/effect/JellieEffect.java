@@ -1,11 +1,11 @@
-package net.satisfy.vinery.core.effect.ticking;
+package net.satisfy.vinery.core.effect;
 
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
-import net.satisfy.vinery.core.effect.TickingEffect;
 
-public class JellieEffect extends TickingEffect {
+public class JellieEffect extends MobEffect {
 
     public JellieEffect() {
         super(MobEffectCategory.BENEFICIAL, 0x98D982);

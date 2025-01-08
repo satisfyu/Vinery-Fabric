@@ -99,20 +99,8 @@ public class PlatformHelperImpl {
     public static int getTraderSpawnDelay() {
         return VineryForgeConfig.TRADER_SPAWN_DELAY.get();
     }
-
-    public static int getGrapevinePotMaxStorage() {
-        return VineryForgeConfig.GRAPEVINE_POT_MAX_STORAGE.get();
-    }
-
+    
     public static <T extends Entity> Supplier<EntityType<T>> registerBoatType(String name, EntityType.EntityFactory<T> factory, MobCategory category, float width, float height, int clientTrackingRange) {
         return ENTITY_TYPES.register(name, () -> EntityType.Builder.of(factory, category).sized(width, height).build(name));
-    }
-
-    public static boolean shouldShowSplashParticles() {
-        return VineryForgeConfig.SHOULD_SHOW_SPLASH_PARTICLES.get();
-    }
-
-    public static int getGrapevinePotRequiredJumps() {
-        return VineryForgeConfig.GRAPEVINE_POT_REQUIRED_JUMPS.get();
     }
 }

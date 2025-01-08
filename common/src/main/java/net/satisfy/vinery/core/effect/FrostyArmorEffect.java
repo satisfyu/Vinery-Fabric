@@ -1,14 +1,14 @@
-package net.satisfy.vinery.core.effect.ticking;
+package net.satisfy.vinery.core.effect;
 
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.satisfy.vinery.core.effect.TickingEffect;
 
 import java.util.UUID;
 
-public class FrostyArmorEffect extends TickingEffect {
+public class FrostyArmorEffect extends MobEffect {
     private static final String ARMOR_UUID = "710D4861-7021-47DE-9F52-62F48D2B61EB";
     private static final String DAMAGE_UUID = "CE752B4A-A279-452D-853A-73C26FB4BA46";
     private static final String MOVEMENT_SPEED_MODIFIER_UUID = "CE9DBC2A-EE3F-43F5-9DF7-F7F1EE4915A9";
@@ -40,5 +40,10 @@ public class FrostyArmorEffect extends TickingEffect {
         if (amplifier > 0 && living.canFreeze()) {
             living.setTicksFrozen(Math.min(living.getTicksRequiredToFreeze(), living.getTicksFrozen() + amplifier));
         }
+    }
+
+    @Override
+    public boolean isDurationEffectTick(int duration, int amplifier) {
+        return true;
     }
 }

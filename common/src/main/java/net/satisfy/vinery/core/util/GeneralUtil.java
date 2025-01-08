@@ -69,20 +69,15 @@ public class GeneralUtil {
     public static <T extends Item> RegistrySupplier<T> registerItem(DeferredRegister<Item> register, Registrar<Item> registrar, ResourceLocation path, Supplier<T> itemSupplier) {
         return Platform.isForge() ? register.register(path.getPath(), itemSupplier) : registrar.register(path, itemSupplier);
     }
-
-
-
     public static Collection<ServerPlayer> tracking(ServerLevel world, ChunkPos pos) {
         Objects.requireNonNull(world, "The world cannot be null");
         Objects.requireNonNull(pos, "The chunk pos cannot be null");
         return world.getChunkSource().chunkMap.getPlayers(pos, false);
     }
-
     public static Collection<ServerPlayer> tracking(ServerLevel world, BlockPos pos) {
         Objects.requireNonNull(pos, "BlockPos cannot be null");
         return tracking(world, new ChunkPos(pos));
     }
-
     public static void popResourceFromFace(Level level, BlockPos blockPos, Direction side, ItemStack itemStack) {
         BlockState blockState = level.getBlockState(blockPos);
         double itemWidth = EntityType.ITEM.getWidth();
