@@ -23,15 +23,16 @@ public class FermentationBarrelRecipe implements Recipe<FermentationBarrelBlockE
     private final int juiceAmount;
     private final ItemStack output;
     private final boolean wineBottleRequired;
+    private final int craftingTime;
 
-    public FermentationBarrelRecipe(ResourceLocation identifier, NonNullList<Ingredient> inputs, String juiceType, int juiceAmount, ItemStack output, boolean wineBottleRequired) {
+    public FermentationBarrelRecipe(ResourceLocation identifier, NonNullList<Ingredient> inputs, String juiceType, int juiceAmount, ItemStack output, boolean wineBottleRequired, int craftingTime) {
         this.identifier = identifier;
         this.inputs = inputs;
         this.juiceType = juiceType;
         this.juiceAmount = juiceAmount;
         this.output = output;
-
         this.wineBottleRequired = wineBottleRequired;
+        this.craftingTime = craftingTime;
     }
 
     public String getJuiceType() {
@@ -44,6 +45,10 @@ public class FermentationBarrelRecipe implements Recipe<FermentationBarrelBlockE
 
     public boolean isWineBottleRequired() {
         return wineBottleRequired;
+    }
+
+    public int getCraftingTime() {
+        return craftingTime;
     }
 
     @Override
@@ -149,7 +154,9 @@ public class FermentationBarrelRecipe implements Recipe<FermentationBarrelBlockE
             }
 
             ItemStack result = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result"));
-            return new FermentationBarrelRecipe(id, ingredients, juiceType, juiceAmount, result, wineBottleRequired);
+            int craftingTime = GsonHelper.getAsInt(json, "crafting_time", 200);
+
+            return new FermentationBarrelRecipe(id, ingredients, juiceType, juiceAmount, result, wineBottleRequired, craftingTime);
         }
 
         @Override
@@ -163,7 +170,8 @@ public class FermentationBarrelRecipe implements Recipe<FermentationBarrelBlockE
             int juiceAmount = buf.readVarInt();
             boolean wineBottleRequired = buf.readBoolean();
             ItemStack result = buf.readItem();
-            return new FermentationBarrelRecipe(id, ingredients, juiceType, juiceAmount, result, wineBottleRequired);
+            int craftingTime = buf.readInt();
+            return new FermentationBarrelRecipe(id, ingredients, juiceType, juiceAmount, result, wineBottleRequired, craftingTime);
         }
 
         @Override
@@ -176,6 +184,7 @@ public class FermentationBarrelRecipe implements Recipe<FermentationBarrelBlockE
             buf.writeVarInt(recipe.juiceAmount);
             buf.writeBoolean(recipe.wineBottleRequired);
             buf.writeItem(recipe.output);
+            buf.writeInt(recipe.craftingTime);
         }
     }
 }
