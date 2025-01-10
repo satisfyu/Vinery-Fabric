@@ -2,7 +2,6 @@ package net.satisfy.vinery.core.registry;
 
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.satisfy.vinery.core.item.WinemakerBootsItem;
 import net.satisfy.vinery.core.item.WinemakerChestItem;

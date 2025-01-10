@@ -27,11 +27,11 @@ public class VillagerUtil {
         }
 
         public SellItemFactory(Block item, int price, int count, int experience) {
-            this((ItemStack)(new ItemStack(item)), price, count, 12, experience);
+            this(new ItemStack(item), price, count, 12, experience);
         }
 
         public SellItemFactory(Item item, int price, int count, int experience) {
-            this((ItemStack)(new ItemStack(item)), price, count, 12, experience);
+            this(new ItemStack(item), price, count, 12, experience);
         }
 
         public SellItemFactory(Item item, int price, int count, int maxUses, int experience) {

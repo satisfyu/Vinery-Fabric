@@ -16,6 +16,32 @@ import java.util.function.Supplier;
 public class PlatformHelperImpl {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, Vinery.MOD_ID);
 
+    public static void updateWineConfig(int totalFermentationTime, int maxFluidLevel, int maxFluidIncrease, int applePressMashingTime,
+                                        int applePressFermentationTime, int grapevinePotMaxStorage, int grapevinePotRequiredJumps,
+                                        boolean shouldShowSplashParticles, double cherryGrowthChance, double appleGrowthChance,
+                                        double grapeGrowthChance, int maxWineLevel, int startDuration, int durationPerYear,
+                                        int daysPerYear, int yearsPerEffectLevel, int maxDuration, boolean giveEffect, boolean showTooltip) {
+        VineryForgeConfig.TOTAL_FERMENTATION_TIME.set(totalFermentationTime);
+        VineryForgeConfig.MAX_FLUID_LEVEL.set(maxFluidLevel);
+        VineryForgeConfig.MAX_FLUID_INCREASE.set(maxFluidIncrease);
+        VineryForgeConfig.APPLE_PRESS_MASHING_TIME.set(applePressMashingTime);
+        VineryForgeConfig.APPLE_PRESS_FERMENTING_TIME.set(applePressFermentationTime);
+        VineryForgeConfig.GRAPEVINE_POT_MAX_STORAGE.set(grapevinePotMaxStorage);
+        VineryForgeConfig.GRAPEVINE_POT_REQUIRED_JUMPS.set(grapevinePotRequiredJumps);
+        VineryForgeConfig.SHOULD_SHOW_SPLASH_PARTICLES.set(shouldShowSplashParticles);
+        VineryForgeConfig.CHERRY_GROWTH_CHANCE.set(cherryGrowthChance);
+        VineryForgeConfig.APPLE_GROWTH_CHANCE.set(appleGrowthChance);
+        VineryForgeConfig.GRAPE_GROWTH_CHANCE.set(grapeGrowthChance);
+        VineryForgeConfig.MAX_LEVEL.set(maxWineLevel);
+        VineryForgeConfig.START_DURATION.set(startDuration);
+        VineryForgeConfig.DURATION_PER_YEAR.set(durationPerYear);
+        VineryForgeConfig.DAYS_PER_YEAR.set(daysPerYear);
+        VineryForgeConfig.YEARS_PER_EFFECT_LEVEL.set(yearsPerEffectLevel);
+        VineryForgeConfig.MAX_DURATION.set(maxDuration);
+        VineryForgeConfig.GIVE_EFFECT.set(giveEffect);
+        VineryForgeConfig.SHOW_TOOLTIP.set(showTooltip);
+    }
+
     public static int getTotalFermentationTime() {
         return VineryForgeConfig.TOTAL_FERMENTATION_TIME.get();
     }
