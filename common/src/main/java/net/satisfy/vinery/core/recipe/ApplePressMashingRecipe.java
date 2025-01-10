@@ -18,11 +18,17 @@ public class ApplePressMashingRecipe implements Recipe<Container> {
     private final ResourceLocation identifier;
     public final Ingredient input;
     private final ItemStack output;
+    public final int craftingTime;
 
-    public ApplePressMashingRecipe(ResourceLocation identifier, Ingredient input, ItemStack output) {
+    public ApplePressMashingRecipe(ResourceLocation identifier, Ingredient input, ItemStack output, int craftingTime) {
         this.identifier = identifier;
         this.input = input;
         this.output = output;
+        this.craftingTime = craftingTime;
+    }
+
+    public int getCraftingTime() {
+        return craftingTime;
     }
 
     @Override
@@ -37,9 +43,7 @@ public class ApplePressMashingRecipe implements Recipe<Container> {
 
     @Override
     public @NotNull NonNullList<Ingredient> getIngredients() {
-        NonNullList<Ingredient> list = NonNullList.create();
-        list.add(input);
-        return list;
+        return NonNullList.of(input);
     }
 
     @Override
@@ -75,23 +79,28 @@ public class ApplePressMashingRecipe implements Recipe<Container> {
     public static class Serializer implements RecipeSerializer<ApplePressMashingRecipe> {
         @Override
         public @NotNull ApplePressMashingRecipe fromJson(ResourceLocation id, JsonObject json) {
-            final Ingredient ingredient = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "input"));
+            Ingredient ingredient = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "input"));
             if (ingredient.isEmpty()) {
                 throw new JsonParseException("No ingredients for recipe: " + id);
-            } else {
-                return new ApplePressMashingRecipe(id, ingredient, ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output")));
             }
+            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
+            int craftingTime = GsonHelper.getAsInt(json, "crafting_time", 200);
+            return new ApplePressMashingRecipe(id, ingredient, output, craftingTime);
         }
 
         @Override
         public @NotNull ApplePressMashingRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
-            return new ApplePressMashingRecipe(id, Ingredient.fromNetwork(buf), buf.readItem());
+            Ingredient input = Ingredient.fromNetwork(buf);
+            ItemStack output = buf.readItem();
+            int craftingTime = buf.readInt();
+            return new ApplePressMashingRecipe(id, input, output, craftingTime);
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf buf, ApplePressMashingRecipe recipe) {
             recipe.input.toNetwork(buf);
             buf.writeItem(recipe.output);
+            buf.writeInt(recipe.craftingTime);
         }
     }
 }

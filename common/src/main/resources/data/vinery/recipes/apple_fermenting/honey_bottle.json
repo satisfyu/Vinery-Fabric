@@ -1,13 +1,12 @@
 {
   "type": "vinery:apple_fermenting",
+  "crafting_time": 800,
   "input": {
     "item": "minecraft:honeycomb"
-  },
-  "wine_bottle": {
-    "required": true
   },
   "output": {
     "item": "minecraft:honey_bottle",
     "count": 1
-  }
+  },
+  "requires_bottle": true
 }

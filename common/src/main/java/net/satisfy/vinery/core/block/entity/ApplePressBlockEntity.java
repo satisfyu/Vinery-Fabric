@@ -35,9 +35,9 @@ public class ApplePressBlockEntity extends BlockEntity implements MenuProvider, 
     private static final int[] SLOTS_FOR_DOWN = new int[]{3};
     protected final ContainerData propertyDelegate;
     private int progress1 = 0;
-    private int maxProgress1 = PlatformHelper.getApplePressMashingTime();
+    private int maxProgress1 = 0;
     private int progress2 = 0;
-    private int maxProgress2 = PlatformHelper.getApplePressFermentationTime();
+    private int maxProgress2 = 0;
 
     public ApplePressBlockEntity(BlockPos pos, BlockState state) {
         super(EntityTypeRegistry.APPLE_PRESS_BLOCK_ENTITY.get(), pos, state);
@@ -104,7 +104,9 @@ public class ApplePressBlockEntity extends BlockEntity implements MenuProvider, 
         super.saveAdditional(nbt);
         ContainerHelper.saveAllItems(nbt, inventory);
         nbt.putInt("apple_press.progress1", progress1);
+        nbt.putInt("apple_press.maxProgress1", maxProgress1);
         nbt.putInt("apple_press.progress2", progress2);
+        nbt.putInt("apple_press.maxProgress2", maxProgress2);
     }
 
     @Override
@@ -112,7 +114,9 @@ public class ApplePressBlockEntity extends BlockEntity implements MenuProvider, 
         super.load(nbt);
         ContainerHelper.loadAllItems(nbt, inventory);
         progress1 = nbt.getInt("apple_press.progress1");
+        maxProgress1 = nbt.getInt("apple_press.maxProgress1");
         progress2 = nbt.getInt("apple_press.progress2");
+        maxProgress2 = nbt.getInt("apple_press.maxProgress2");
     }
 
     @Override
@@ -125,6 +129,10 @@ public class ApplePressBlockEntity extends BlockEntity implements MenuProvider, 
             Recipe<?> recipe1 = world.getRecipeManager().getRecipeFor(RecipeTypesRegistry.APPLE_PRESS_MASHING_RECIPE_TYPE.get(), entity, world).orElse(null);
             if (recipe1 instanceof ApplePressMashingRecipe mashingRecipe) {
                 if (canProcessMashing(entity, mashingRecipe)) {
+                    if (maxProgress1 != mashingRecipe.getCraftingTime()) {
+                        maxProgress1 = mashingRecipe.getCraftingTime();
+                        dirty = true;
+                    }
                     entity.progress1++;
                     if (entity.progress1 >= entity.maxProgress1) {
                         processMashing(entity, mashingRecipe);
@@ -144,6 +152,10 @@ public class ApplePressBlockEntity extends BlockEntity implements MenuProvider, 
             Recipe<?> recipe2 = world.getRecipeManager().getRecipeFor(RecipeTypesRegistry.APPLE_PRESS_FERMENTING_RECIPE_TYPE.get(), entity, world).orElse(null);
             if (recipe2 instanceof ApplePressFermentingRecipe fermentingRecipe) {
                 if (canProcessFermenting(entity, fermentingRecipe)) {
+                    if (maxProgress2 != fermentingRecipe.getCraftingTime()) {
+                        maxProgress2 = fermentingRecipe.getCraftingTime();
+                        dirty = true;
+                    }
                     entity.progress2++;
                     if (entity.progress2 >= entity.maxProgress2) {
                         processFermenting(entity, fermentingRecipe);
@@ -224,7 +236,11 @@ public class ApplePressBlockEntity extends BlockEntity implements MenuProvider, 
 
     @Override
     public boolean stillValid(Player player) {
-        return this.level != null && this.level.getBlockEntity(this.worldPosition) == this && player.distanceToSqr((double) this.worldPosition.getX() + 0.5, (double) this.worldPosition.getY() + 0.5, (double) this.worldPosition.getZ() + 0.5) <= 64.0;
+        return this.level != null && this.level.getBlockEntity(this.worldPosition) == this && player.distanceToSqr(
+                (double) this.worldPosition.getX() + 0.5,
+                (double) this.worldPosition.getY() + 0.5,
+                (double) this.worldPosition.getZ() + 0.5
+        ) <= 64.0;
     }
 
     @Override

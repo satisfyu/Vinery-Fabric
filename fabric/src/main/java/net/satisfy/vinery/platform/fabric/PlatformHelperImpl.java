@@ -34,16 +34,6 @@ public class PlatformHelperImpl extends PlatformHelper {
         return config.blocks.maxFluidIncrease;
     }
 
-    public static int getApplePressMashingTime() {
-        VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
-        return config.blocks.applePressMashingTime;
-    }
-
-    public static int getApplePressFermentationTime() {
-        VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
-        return config.blocks.applePressFermentationTime;
-    }
-
     public static int getGrapevinePotMaxStorage() {
         VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
         return config.blocks.grapevinePotMaxStorage;

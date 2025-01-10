@@ -19,16 +19,22 @@ public class ApplePressFermentingRecipe implements Recipe<Container> {
     public final Ingredient input;
     private final ItemStack output;
     private final boolean requiresBottle;
+    public final int craftingTime;
 
-    public ApplePressFermentingRecipe(ResourceLocation identifier, Ingredient input, ItemStack output, boolean requiresBottle) {
+    public ApplePressFermentingRecipe(ResourceLocation identifier, Ingredient input, ItemStack output, boolean requiresBottle, int craftingTime) {
         this.identifier = identifier;
         this.input = input;
         this.output = output;
         this.requiresBottle = requiresBottle;
+        this.craftingTime = craftingTime;
     }
 
     public boolean requiresBottle() {
         return requiresBottle;
+    }
+
+    public int getCraftingTime() {
+        return craftingTime;
     }
 
     @Override
@@ -43,9 +49,7 @@ public class ApplePressFermentingRecipe implements Recipe<Container> {
 
     @Override
     public @NotNull NonNullList<Ingredient> getIngredients() {
-        NonNullList<Ingredient> list = NonNullList.create();
-        list.add(input);
-        return list;
+        return NonNullList.of(input);
     }
 
     @Override
@@ -81,13 +85,14 @@ public class ApplePressFermentingRecipe implements Recipe<Container> {
     public static class Serializer implements RecipeSerializer<ApplePressFermentingRecipe> {
         @Override
         public @NotNull ApplePressFermentingRecipe fromJson(ResourceLocation id, JsonObject json) {
-            final Ingredient ingredient = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "input"));
+            Ingredient ingredient = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "input"));
             if (ingredient.isEmpty()) {
                 throw new JsonParseException("No ingredients for recipe: " + id);
             }
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
-            boolean requiresBottle = GsonHelper.getAsBoolean(json.getAsJsonObject("wine_bottle"), "required", false);
-            return new ApplePressFermentingRecipe(id, ingredient, output, requiresBottle);
+            boolean requiresBottle = GsonHelper.getAsBoolean(json, "requires_bottle", false);
+            int craftingTime = GsonHelper.getAsInt(json, "crafting_time", 200);
+            return new ApplePressFermentingRecipe(id, ingredient, output, requiresBottle, craftingTime);
         }
 
         @Override
@@ -95,7 +100,8 @@ public class ApplePressFermentingRecipe implements Recipe<Container> {
             Ingredient input = Ingredient.fromNetwork(buf);
             ItemStack output = buf.readItem();
             boolean requiresBottle = buf.readBoolean();
-            return new ApplePressFermentingRecipe(id, input, output, requiresBottle);
+            int craftingTime = buf.readInt();
+            return new ApplePressFermentingRecipe(id, input, output, requiresBottle, craftingTime);
         }
 
         @Override
@@ -103,6 +109,7 @@ public class ApplePressFermentingRecipe implements Recipe<Container> {
             recipe.input.toNetwork(buf);
             buf.writeItem(recipe.output);
             buf.writeBoolean(recipe.requiresBottle);
+            buf.writeInt(recipe.craftingTime);
         }
     }
 }

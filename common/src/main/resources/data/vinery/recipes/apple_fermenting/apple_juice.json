@@ -1,13 +1,12 @@
 {
   "type": "vinery:apple_fermenting",
+  "crafting_time": 600,
   "input": {
     "item": "vinery:apple_mash"
-  },
-  "wine_bottle": {
-    "required": true
   },
   "output": {
     "item": "vinery:apple_juice",
     "count": 1
-  }
+  },
+  "requires_bottle": true
 }
