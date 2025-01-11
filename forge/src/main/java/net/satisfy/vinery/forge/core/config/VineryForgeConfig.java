@@ -187,21 +187,27 @@ public class VineryForgeConfig {
     }
 
     @SubscribeEvent
-    public static void onLoad(final ModConfigEvent.Loading configEvent) {
+    public static void onLoad(ModConfigEvent.Loading e) {
+        if (e.getConfig().getSpec() instanceof ForgeConfigSpec s) {
+            loadConfig(s, e.getConfig().getFileName());
+        }
     }
 
     @SubscribeEvent
-    public static void onReload(final ModConfigEvent.Reloading configEvent) {
+    public static void onReload(ModConfigEvent.Reloading e) {
+        if (e.getConfig().getSpec() instanceof ForgeConfigSpec s) {
+            loadConfig(s, e.getConfig().getFileName());
+        }
     }
 
-    public static void loadConfig(ForgeConfigSpec spec, String path) {
-        final CommentedFileConfig file = CommentedFileConfig.builder(new File(path))
+    public static void loadConfig(ForgeConfigSpec s, String p) {
+        CommentedFileConfig f = CommentedFileConfig.builder(new File(p))
                 .sync()
                 .preserveInsertionOrder()
                 .autosave()
                 .writingMode(WritingMode.REPLACE)
                 .build();
-        file.load();
-        spec.setConfig(file);
+        f.load();
+        s.setConfig(f);
     }
 }
