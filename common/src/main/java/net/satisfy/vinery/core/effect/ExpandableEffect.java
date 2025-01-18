@@ -3,8 +3,8 @@ package net.satisfy.vinery.core.effect;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 
-public class NormalEffect extends MobEffect {
-    public NormalEffect(MobEffectCategory mobEffectCategory, int color) {
+public class ExpandableEffect extends MobEffect {
+    public ExpandableEffect(MobEffectCategory mobEffectCategory, int color) {
         super(mobEffectCategory, color);
     }
 }

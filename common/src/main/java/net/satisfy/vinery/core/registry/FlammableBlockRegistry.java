@@ -5,7 +5,7 @@ import net.satisfy.vinery.platform.PlatformHelper;
 
 public class FlammableBlockRegistry {
 
-    public static void init(){
+    public static void init() {
         add(5, 20, ObjectRegistry.DARK_CHERRY_PLANKS.get(), ObjectRegistry.DARK_CHERRY_SLAB.get(), ObjectRegistry.DARK_CHERRY_STAIRS.get(), ObjectRegistry.DARK_CHERRY_FENCE.get(),
                 ObjectRegistry.DARK_CHERRY_FENCE_GATE.get());
 
@@ -15,7 +15,7 @@ public class FlammableBlockRegistry {
         add(30, 60, ObjectRegistry.DARK_CHERRY_LEAVES.get(), ObjectRegistry.GRAPEVINE_LEAVES.get());
     }
 
-    private static void add(int burnOdd, int igniteOdd, Block... blocks){
+    private static void add(int burnOdd, int igniteOdd, Block... blocks) {
         PlatformHelper.addFlammable(burnOdd, igniteOdd, blocks);
     }
 

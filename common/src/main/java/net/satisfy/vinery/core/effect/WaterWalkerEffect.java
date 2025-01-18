@@ -41,4 +41,9 @@ public class WaterWalkerEffect extends MobEffect
             super.applyEffectTick(pLivingEntity, pAmplifier);
         }
     }
+
+    @Override
+    public boolean isDurationEffectTick(int duration, int amplifier) {
+        return true;
+    }
 }

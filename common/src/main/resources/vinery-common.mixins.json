@@ -9,6 +9,7 @@
   "mixins": [
     "BlockMixin",
     "BoneMealItemMixin",
+    "ExperienceOrbMixin",
     "FoxEntityEatSweetBerriesGoalMixin",
     "LivingEntityMixin",
     "PlantBlockMixin",
