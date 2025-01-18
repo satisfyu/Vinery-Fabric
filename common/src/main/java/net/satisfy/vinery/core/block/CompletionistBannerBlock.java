@@ -54,7 +54,8 @@ public class CompletionistBannerBlock extends BaseEntityBlock {
 
     @Override
     public boolean canSurvive(@NotNull BlockState blockState, LevelReader levelReader, BlockPos blockPos) {
-        return levelReader.getBlockState(blockPos.below()).isSolid() || levelReader.getBlockState(blockPos.relative(blockState.getValue(BlockStateProperties.HORIZONTAL_FACING).getOpposite())).isSolid();
+        BlockState belowBlockState = levelReader.getBlockState(blockPos.below());
+        return belowBlockState.isSolid();
     }
 
     @Override
