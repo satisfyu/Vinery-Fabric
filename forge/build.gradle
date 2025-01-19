@@ -18,8 +18,7 @@ loom {
         convertAccessWideners = true
         extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
 
-        mixinConfig "vinery-common.mixins.json"
-        mixinConfig "vinery.mixins.json"
+
     }
     runs {
         client {
@@ -30,7 +29,6 @@ loom {
 }
 
 repositories {
-    maven { url 'https://jitpack.io' }
 }
 
 configurations {

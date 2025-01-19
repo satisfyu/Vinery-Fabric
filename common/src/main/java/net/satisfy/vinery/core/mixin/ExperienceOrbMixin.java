@@ -1,4 +1,5 @@
 package net.satisfy.vinery.core.mixin;
+
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.player.Player;
 import net.satisfy.vinery.core.registry.MobEffectRegistry;

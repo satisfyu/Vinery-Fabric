@@ -100,13 +100,6 @@ public class PlatformHelperImpl extends PlatformHelper {
         return config.items.banner.isShowTooltipEnabled();
     }
 
-    public static void addFlammable(int burnOdd, int igniteOdd, Block... blocks) {
-        FlammableBlockRegistry registry = FlammableBlockRegistry.getDefaultInstance();
-        for (Block b : blocks) {
-            registry.add(b, burnOdd, igniteOdd);
-        }
-    }
-
     public static List<String> getBasketBlacklist() {
         VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
         return config.items.basket.blacklist.basketBlacklist;

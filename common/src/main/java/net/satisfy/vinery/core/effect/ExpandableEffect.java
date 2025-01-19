@@ -7,4 +7,9 @@ public class ExpandableEffect extends MobEffect {
     public ExpandableEffect(MobEffectCategory mobEffectCategory, int color) {
         super(mobEffectCategory, color);
     }
+
+    @Override
+    public boolean isDurationEffectTick(int duration, int amplifier) {
+        return true;
+    }
 }

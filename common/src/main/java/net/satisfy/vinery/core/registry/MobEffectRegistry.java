@@ -51,7 +51,7 @@ public class MobEffectRegistry {
         LUCK_EFFECT = registerEffect("luck_effect", LuckEffect::new);
         RESISTANCE_EFFECT = registerEffect("resistance_effect", ResistanceEffect::new);
         EXPERIENCE_EFFECT = registerEffect("experience_effect", () -> new ExpandableEffect(MobEffectCategory.BENEFICIAL, 0x00FF00));
-        IMPROVED_JUMP_BOOST = registerEffect("double_jump", () -> new ExpandableEffect(MobEffectCategory.BENEFICIAL, 0x90F891));
+        IMPROVED_JUMP_BOOST = registerEffect("double_jump", () -> new ExpandableEffect(MobEffectCategory.BENEFICIAL, 0x00FF00));
         PARTY_EFFECT = registerEffect("party_effect", () -> new ExpandableEffect(MobEffectCategory.BENEFICIAL, 0xFF0000));
         TELEPORT = registerEffect("teleport", TeleportEffect::new);
         CREEPER_EFFECT = registerEffect("creeper_effect", CreeperEffect::new);

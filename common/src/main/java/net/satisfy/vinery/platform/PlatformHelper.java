@@ -91,11 +91,6 @@ public class PlatformHelper {
     }
 
     @ExpectPlatform
-    public static void addFlammable(int burnOdd, int igniteOdd, Block[] blocks) {
-        throw new AssertionError();
-    }
-
-    @ExpectPlatform
     public static List<String> getBasketBlacklist() {
         throw new AssertionError();
     }

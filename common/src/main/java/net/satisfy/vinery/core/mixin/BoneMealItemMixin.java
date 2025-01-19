@@ -3,6 +3,7 @@ package net.satisfy.vinery.core.mixin;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BoneMealItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.satisfy.vinery.core.registry.ArmorRegistry;
@@ -15,7 +16,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(net.minecraft.world.item.BoneMealItem.class)
+import java.util.Objects;
+
+@Mixin(BoneMealItem.class)
 public abstract class BoneMealItemMixin {
 
     @Inject(method = "useOn", at = @At("RETURN"))
@@ -24,8 +27,8 @@ public abstract class BoneMealItemMixin {
             return;
         }
 
-        ArmorRegistry.checkArmorSet(context.getPlayer());
-        if (cir.getReturnValue() != InteractionResult.CONSUME || context.getLevel() == null || !ArmorRegistry.setBonusActive) {
+        ArmorRegistry.checkArmorSet(Objects.requireNonNull(context.getPlayer()));
+        if (cir.getReturnValue() != InteractionResult.CONSUME || !ArmorRegistry.setBonusActive) {
             return;
         }
 

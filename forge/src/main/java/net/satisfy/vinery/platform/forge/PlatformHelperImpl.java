@@ -80,10 +80,6 @@ public class PlatformHelperImpl {
         return VineryForgeConfig.GIVE_EFFECT.get() && VineryForgeConfig.SHOW_TOOLTIP.get();
     }
 
-    public static void addFlammable(int burnOdd, int igniteOdd, Block... blocks) {
-        BurningBlockRegistry.add(burnOdd, igniteOdd, blocks);
-    }
-
     public static List<? extends String> getBasketBlacklist() {
         return VineryForgeConfig.BASKET_BLACKLIST.get();
     }
